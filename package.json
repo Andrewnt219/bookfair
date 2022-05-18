@@ -22,6 +22,8 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-hook-form": "^7.31.1",
+    "react-query": "^3.39.0",
+    "type-fest": "^2.12.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
