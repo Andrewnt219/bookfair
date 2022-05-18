@@ -1,6 +1,7 @@
-import { TResult, Result500, ResultError } from './result';
+import { Result500, ResultError } from './result';
 import { NextApiHandler } from 'next';
 import { HttpMethod, isHttpMethod } from './isHttpMethod';
+import { TResult } from '@bookfair/common';
 
 type ApiHandler = NextApiHandler<TResult>;
 type HttpMethodHandlers = Partial<Record<HttpMethod, ApiHandler>>;

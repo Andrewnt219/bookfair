@@ -1,6 +1,6 @@
 import { isBrowser } from '@firebase/util';
 import axios, { AxiosError } from 'axios';
-import { TResultError } from './result';
+import { TResultError } from '@bookfair/common';
 import { hasMessage, isFirebaseError, isNullOrUndefined } from './validate';
 
 export function getAxiosError(error: AxiosError<TResultError>): string {
