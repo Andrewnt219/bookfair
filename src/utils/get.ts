@@ -23,3 +23,7 @@ export function getErrorMessage(error: unknown): string {
 
   return 'Something went wrong';
 }
+
+export const getBearerToken = (authorizationHeader: string) => {
+  return authorizationHeader.replace('Bearer', '').trim();
+};

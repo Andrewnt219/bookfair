@@ -33,7 +33,6 @@ const post: WithApiHandler<Data> = async (req, res) => {
   if (bodyResult.type !== 'success') {
     return res.status(422).json(bodyResult);
   }
-
   try {
     const user = await adminAuth.createUser({
       ...bodyResult.data,
