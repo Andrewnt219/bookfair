@@ -1,12 +1,14 @@
-import { useAtom } from 'jotai';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useDispatch, useSelector } from 'react-redux';
 import { SigninForm } from '../modules/signin';
+import { useSignoutMutation } from '../modules/signout';
 import { SignupForm } from '../modules/signup';
-import { authUserAtom } from '../store';
+import { authUserActions } from '../stores';
+import { authUserSelector } from '../stores';
 
 const Home: NextPage = () => {
-  const [authUser] = useAtom(authUserAtom);
+  const { authUser } = useSelector(authUserSelector);
 
   return (
     <div>

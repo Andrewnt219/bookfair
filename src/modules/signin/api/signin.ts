@@ -1,7 +1,7 @@
 import { UserCredential } from 'firebase/auth';
-import { useAtom } from 'jotai';
 import { useSnackbar } from 'notistack';
 import { useMutation } from 'react-query';
+import { useDispatch } from 'react-redux';
 
 import { axios } from '../../../lib/axios';
 import { MutationConfig } from '../../../lib/react-query';
@@ -9,7 +9,7 @@ import {
   User_Signin_Body,
   User_Signin_Return,
 } from '../../../pages/api/user/signin';
-import { authUserAtom } from '../../../store';
+import { authUserActions } from '../../../stores';
 import { getErrorMessage } from '../../../utils';
 
 export const postSignin = async (
@@ -27,7 +27,7 @@ type UseSigninOptions = {
 
 export const useSigninMutation = ({ config }: UseSigninOptions = {}) => {
   const { enqueueSnackbar } = useSnackbar();
-  const [_, setAuthUser] = useAtom(authUserAtom);
+  const dispatch = useDispatch();
 
   return useMutation({
     ...config,
@@ -37,7 +37,7 @@ export const useSigninMutation = ({ config }: UseSigninOptions = {}) => {
     },
     onSuccess: (user) => {
       enqueueSnackbar('Logged in successfully', { variant: 'success' });
-      setAuthUser(user);
+      dispatch(authUserActions.setAuthUser(user));
     },
   });
 };

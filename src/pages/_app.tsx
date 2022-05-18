@@ -1,16 +1,19 @@
 import type { AppProps } from 'next/app';
 import { SnackbarProvider } from 'notistack';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-
-const queryClient = new QueryClient();
+import { store } from '../stores';
+import { Provider } from 'react-redux';
+import { queryClient } from '../lib/react-query';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <SnackbarProvider maxSnack={3}>
-        <Component {...pageProps} />
-      </SnackbarProvider>
+      <Provider store={store}>
+        <SnackbarProvider maxSnack={3}>
+          <Component {...pageProps} />
+        </SnackbarProvider>
+      </Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
