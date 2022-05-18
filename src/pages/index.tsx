@@ -1,34 +1,8 @@
-import { ErrorMessage } from '@hookform/error-message';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Controller, useForm } from 'react-hook-form';
-import { firebaseAuth } from '../lib/firebase';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-
-const signupSchema = yup.object({
-  email: yup.string().email().required().default(''),
-  password: yup.string().required().default(''),
-  confirm: yup.string().required().default(''),
-});
-type Form = yup.InferType<typeof signupSchema>;
+import { SignupForm } from '../modules/signup';
 
 const Home: NextPage = () => {
-  const { control, handleSubmit, formState } = useForm<Form>({
-    resolver: yupResolver(signupSchema),
-    defaultValues: signupSchema.getDefault(),
-  });
-  const onSubmit = handleSubmit((data) => {
-    console.log({ data });
-    createUserWithEmailAndPassword(firebaseAuth, data.email, data.password)
-      .then((user) => console.log({ user }))
-      .catch((error) =>
-        console.log({ code: error.code, message: error.message })
-      );
-  });
   return (
     <div>
       <Head>
@@ -38,56 +12,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <form onSubmit={onSubmit}>
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <TextField
-                id="user-email"
-                autoComplete="email"
-                label="Email"
-                variant="filled"
-                {...field}
-              />
-            )}
-          />
-          <ErrorMessage errors={formState.errors} name="email" />
-
-          <Controller
-            control={control}
-            name="password"
-            render={({ field }) => (
-              <TextField
-                id="user-password"
-                type="password"
-                autoComplete="new-password"
-                label="Password"
-                variant="filled"
-                {...field}
-              />
-            )}
-          />
-          <ErrorMessage errors={formState.errors} name="password" />
-
-          <Controller
-            control={control}
-            name="confirm"
-            render={({ field }) => (
-              <TextField
-                id="user-password-confirm"
-                type="password"
-                autoComplete="new-password"
-                label="Confirm password"
-                variant="filled"
-                {...field}
-              />
-            )}
-          />
-          <ErrorMessage errors={formState.errors} name="confirm" />
-
-          <Button type="submit">Submit</Button>
-        </form>
+        <SignupForm />
       </main>
     </div>
   );
