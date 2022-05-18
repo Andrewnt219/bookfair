@@ -11,6 +11,7 @@ export const signupSchema = yup.object({
     .string()
     .oneOf([yup.ref('password'), null], 'Password does not match')
     .default(''),
+  displayName: yup.string().required('Display name is required').default(''),
 });
 
 export type SignupSchema = yup.InferType<typeof signupSchema>;

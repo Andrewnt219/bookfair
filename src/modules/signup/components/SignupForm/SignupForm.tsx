@@ -23,6 +23,9 @@ export const SignupForm = () => {
   const retypePasswordHelpText = isNullOrUndefined(errors.retypePassword)
     ? 'Retype Password'
     : errors.retypePassword.message;
+  const displayNameHelpText = isNullOrUndefined(errors.displayName)
+    ? 'Display name'
+    : errors.displayName.message;
 
   const onSubmit = form.handleSubmit((data) => {
     signupMutation.mutate(data);
@@ -41,6 +44,21 @@ export const SignupForm = () => {
             variant="filled"
             error={!isNullOrUndefined(errors.email)}
             helperText={emailHelpText}
+            {...field}
+          />
+        )}
+      />
+
+      <Controller
+        control={form.control}
+        name="displayName"
+        render={({ field }) => (
+          <TextField
+            error={!isNullOrUndefined(errors.displayName)}
+            helperText={displayNameHelpText}
+            id="user-displayName"
+            label="Display name"
+            variant="filled"
             {...field}
           />
         )}
