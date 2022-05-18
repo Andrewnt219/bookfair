@@ -17,6 +17,7 @@ specifiers:
   eslint-config-next: 12.1.6
   firebase: ^9.8.1
   next: 12.1.6
+  notistack: ^2.0.5
   react: 18.1.0
   react-dom: 18.1.0
   react-hook-form: ^7.31.1
@@ -36,6 +37,7 @@ dependencies:
   axios: 0.27.2
   firebase: 9.8.1
   next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
+  notistack: 2.0.5_7vyiydszc47z624lmup3yx4wv4
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
   react-hook-form: 7.31.1_react@18.1.0
@@ -2610,6 +2612,29 @@ packages:
         optional: true
     dependencies:
       whatwg-url: 5.0.0
+    dev: false
+
+  /notistack/2.0.5_7vyiydszc47z624lmup3yx4wv4:
+    resolution: {integrity: sha512-Ig2T1Muqkc1PaSQcEDrK7diKv6cBxw02Iq6uv074ySfgq524TV5lK41diAb6OSsaiWfp3aRt+T3+0MF8m2EcJQ==}
+    peerDependencies:
+      '@emotion/react': ^11.4.1
+      '@emotion/styled': ^11.3.0
+      '@mui/material': ^5.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+    dependencies:
+      '@emotion/react': 11.9.0_7cpxmzzodpxnolj5zcc5cr63ji
+      '@emotion/styled': 11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm
+      '@mui/material': 5.8.0_4xriuibr7qayay6mzcpq5f43me
+      clsx: 1.1.1
+      hoist-non-react-statics: 3.3.2
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
     dev: false
 
   /object-assign/4.1.1:

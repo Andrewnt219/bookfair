@@ -1,7 +1,9 @@
+import { useSnackbar } from 'notistack';
 import { useMutation } from 'react-query';
 
 import { axios } from '../../../lib/axios';
 import { MutationConfig } from '../../../lib/react-query';
+import { getErrorMessage } from '../../../utils';
 
 import { SignupSchema } from '../types';
 
@@ -16,8 +18,15 @@ type UseSignupOptions = {
 };
 
 export const useSignupMutation = ({ config }: UseSignupOptions = {}) => {
+  const { enqueueSnackbar } = useSnackbar();
   return useMutation({
     ...config,
     mutationFn: postSignup,
+    onError: (error) => {
+      enqueueSnackbar(getErrorMessage(error), { variant: 'error' });
+    },
+    onSuccess: () => {
+      enqueueSnackbar('Success', { variant: 'success' });
+    },
   });
 };

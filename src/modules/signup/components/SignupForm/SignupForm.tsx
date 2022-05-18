@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { useSignupMutation } from '../../api';
-import { SignupSchema } from '../../types';
 import { useSignupForm } from './useSignupForm';
 
 interface SignupFormProps {}
