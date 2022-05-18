@@ -1,6 +1,6 @@
 import { FirebaseError } from '@firebase/util';
-import { createUserWithEmailAndPassword, UserCredential } from 'firebase/auth';
-import { firebaseAuth } from '../../../lib/firebase';
+import { UserRecord } from 'firebase-admin/auth';
+import { adminAuth } from '../../../lib/firebase-admin';
 import { SignupSchema, getSignupErrorMessage } from '../../../modules/signup';
 import {
   withApiHandler,
@@ -9,14 +9,10 @@ import {
   WithApiHandler,
 } from '../../../utils';
 
-const post: WithApiHandler<UserCredential> = async (req, res) => {
+const post: WithApiHandler<UserRecord> = async (req, res) => {
   const body = req.body as SignupSchema;
   try {
-    const user = await createUserWithEmailAndPassword(
-      firebaseAuth,
-      body.email,
-      body.password
-    );
+    const user = await adminAuth.createUser({ ...body, emailVerified: true });
     return res.status(201).json(ResultSuccess(user));
   } catch (error) {
     console.error({ error });
