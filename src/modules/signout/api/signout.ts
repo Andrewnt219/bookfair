@@ -1,14 +1,15 @@
+import { signOut } from 'firebase/auth';
 import { useSnackbar } from 'notistack';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import { axios } from '../../../lib/axios';
+import { firebaseAuth } from '../../../lib/firebase';
 import { MutationConfig } from '../../../lib/react-query';
 import { authUserActions } from '../../../stores';
 import { getErrorMessage } from '../../../utils';
 
 export const postSignout = async () => {
-  return await axios.post('/user/signout');
+  await signOut(firebaseAuth);
 };
 
 type MutationFnType = typeof postSignout;
@@ -20,7 +21,6 @@ type UseSignoutOptions = {
 export const useSignoutMutation = ({ config }: UseSignoutOptions = {}) => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
-  const queryClient = useQueryClient();
 
   return useMutation({
     ...config,
@@ -29,7 +29,7 @@ export const useSignoutMutation = ({ config }: UseSignoutOptions = {}) => {
       enqueueSnackbar(getErrorMessage(error), { variant: 'error' });
     },
     onSuccess: () => {
-      enqueueSnackbar('Logged in successfully', { variant: 'success' });
+      enqueueSnackbar('Logged out successfully', { variant: 'success' });
       dispatch(authUserActions.unsetAuthUser());
     },
   });

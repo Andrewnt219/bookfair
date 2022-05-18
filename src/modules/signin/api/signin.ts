@@ -1,22 +1,23 @@
-import { UserCredential } from 'firebase/auth';
+import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
 import { useSnackbar } from 'notistack';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import { axios } from '../../../lib/axios';
+import { firebaseAuth } from '../../../lib/firebase';
 import { MutationConfig } from '../../../lib/react-query';
-import {
-  User_Signin_Body,
-  User_Signin_Return,
-} from '../../../pages/api/user/signin';
 import { authUserActions } from '../../../stores';
 import { getErrorMessage } from '../../../utils';
+import { SigninSchema } from '../types';
 
 export const postSignin = async (
-  body: User_Signin_Body
+  body: SigninSchema
 ): Promise<UserCredential['user']> => {
-  const res = await axios.post<User_Signin_Return>('/user/signin', body);
-  return res.data.data;
+  const credentials = await signInWithEmailAndPassword(
+    firebaseAuth,
+    body.email,
+    body.password
+  );
+  return credentials.user;
 };
 
 type MutationFnType = typeof postSignin;

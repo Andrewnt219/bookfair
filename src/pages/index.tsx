@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
+import { firebaseAuth } from '../lib/firebase';
 import { SigninForm } from '../modules/signin';
 import { useSignoutMutation } from '../modules/signout';
 import { SignupForm } from '../modules/signup';
