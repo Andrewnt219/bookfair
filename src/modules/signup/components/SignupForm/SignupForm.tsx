@@ -1,16 +1,28 @@
-import { ErrorMessage } from '@hookform/error-message';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, FieldErrors } from 'react-hook-form';
 import { useSignupMutation } from '../../api';
 import { useSignupForm } from './useSignupForm';
+import { isNullOrUndefined } from '../../../../utils';
 
 interface SignupFormProps {}
 
 export const SignupForm = () => {
   const form = useSignupForm();
   const signupMutation = useSignupMutation();
+
+  const { errors } = form.formState;
+
+  const emailHelpText = isNullOrUndefined(errors.email)
+    ? 'Email'
+    : errors.email.message;
+  const passwordHelpText = isNullOrUndefined(errors.password)
+    ? 'Password'
+    : errors.password.message;
+  const retypePasswordHelpText = isNullOrUndefined(errors.retypePassword)
+    ? 'Retype Password'
+    : errors.retypePassword.message;
 
   const onSubmit = form.handleSubmit((data) => {
     signupMutation.mutate(data);
@@ -27,17 +39,20 @@ export const SignupForm = () => {
             autoComplete="email"
             label="Email"
             variant="filled"
+            error={!isNullOrUndefined(errors.email)}
+            helperText={emailHelpText}
             {...field}
           />
         )}
       />
-      <ErrorMessage errors={form.formState.errors} name="email" />
 
       <Controller
         control={form.control}
         name="password"
         render={({ field }) => (
           <TextField
+            error={!isNullOrUndefined(errors.password)}
+            helperText={passwordHelpText}
             id="user-password"
             type="password"
             autoComplete="new-password"
@@ -47,23 +62,23 @@ export const SignupForm = () => {
           />
         )}
       />
-      <ErrorMessage errors={form.formState.errors} name="password" />
 
       <Controller
         control={form.control}
-        name="confirm"
+        name="retypePassword"
         render={({ field }) => (
           <TextField
-            id="user-password-confirm"
+            error={!isNullOrUndefined(errors.retypePassword)}
+            helperText={retypePasswordHelpText}
+            id="user-retypePassword"
             type="password"
             autoComplete="new-password"
-            label="Confirm password"
+            label="Retype password"
             variant="filled"
             {...field}
           />
         )}
       />
-      <ErrorMessage errors={form.formState.errors} name="confirm" />
 
       <Button type="submit">Submit</Button>
     </form>

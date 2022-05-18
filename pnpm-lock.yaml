@@ -4,7 +4,6 @@ specifiers:
   '@emotion/react': ^11.9.0
   '@emotion/styled': ^11.8.1
   '@firebase/util': ^1.6.0
-  '@hookform/error-message': ^2.0.0
   '@hookform/resolvers': ^2.8.10
   '@mui/icons-material': ^5.8.0
   '@mui/material': ^5.8.0
@@ -30,7 +29,6 @@ dependencies:
   '@emotion/react': 11.9.0_7cpxmzzodpxnolj5zcc5cr63ji
   '@emotion/styled': 11.8.1_ycz2ostpb5cpb2s3izz5qyhrbm
   '@firebase/util': 1.6.0
-  '@hookform/error-message': 2.0.0_cbbu5d3hzgl4ydc2r7wggc3iym
   '@hookform/resolvers': 2.8.10_react-hook-form@7.31.1
   '@mui/icons-material': 5.8.0_ar3vczqpton7uep5462l6mtgi4
   '@mui/material': 5.8.0_4xriuibr7qayay6mzcpq5f43me
@@ -724,18 +722,6 @@ packages:
       long: 4.0.0
       protobufjs: 6.11.2
       yargs: 16.2.0
-    dev: false
-
-  /@hookform/error-message/2.0.0_cbbu5d3hzgl4ydc2r7wggc3iym:
-    resolution: {integrity: sha512-Y90nHzjgL2MP7GFy75kscdvxrCTjtyxGmOLLxX14nd08OXRIh9lMH/y9Kpdo0p1IPowJBiZMHyueg7p+yrqynQ==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-      react-hook-form: ^7.0.0
-    dependencies:
-      react: 18.1.0
-      react-dom: 18.1.0_react@18.1.0
-      react-hook-form: 7.31.1_react@18.1.0
     dev: false
 
   /@hookform/resolvers/2.8.10_react-hook-form@7.31.1:
