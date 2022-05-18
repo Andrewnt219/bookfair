@@ -3,12 +3,17 @@ import { useMutation } from 'react-query';
 
 import { axios } from '../../../lib/axios';
 import { MutationConfig } from '../../../lib/react-query';
+import {
+  User_CreateOne_Body,
+  User_CreateOne_Return,
+} from '../../../pages/api/user/createOne';
 import { getErrorMessage } from '../../../utils';
 
-import { SignupSchema } from '../types';
-
-export const postSignup = async (signupSchema: SignupSchema): Promise<void> => {
-  return await axios.post('/user/signup', signupSchema);
+export const postSignup = async (
+  body: User_CreateOne_Body
+): Promise<User_CreateOne_Return> => {
+  const res = await axios.post<User_CreateOne_Return>('/user/createOne', body);
+  return res.data;
 };
 
 type MutationFnType = typeof postSignup;
