@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SigninForm } from '../modules/signin';
 import { useSignoutMutation } from '../modules/signout';
 import { SignupForm } from '../modules/signup';
-import { authUserActions } from '../stores';
 import { authUserSelector } from '../stores';
 
 const Home: NextPage = () => {
   const { authUser } = useSelector(authUserSelector);
+  const signoutMutation = useSignoutMutation();
 
   return (
     <div>
@@ -22,6 +22,9 @@ const Home: NextPage = () => {
         {authUser && <h1>Hello {authUser.displayName}</h1>}
         <SignupForm />
         <SigninForm />
+        <button onClick={() => signoutMutation.mutate(undefined)}>
+          Signout
+        </button>
       </main>
     </div>
   );
