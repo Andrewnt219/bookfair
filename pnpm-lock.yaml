@@ -17,6 +17,7 @@ specifiers:
   eslint-config-next: 12.1.6
   firebase: ^9.8.1
   firebase-admin: ^10.2.0
+  jotai: ^1.6.6
   next: 12.1.6
   notistack: ^2.0.5
   react: 18.1.0
@@ -38,6 +39,7 @@ dependencies:
   axios: 0.27.2
   firebase: 9.8.1
   firebase-admin: 10.2.0
+  jotai: 1.6.6_tgajdcwcfqxyh72yjgxojourrm
   next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
   notistack: 2.0.5_7vyiydszc47z624lmup3yx4wv4
   react: 18.1.0
@@ -2971,6 +2973,44 @@ packages:
     engines: {node: '>=10.13.0 < 13 || >=13.7.0'}
     dependencies:
       '@panva/asn1.js': 1.0.0
+    dev: false
+
+  /jotai/1.6.6_tgajdcwcfqxyh72yjgxojourrm:
+    resolution: {integrity: sha512-rzUyxHFImnDDjUmC0i0BXyppq1M6ZxrHjhp0SK3VQXvXYAu5Hz9wPJ6w207s2Mlv7jpfiIf26w9m82FLCP3eqw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@babel/core': '*'
+      '@babel/template': '*'
+      '@urql/core': '*'
+      immer: '*'
+      optics-ts: '*'
+      react: '>=16.8'
+      react-query: '*'
+      valtio: '*'
+      wonka: '*'
+      xstate: '*'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
+      '@urql/core':
+        optional: true
+      immer:
+        optional: true
+      optics-ts:
+        optional: true
+      react-query:
+        optional: true
+      valtio:
+        optional: true
+      wonka:
+        optional: true
+      xstate:
+        optional: true
+    dependencies:
+      react: 18.1.0
+      react-query: 3.39.0_ef5jwxihqo6n7gxfmzogljlgcm
     dev: false
 
   /js-sha3/0.8.0:
