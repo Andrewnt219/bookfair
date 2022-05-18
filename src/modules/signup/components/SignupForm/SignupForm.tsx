@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import React from 'react';
 import { Controller, FieldErrors } from 'react-hook-form';
 import { useSignupMutation } from '../../api';
@@ -80,7 +80,9 @@ export const SignupForm = () => {
         )}
       />
 
-      <Button type="submit">Submit</Button>
+      <LoadingButton type="submit" loading={signupMutation.isLoading}>
+        Submit
+      </LoadingButton>
     </form>
   );
 };
