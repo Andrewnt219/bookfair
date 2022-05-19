@@ -1,6 +1,5 @@
 import { FirebaseError } from '@firebase/util';
 import { UserRecord } from 'firebase-admin/auth';
-import { adminAuth } from '../../../lib/firebase-admin';
 import {
   SignupSchema,
   getSignupErrorMessage,
@@ -14,6 +13,7 @@ import {
   getErrorMessage,
 } from '../../../utils';
 import { ValidateBody, TResultSuccess } from '@bookfair/common';
+import { SignupService } from '../../../modules/signup/service';
 
 type Data = UserRecord;
 export type User_CreateOne_Return = TResultSuccess<Data>;
@@ -34,10 +34,7 @@ const post: WithApiHandler<Data> = async (req, res) => {
     return res.status(422).json(bodyResult);
   }
   try {
-    const user = await adminAuth.createUser({
-      ...bodyResult.data,
-      emailVerified: true,
-    });
+    const user = await SignupService.createUser(bodyResult.data);
     return res.status(201).json(ResultSuccess(user));
   } catch (error) {
     console.error({ error });
