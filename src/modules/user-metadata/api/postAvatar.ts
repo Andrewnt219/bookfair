@@ -1,3 +1,4 @@
+import { updateProfile } from 'firebase/auth';
 import { ref, uploadBytes } from 'firebase/storage';
 import { useSnackbar } from 'notistack';
 import { useMutation } from 'react-query';
@@ -7,17 +8,23 @@ import { firebaseStorage } from '../../../lib/firebase/storage';
 import { MutationConfig } from '../../../lib/react-query';
 import { getErrorMessage } from '../../../utils';
 
+const getStoragePathToAvatar = (userId: string) => `${userId}/images/avatar`;
+
 const postAvatar = async (file: File | Blob) => {
-  if (!firebaseAuth.currentUser)
+  const { currentUser } = firebaseAuth;
+  if (!currentUser)
     throw new ToastException('Fail to update avatar. Try login in again');
 
   const storageRef = ref(
     firebaseStorage,
-    `${firebaseAuth.currentUser.uid}/images/avatar`
+    getStoragePathToAvatar(currentUser.uid)
   );
 
   try {
-    await uploadBytes(storageRef, file);
+    const uploadResult = await uploadBytes(storageRef, file);
+    await updateProfile(currentUser, {
+      photoURL: uploadResult.metadata.fullPath,
+    });
   } catch (error) {
     console.error({ error });
     throw new ToastException(

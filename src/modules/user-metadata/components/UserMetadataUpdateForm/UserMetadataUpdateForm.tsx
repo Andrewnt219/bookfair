@@ -2,13 +2,13 @@ import { TextField } from '@mui/material';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { usePostAvatarMutation } from '../../api';
-import { useProfileForm } from './useProfileForm';
+import { useUserMetadataUpdateForm } from './useUserMetadataUpdateForm';
 
-export interface ProfileFormProps {}
+export interface UserMetadataUpdateFormProps {}
 
-export const ProfileForm = (props: ProfileFormProps) => {
+export const UserMetadataUpdateForm = (props: UserMetadataUpdateFormProps) => {
   const postAvatarMutation = usePostAvatarMutation();
-  const form = useProfileForm();
+  const form = useUserMetadataUpdateForm();
   const { errors } = form.formState;
 
   const displayNameHelperText = errors.displayName?.message ?? 'Display name';
