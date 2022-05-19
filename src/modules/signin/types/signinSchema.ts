@@ -1,12 +1,8 @@
-import * as yup from 'yup';
+import z from 'zod';
 
-export const signinSchema = yup.object({
-  email: yup
-    .string()
-    .email('Invalid email format')
-    .required('Email is required')
-    .default(''),
-  password: yup.string().required('Password is required'),
+export const signinSchema = z.object({
+  email: z.string().email('Invalid email format').min(1, 'Email is required'),
+  password: z.string().min(1, 'Password is required'),
 });
 
-export type SigninSchema = yup.InferType<typeof signinSchema>;
+export type SigninSchema = z.infer<typeof signinSchema>;
