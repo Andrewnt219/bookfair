@@ -15,7 +15,7 @@ export const UserMetadataUpdateForm = (props: UserMetadataUpdateFormProps) => {
   const avatarHelperText = errors.avatar?.message ?? 'Avatar';
 
   const onSubmit = form.handleSubmit((data) => {
-    postAvatarMutation.mutate(data.avatar as File);
+    postAvatarMutation.mutate(data.avatar);
   });
 
   return (
@@ -47,7 +47,7 @@ export const UserMetadataUpdateForm = (props: UserMetadataUpdateFormProps) => {
             name={field.name}
             onBlur={field.onBlur}
             onChange={(ev) =>
-              field.onChange((ev.target as HTMLInputElement).files![0])
+              field.onChange((ev.target as HTMLInputElement).files)
             }
           />
         )}
