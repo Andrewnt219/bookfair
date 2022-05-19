@@ -1,18 +1,27 @@
-import * as yup from 'yup';
-import { displayNameSchema } from '../../../schemas';
+import {
+  displayNameSchema,
+  emailSchema,
+  passwordSchema,
+} from '../../../schemas';
 
-export const signupSchema = yup.object({
-  email: yup
-    .string()
-    .email('Not a valid email')
-    .required('Email is required')
-    .default(''),
-  password: yup.string().required('Password is required').default(''),
-  retypePassword: yup
-    .string()
-    .oneOf([yup.ref('password'), null], 'Password does not match')
-    .default(''),
-  displayName: displayNameSchema.required('Display name is required'),
-});
+import z from 'zod';
 
-export type SignupSchema = yup.InferType<typeof signupSchema>;
+export const signupSchema = z
+  .object({
+    email: emailSchema,
+    password: passwordSchema,
+    retypePassword: passwordSchema,
+    displayName: displayNameSchema.min(1, 'Display name is required'),
+  })
+  .refine((data) => data.password === data.retypePassword, {
+    message: "Passwords don't match",
+    path: ['retypePassword'],
+  })
+  .default({
+    displayName: '',
+    email: '',
+    password: '',
+    retypePassword: '',
+  });
+
+export type SignupSchema = z.infer<typeof signupSchema>;

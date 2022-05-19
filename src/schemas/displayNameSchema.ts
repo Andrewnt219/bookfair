@@ -1,2 +1,2 @@
-import * as yup from 'yup';
-export const displayNameSchema = yup.string().default('');
+import z from 'zod';
+export const displayNameSchema = z.string();

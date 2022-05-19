@@ -21,10 +21,11 @@ export type User_CreateOne_Body = SignupSchema;
 
 const validateBody: ValidateBody<User_CreateOne_Body> = async (body) => {
   try {
-    const validBody = await signupSchema.validate(body);
+    const validBody = signupSchema.parse(body);
     return ResultSuccess(validBody);
   } catch (error) {
-    return ResultError(getErrorMessage(error));
+    console.error({ error });
+    return ResultError('Invalid signup values');
   }
 };
 

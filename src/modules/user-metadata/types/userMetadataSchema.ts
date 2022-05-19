@@ -1,11 +1,10 @@
 import * as yup from 'yup';
-import { displayNameSchema } from '../../../schemas';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
 const MAX_FILE_SIZE = 5000 * 1024;
 
 export const userMetadataSchema = yup.object({
-  displayName: displayNameSchema.required('Display name is required'),
+  displayName: yup.string().required('Display name is required'),
   avatar: yup
     .mixed()
     .required('Avatar is required')
