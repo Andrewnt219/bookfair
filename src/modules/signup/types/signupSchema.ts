@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { displayNameSchema } from '../../../schemas';
 
 export const signupSchema = yup.object({
   email: yup
@@ -11,7 +12,7 @@ export const signupSchema = yup.object({
     .string()
     .oneOf([yup.ref('password'), null], 'Password does not match')
     .default(''),
-  displayName: yup.string().required('Display name is required').default(''),
+  displayName: displayNameSchema.required('Display name is required'),
 });
 
 export type SignupSchema = yup.InferType<typeof signupSchema>;
