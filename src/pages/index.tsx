@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useDispatch, useSelector } from 'react-redux';
-import { firebaseAuth } from '../lib/firebase';
+import { useSelector } from 'react-redux';
 import { SigninForm } from '../modules/signin';
 import { useSignoutMutation } from '../modules/signout';
 import { SignupForm } from '../modules/signup';
+import { ProfileForm } from '../modules/user-profile';
 import { authUserSelector } from '../stores';
 
 const Home: NextPage = () => {
@@ -23,6 +23,7 @@ const Home: NextPage = () => {
         {authUser && <h1>Hello {authUser.displayName}</h1>}
         <SignupForm />
         <SigninForm />
+        <ProfileForm />
         <button onClick={() => signoutMutation.mutate(undefined)}>
           Signout
         </button>
