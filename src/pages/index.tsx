@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { SignupForm, SigninForm, useSignoutMutation } from '../modules/auth';
-import { UserMetadataUpdateForm } from '../modules/user-metadata';
+import { UserProfileUpdateForm } from '../modules/user-profile';
 import { authUserSelector } from '../stores';
 
 const Home: NextPage = () => {
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         {authUser && <h1>Hello {authUser.displayName}</h1>}
         <SignupForm />
         <SigninForm />
-        <UserMetadataUpdateForm />
+        <UserProfileUpdateForm />
         <button onClick={() => signoutMutation.mutate(undefined)}>
           Signout
         </button>

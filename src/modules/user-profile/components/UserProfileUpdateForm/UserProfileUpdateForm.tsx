@@ -2,14 +2,14 @@ import { TextField, Button, Box } from '@mui/material';
 import { Controller, ControllerRenderProps } from 'react-hook-form';
 import { useReadAsDataUrl } from '../../../../utils';
 import { usePostAvatarMutation } from '../../api';
-import { UserMetadataFormValues } from '../../types';
-import { useUserMetadataUpdateForm } from './useUserMetadataUpdateForm';
+import { UserProfileFormValues } from '../../types';
+import { useUserProfileUpdateForm } from './useUserProfileUpdateForm';
 import NextImage from 'next/image';
-export interface UserMetadataUpdateFormProps {}
+export interface UserProfileUpdateFormProps {}
 
-export const UserMetadataUpdateForm = (props: UserMetadataUpdateFormProps) => {
+export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
   const postAvatarMutation = usePostAvatarMutation();
-  const form = useUserMetadataUpdateForm();
+  const form = useUserProfileUpdateForm();
   const { dataUrl, setFile } = useReadAsDataUrl();
 
   const { errors } = form.formState;
@@ -21,7 +21,7 @@ export const UserMetadataUpdateForm = (props: UserMetadataUpdateFormProps) => {
   });
 
   const onAvatarChange =
-    (field: ControllerRenderProps<UserMetadataFormValues, 'avatar'>) =>
+    (field: ControllerRenderProps<UserProfileFormValues, 'avatar'>) =>
     (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const files = (ev.target as HTMLInputElement).files;
       field.onChange(files);
@@ -51,6 +51,7 @@ export const UserMetadataUpdateForm = (props: UserMetadataUpdateFormProps) => {
         render={({ field }) => (
           <TextField
             type="file"
+            inputProps={{ accept: 'image/*' }}
             id="profile-avatar"
             error={Boolean(errors.avatar)}
             helperText={avatarHelperText}

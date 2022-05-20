@@ -3,7 +3,7 @@ import { z } from 'zod';
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
 const MAX_FILE_SIZE_MB = 5;
 
-export const userMetadataSchema = z.object({
+export const userProfileSchema = z.object({
   displayName: z.string(),
   avatar: z
     .any()
@@ -25,4 +25,4 @@ export const userMetadataSchema = z.object({
       message: `Max file size is ${MAX_FILE_SIZE_MB}MB`,
     }),
 });
-export type UserMetadataFormValues = z.infer<typeof userMetadataSchema>;
+export type UserProfileFormValues = z.infer<typeof userProfileSchema>;
