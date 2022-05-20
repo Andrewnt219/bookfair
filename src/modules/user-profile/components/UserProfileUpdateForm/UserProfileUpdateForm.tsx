@@ -1,32 +1,16 @@
 import { TextField, Button, Box } from '@mui/material';
-import { Controller, ControllerRenderProps } from 'react-hook-form';
-import { useReadAsDataUrl } from '../../../../utils';
-import { usePostAvatarMutation } from '../../api';
-import { UserProfileFormValues } from '../../types';
-import { useUserProfileUpdateForm } from './useUserProfileUpdateForm';
+import { Controller } from 'react-hook-form';
 import NextImage from 'next/image';
+import { useUserProfileUpdateForm } from './useUserProfileUpdateForm';
 export interface UserProfileUpdateFormProps {}
 
 export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
-  const postAvatarMutation = usePostAvatarMutation();
-  const form = useUserProfileUpdateForm();
-  const { dataUrl, setFile } = useReadAsDataUrl();
+  const { form, onSubmit, dataUrl, onAvatarChange } =
+    useUserProfileUpdateForm();
 
   const { errors } = form.formState;
   const displayNameHelperText = errors.displayName?.message ?? 'Display name';
   const avatarHelperText = errors.avatar?.message ?? 'Avatar';
-
-  const onSubmit = form.handleSubmit((data) => {
-    postAvatarMutation.mutate(data.avatar);
-  });
-
-  const onAvatarChange =
-    (field: ControllerRenderProps<UserProfileFormValues, 'avatar'>) =>
-    (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const files = (ev.target as HTMLInputElement).files;
-      field.onChange(files);
-      setFile(files?.[0] ?? null);
-    };
 
   return (
     <form onSubmit={onSubmit}>
