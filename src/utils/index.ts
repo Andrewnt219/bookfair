@@ -2,4 +2,4 @@ export * from './get';
 export * from './result';
 export * from './validate';
 export * from './withApiHandler';
-export * from './useReadAsDataUrl';
+export * from './useDataUrlFileReader';

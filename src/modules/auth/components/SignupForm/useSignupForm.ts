@@ -1,15 +1,9 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { signupSchema, SignupSchema } from '../../types';
+import { useSubmitMutation } from './useSubmitMutation';
+import { useForm } from './useForm';
 
 export const useSignupForm = () => {
-  return useForm<SignupSchema>({
-    resolver: zodResolver(signupSchema),
-    defaultValues: {
-      displayName: '',
-      email: '',
-      password: '',
-      retypePassword: '',
-    },
-  });
+  const submitMutation = useSubmitMutation();
+  const form = useForm();
+
+  return { form, submitMutation };
 };

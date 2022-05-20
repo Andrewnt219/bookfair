@@ -2,18 +2,15 @@ import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import React from 'react';
 import { Controller, FieldErrors } from 'react-hook-form';
-import { useSignupMutation } from '../../api';
 import { useSignupForm } from './useSignupForm';
 import { isNullOrUndefined } from '../../../../utils';
 
 interface SignupFormProps {}
 
 export const SignupForm = () => {
-  const form = useSignupForm();
-  const signupMutation = useSignupMutation();
+  const { form, submitMutation } = useSignupForm();
 
   const { errors } = form.formState;
-
   const emailHelpText = isNullOrUndefined(errors.email)
     ? 'Email'
     : errors.email.message;
@@ -28,7 +25,7 @@ export const SignupForm = () => {
     : errors.displayName.message;
 
   const onSubmit = form.handleSubmit((data) => {
-    signupMutation.mutate(data);
+    submitMutation.mutate(data);
   });
 
   return (
@@ -98,7 +95,7 @@ export const SignupForm = () => {
         )}
       />
 
-      <LoadingButton type="submit" loading={signupMutation.isLoading}>
+      <LoadingButton type="submit" loading={submitMutation.isLoading}>
         Submit
       </LoadingButton>
     </form>

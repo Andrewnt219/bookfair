@@ -1,12 +1,16 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { SigninSchema, signinSchema } from '../../types';
+import { useForm } from './useForm';
+import { useResetPasswordMutation } from './useResetPasswordMutation';
+import { useSubmitMutation } from './useSubmitMutation';
 export const useSigninForm = () => {
-  return useForm<SigninSchema>({
-    resolver: zodResolver(signinSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  });
+  const form = useForm();
+  const submitMutation = useSubmitMutation();
+  const resetPasswordMutation = useResetPasswordMutation();
+  const onSubmit = form.handleSubmit((data) => submitMutation.mutate(data));
+
+  return {
+    form,
+    onSubmit,
+    submitMutation,
+    resetPasswordMutation,
+  };
 };

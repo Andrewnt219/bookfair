@@ -1,16 +1,29 @@
 import { TextField, Button, Box } from '@mui/material';
-import { Controller } from 'react-hook-form';
+import { Controller, ControllerRenderProps } from 'react-hook-form';
 import NextImage from 'next/image';
 import { useUserProfileUpdateForm } from './useUserProfileUpdateForm';
+import { UserProfileFormValues } from '../../types';
 export interface UserProfileUpdateFormProps {}
 
 export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
-  const { form, onSubmit, dataUrl, onAvatarChange } =
+  const { form, dataUrlFileReader, submitMutation } =
     useUserProfileUpdateForm();
 
   const { errors } = form.formState;
   const displayNameHelperText = errors.displayName?.message ?? 'Display name';
   const avatarHelperText = errors.avatar?.message ?? 'Avatar';
+
+  const onSubmit = form.handleSubmit((data) => {
+    submitMutation.mutate(data.avatar);
+  });
+
+  const onAvatarChange =
+    (field: ControllerRenderProps<UserProfileFormValues, 'avatar'>) =>
+    (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const files = (ev.target as HTMLInputElement).files;
+      field.onChange(files);
+      dataUrlFileReader.setFile(files?.[0] ?? null);
+    };
 
   return (
     <form onSubmit={onSubmit}>
@@ -46,9 +59,13 @@ export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
         )}
       />
 
-      {dataUrl && (
+      {dataUrlFileReader.result && (
         <Box width={150} height={150} sx={{ position: 'relative' }}>
-          <NextImage src={dataUrl.toString()} alt="" layout="fill" />
+          <NextImage
+            src={dataUrlFileReader.result.toString()}
+            alt=""
+            layout="fill"
+          />
         </Box>
       )}
       <Button type="submit">Submit</Button>

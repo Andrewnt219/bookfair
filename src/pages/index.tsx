@@ -1,13 +1,25 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useSnackbar } from 'notistack';
+import { useMutation } from 'react-query';
 import { useSelector } from 'react-redux';
-import { SignupForm, SigninForm, useSignoutMutation } from '../modules/auth';
+import { SignupForm, SigninForm, AuthApi } from '../modules/auth';
 import { UserProfileUpdateForm } from '../modules/user-profile';
 import { authUserSelector } from '../stores';
+import { getErrorMessage } from '../utils';
 
 const Home: NextPage = () => {
   const { authUser } = useSelector(authUserSelector);
-  const signoutMutation = useSignoutMutation();
+  const { enqueueSnackbar } = useSnackbar();
+  const signoutMutation = useMutation({
+    mutationFn: AuthApi.signout,
+    onSuccess() {
+      enqueueSnackbar('Logout successfully', { variant: 'success' });
+    },
+    onError(error) {
+      enqueueSnackbar(getErrorMessage(error), { variant: 'error' });
+    },
+  });
 
   return (
     <div>
