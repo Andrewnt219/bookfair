@@ -4,7 +4,7 @@ import {
   SignupSchema,
   getSignupErrorMessage,
   signupSchema,
-} from '../../../modules/signup';
+} from '../../../modules/auth';
 import {
   withApiHandler,
   ResultError,
@@ -13,7 +13,7 @@ import {
   getErrorMessage,
 } from '../../../utils';
 import { ValidateBody, TResultSuccess } from '@bookfair/common';
-import { SignupService } from '../../../modules/signup/service';
+import { SignupService } from '../../../modules/auth/service';
 
 type Data = UserRecord;
 export type User_CreateOne_Return = TResultSuccess<Data>;

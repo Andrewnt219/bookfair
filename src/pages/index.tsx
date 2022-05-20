@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import { SigninForm } from '../modules/signin';
 import { useSignoutMutation } from '../modules/signout';
-import { SignupForm } from '../modules/signup';
+import { SignupForm } from '../modules/auth';
 import { UserMetadataUpdateForm } from '../modules/user-metadata';
 import { authUserSelector } from '../stores';
 
