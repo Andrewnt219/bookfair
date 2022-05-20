@@ -1,8 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
-import { useSignoutMutation } from '../modules/signout';
-import { SignupForm, SigninForm } from '../modules/auth';
+import { SignupForm, SigninForm, useSignoutMutation } from '../modules/auth';
 import { UserMetadataUpdateForm } from '../modules/user-metadata';
 import { authUserSelector } from '../stores';
 
