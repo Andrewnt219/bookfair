@@ -3,14 +3,12 @@ declare module '@bookfair/common' {
     type: 'error';
     error: HasMessage | Error;
     timestamp: string;
-    data: null;
   };
 
   export type TResultSuccess<Data = unknown> = {
     type: 'success';
     timestamp: string;
     data: Data;
-    error: null;
   };
 
   export type TResult<Data = unknown> = TResultSuccess<Data> | TResultError;
