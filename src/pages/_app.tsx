@@ -5,13 +5,21 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { store } from '../stores';
 import { Provider } from 'react-redux';
 import { queryClient } from '../lib/react-query';
+import { ReactElement, ReactNode } from 'react';
+import { NextPageWithLayout } from '@bookfair/next';
+import '../styles/main.scss';
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page: ReactElement) => page);
 
-function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <SnackbarProvider maxSnack={3}>
-          <Component {...pageProps} />
+          {getLayout(<Component {...pageProps} />)}
         </SnackbarProvider>
       </Provider>
       <ReactQueryDevtools initialIsOpen={false} />
