@@ -1,5 +1,4 @@
 import type { AppProps } from 'next/app';
-import { SnackbarProvider } from 'notistack';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { store } from '../stores';
@@ -18,9 +17,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <SnackbarProvider maxSnack={3}>
-          {getLayout(<Component {...pageProps} />)}
-        </SnackbarProvider>
+        {getLayout(<Component {...pageProps} />)}
       </Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

@@ -2,12 +2,13 @@ import { NextPageWithLayout } from '@bookfair/next';
 import Head from 'next/head';
 import { Container } from 'react-bootstrap';
 import { RootLayout } from '../layouts';
-import { useSelector } from 'react-redux';
-import { authUserSelector } from '../stores';
+import { useAuthUserSlice } from '../stores';
 import { UserProfileUpdateForm } from '../modules/user-profile';
+import { useAuthRoute } from '../utils/useAuthRoute';
 
 const Home: NextPageWithLayout = () => {
-  const { authUser } = useSelector(authUserSelector);
+  useAuthRoute();
+  const { authUser } = useAuthUserSlice();
 
   return (
     <Container className="mx-auto col-lg-4">
