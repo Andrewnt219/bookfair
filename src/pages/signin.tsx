@@ -11,8 +11,6 @@ const SigninPage: NextPageWithLayout = () => {
         <title>Sign in</title>
       </Head>
 
-      <h1>Sign in</h1>
-
       <div className="mt-5 shadow p-5 rounded">
         <SigninForm />
       </div>
@@ -21,7 +19,7 @@ const SigninPage: NextPageWithLayout = () => {
 };
 
 SigninPage.getLayout = (page) => {
-  return <AuthLayout>{page}</AuthLayout>;
+  return <AuthLayout title="Sign in">{page}</AuthLayout>;
 };
 
 export default SigninPage;
