@@ -1,8 +1,8 @@
-import { TextField, Button, Box } from '@mui/material';
 import { Controller, ControllerRenderProps } from 'react-hook-form';
 import NextImage from 'next/image';
 import { useUserProfileUpdateForm } from './useUserProfileUpdateForm';
 import { UserProfileFormValues } from '../../types';
+import { Button, Form, Ratio, Stack } from 'react-bootstrap';
 export interface UserProfileUpdateFormProps {}
 
 export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
@@ -10,9 +10,7 @@ export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
     useUserProfileUpdateForm();
 
   const { errors } = form.formState;
-  const displayNameHelperText = errors.displayName?.message ?? 'Display name';
-  const avatarHelperText = errors.avatar?.message ?? 'Avatar';
-
+  console.log({ errors });
   const onSubmit = form.handleSubmit((data) => {
     submitMutation.mutate(data.avatar);
   });
@@ -26,49 +24,65 @@ export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
     };
 
   return (
-    <form onSubmit={onSubmit}>
-      <Controller
-        control={form.control}
-        name="displayName"
-        render={({ field }) => (
-          <TextField
-            label="Display name"
-            error={Boolean(errors.displayName)}
-            helperText={displayNameHelperText}
-            id="profile-displayName"
-            type="text"
-            {...field}
+    <Form noValidate validated={form.formState.isValid} onSubmit={onSubmit}>
+      <Stack gap={2}>
+        <Form.Group controlId="profile-displayName">
+          <Form.Label>Display name</Form.Label>
+          <Controller
+            control={form.control}
+            name="displayName"
+            render={({ field }) => (
+              <Form.Control
+                isInvalid={Boolean(errors.displayName)}
+                type="text"
+                {...field}
+              />
+            )}
           />
-        )}
-      />
+          <Form.Control.Feedback type="invalid">
+            {errors.displayName?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-      <Controller
-        control={form.control}
-        name="avatar"
-        render={({ field }) => (
-          <TextField
-            type="file"
-            inputProps={{ accept: 'image/*' }}
-            id="profile-avatar"
-            error={Boolean(errors.avatar)}
-            helperText={avatarHelperText}
-            name={field.name}
-            onBlur={field.onBlur}
-            onChange={onAvatarChange(field)}
+        <Form.Group controlId="profile-avatar">
+          <Form.Label>Upload avatar</Form.Label>
+          <Controller
+            control={form.control}
+            name="avatar"
+            render={({ field }) => (
+              <Form.Control
+                type="file"
+                accept="image/*"
+                isInvalid={Boolean(errors.avatar)}
+                name={field.name}
+                onBlur={field.onBlur}
+                ref={field.ref}
+                onChange={onAvatarChange(field)}
+              />
+            )}
           />
-        )}
-      />
+          <Form.Control.Feedback type="invalid">
+            {errors.avatar?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
 
-      {dataUrlFileReader.result && (
-        <Box width={150} height={150} sx={{ position: 'relative' }}>
-          <NextImage
-            src={dataUrlFileReader.result.toString()}
-            alt=""
-            layout="fill"
-          />
-        </Box>
-      )}
-      <Button type="submit">Submit</Button>
-    </form>
+        {dataUrlFileReader.result && (
+          <div className="bg-light rounded">
+            <NextImage
+              src={dataUrlFileReader.result.toString()}
+              alt=""
+              width={300}
+              height={300}
+              layout="responsive"
+              className="rounded-circle"
+            />
+          </div>
+        )}
+
+        <Button className="mt-4" type="submit">
+          Submit
+        </Button>
+      </Stack>
+    </Form>
   );
 };
