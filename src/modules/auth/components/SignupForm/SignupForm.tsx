@@ -1,103 +1,143 @@
-import TextField from '@mui/material/TextField';
-import LoadingButton from '@mui/lab/LoadingButton';
 import React from 'react';
-import { Controller, FieldErrors } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { useSignupForm } from './useSignupForm';
-import { isNullOrUndefined } from '../../../../utils';
+import { Button, Form, InputGroup, Stack } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
+import Link from 'next/link';
 
 interface SignupFormProps {}
 
 export const SignupForm = () => {
-  const { form, submitMutation } = useSignupForm();
+  const { form, submitMutation, passwordInputToggle } = useSignupForm();
 
   const { errors } = form.formState;
-  const emailHelpText = isNullOrUndefined(errors.email)
-    ? 'Email'
-    : errors.email.message;
-  const passwordHelpText = isNullOrUndefined(errors.password)
-    ? 'Password'
-    : errors.password.message;
-  const retypePasswordHelpText = isNullOrUndefined(errors.retypePassword)
-    ? 'Retype Password'
-    : errors.retypePassword.message;
-  const displayNameHelpText = isNullOrUndefined(errors.displayName)
-    ? 'Display name'
-    : errors.displayName.message;
 
   const onSubmit = form.handleSubmit((data) => {
     submitMutation.mutate(data);
   });
 
+  console.log({ errors });
+
   return (
-    <form onSubmit={onSubmit}>
-      <Controller
-        name="email"
-        control={form.control}
-        render={({ field }) => (
-          <TextField
-            id="user-email"
-            autoComplete="email"
-            label="Email"
-            variant="filled"
-            error={!isNullOrUndefined(errors.email)}
-            helperText={emailHelpText}
-            {...field}
-          />
-        )}
-      />
+    <Form
+      className="d-flex flex-column gap-2"
+      noValidate
+      validated={form.formState.isValid}
+      onSubmit={onSubmit}
+    >
+      <Form.Group controlId="user-email">
+        <Form.Label>Email</Form.Label>
+        <Controller
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <Form.Control
+              type="email"
+              autoComplete="username"
+              isInvalid={Boolean(errors.email)}
+              {...field}
+            />
+          )}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.email?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
 
-      <Controller
-        control={form.control}
-        name="displayName"
-        render={({ field }) => (
-          <TextField
-            error={!isNullOrUndefined(errors.displayName)}
-            helperText={displayNameHelpText}
-            id="user-displayName"
-            label="Display name"
-            variant="filled"
-            {...field}
-          />
-        )}
-      />
+      <Form.Group controlId="user-dislay-name">
+        <Form.Label>Display name</Form.Label>
+        <Controller
+          control={form.control}
+          name="displayName"
+          render={({ field }) => (
+            <Form.Control isInvalid={Boolean(errors.displayName)} {...field} />
+          )}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.displayName?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
 
-      <Controller
-        control={form.control}
-        name="password"
-        render={({ field }) => (
-          <TextField
-            error={!isNullOrUndefined(errors.password)}
-            helperText={passwordHelpText}
-            id="user-password"
-            type="password"
-            autoComplete="new-password"
-            label="Password"
-            variant="filled"
-            {...field}
+      <Form.Group controlId="user-password">
+        <Form.Label>Password</Form.Label>
+        <InputGroup hasValidation>
+          <Controller
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <Form.Control
+                isInvalid={Boolean(errors.password)}
+                type={passwordInputToggle.currentKey}
+                autoComplete="new-password"
+                {...field}
+              />
+            )}
           />
-        )}
-      />
 
-      <Controller
-        control={form.control}
-        name="retypePassword"
-        render={({ field }) => (
-          <TextField
-            error={!isNullOrUndefined(errors.retypePassword)}
-            helperText={retypePasswordHelpText}
-            id="user-retypePassword"
-            type="password"
-            autoComplete="new-password"
-            label="Retype password"
-            variant="filled"
-            {...field}
+          <Button
+            variant="outline-secondary"
+            onClick={passwordInputToggle.toggle}
+          >
+            <Icon
+              icon={
+                passwordInputToggle.currentKey === 'password'
+                  ? 'bi:eye-fill'
+                  : 'bi:eye-slash-fill'
+              }
+            />
+          </Button>
+
+          <Form.Control.Feedback type="invalid">
+            {errors.password?.message}
+          </Form.Control.Feedback>
+        </InputGroup>
+      </Form.Group>
+
+      <Form.Group controlId="user-retye-password">
+        <Form.Label>Retype Password</Form.Label>
+        <InputGroup hasValidation>
+          <Controller
+            control={form.control}
+            name="retypePassword"
+            render={({ field }) => (
+              <Form.Control
+                isInvalid={Boolean(errors.retypePassword)}
+                type={passwordInputToggle.currentKey}
+                autoComplete="new-password"
+                {...field}
+              />
+            )}
           />
-        )}
-      />
+          <Button
+            variant="outline-secondary"
+            onClick={passwordInputToggle.toggle}
+          >
+            <Icon
+              icon={
+                passwordInputToggle.currentKey === 'password'
+                  ? 'bi:eye-fill'
+                  : 'bi:eye-slash-fill'
+              }
+            />
+          </Button>
+          <Form.Control.Feedback type="invalid">
+            {errors.retypePassword?.message}
+          </Form.Control.Feedback>
+        </InputGroup>
+      </Form.Group>
 
-      <LoadingButton type="submit" loading={submitMutation.isLoading}>
-        Submit
-      </LoadingButton>
-    </form>
+      <Stack gap={2}>
+        <Button variant="primary" className="mt-3" type="submit">
+          Signup
+        </Button>
+
+        <p className="d-flex gap-1 justify-content-center">
+          Already has an account?
+          <Link href="/signin">
+            <a>Sign in</a>
+          </Link>
+        </p>
+      </Stack>
+    </Form>
   );
 };
