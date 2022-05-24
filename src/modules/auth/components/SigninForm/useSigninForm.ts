@@ -1,16 +1,17 @@
 import { useForm } from './useForm';
 import { useResetPasswordMutation } from './useResetPasswordMutation';
 import { useSubmitMutation } from './useSubmitMutation';
+import { usePasswordInputToggle } from '../../../../utils';
 export const useSigninForm = () => {
   const form = useForm();
   const submitMutation = useSubmitMutation();
   const resetPasswordMutation = useResetPasswordMutation();
-  const onSubmit = form.handleSubmit((data) => submitMutation.mutate(data));
+  const passwordInputToggle = usePasswordInputToggle();
 
   return {
     form,
-    onSubmit,
     submitMutation,
     resetPasswordMutation,
+    passwordInputToggle,
   };
 };
