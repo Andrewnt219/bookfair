@@ -1,10 +1,10 @@
-import { TResultSuccess } from '@bookfair/common';
-import { authMiddleware } from '../../../middlewares';
-import { ResultSuccess, withApiHandler, WithApiHandler } from '../../../utils';
+import { TResultSuccess } from "@bookfair/common";
+import { authMiddleware } from "../../../middlewares";
+import { ResultSuccess, withApiHandler, WithApiHandler } from "../../../utils";
 
 type Data = [];
-type Listing_GetByUser_Return = TResultSuccess<Data>;
-type Listing_GetByUser_Query = {};
+export type Listing_GetByUser_Return = TResultSuccess<Data>;
+export type Listing_GetByUser_Query = {};
 
 const get: WithApiHandler<Data> = async (req, res) => {
   await authMiddleware(req);

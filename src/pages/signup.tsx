@@ -1,8 +1,8 @@
-import { NextPageWithLayout } from '@bookfair/next';
-import Head from 'next/head';
-import React from 'react';
-import { AuthLayout } from '../layouts';
-import { SigninForm, SignupForm } from '../modules/auth';
+import { NextPageWithLayout } from "@bookfair/next";
+import Head from "next/head";
+import React from "react";
+import { AuthLayout } from "../layouts";
+import { SignupForm } from "../modules/auth";
 
 const SignupPage: NextPageWithLayout = () => {
   return (

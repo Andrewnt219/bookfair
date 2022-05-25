@@ -1,19 +1,18 @@
-import { FirebaseError } from '@firebase/util';
-import { UserRecord } from 'firebase-admin/auth';
+import { FirebaseError } from "@firebase/util";
+import { UserRecord } from "firebase-admin/auth";
 import {
   SignupSchema,
   getSignupErrorMessage,
   signupSchema,
-} from '../../../modules/auth';
+} from "../../../modules/auth";
 import {
   withApiHandler,
   ResultError,
   ResultSuccess,
   WithApiHandler,
-  getErrorMessage,
-} from '../../../utils';
-import { ValidateBody, TResultSuccess } from '@bookfair/common';
-import { SignupService } from '../../../modules/auth/service';
+} from "../../../utils";
+import { ValidateBody, TResultSuccess } from "@bookfair/common";
+import { SignupService } from "../../../modules/auth/service";
 
 type Data = UserRecord;
 export type User_CreateOne_Return = TResultSuccess<Data>;
@@ -25,13 +24,13 @@ const validateBody: ValidateBody<User_CreateOne_Body> = async (body) => {
     return ResultSuccess(validBody);
   } catch (error) {
     console.error({ error });
-    return ResultError('Invalid signup values');
+    return ResultError("Invalid signup values");
   }
 };
 
 const post: WithApiHandler<Data> = async (req, res) => {
   const bodyResult = await validateBody(req.body);
-  if (bodyResult.type !== 'success') {
+  if (bodyResult.type !== "success") {
     return res.status(422).json(bodyResult);
   }
   try {

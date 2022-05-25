@@ -1,4 +1,4 @@
 {
   "editor.formatOnSave": true,
-  "editor.foldingImportsByDefault": true
+  "editor.foldingImportsByDefault": false
 }
