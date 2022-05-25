@@ -1,4 +1,4 @@
-name: Typescript compile
+name: ESLint
 on: [push]
 jobs:
   tsc-run:
@@ -19,5 +19,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: TypeScript compile
+      - name: Lint
         run: pnpm lint

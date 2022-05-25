@@ -1,6 +1,6 @@
-import React, { ReactNode, useState } from 'react';
-import { Container } from 'react-bootstrap';
-import { RootLayout } from './RootLayout';
+import React, { ReactNode } from "react";
+import { Container } from "react-bootstrap";
+import { RootLayout } from "./RootLayout";
 
 export interface AuthLayoutProps {
   children: ReactNode;

@@ -1,11 +1,10 @@
-import { Controller, ControllerRenderProps } from 'react-hook-form';
-import NextImage from 'next/image';
-import { useUserProfileUpdateForm } from './useUserProfileUpdateForm';
-import { UserProfileFormValues } from '../../types';
-import { Button, Form, Ratio, Stack } from 'react-bootstrap';
-export interface UserProfileUpdateFormProps {}
+import { Controller, ControllerRenderProps } from "react-hook-form";
+import NextImage from "next/image";
+import { useUserProfileUpdateForm } from "./useUserProfileUpdateForm";
+import { UserProfileFormValues } from "../../types";
+import { Button, Form, Stack } from "react-bootstrap";
 
-export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
+export const UserProfileUpdateForm = () => {
   const { form, dataUrlFileReader, submitMutation } =
     useUserProfileUpdateForm();
 
@@ -16,7 +15,7 @@ export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
   });
 
   const onAvatarChange =
-    (field: ControllerRenderProps<UserProfileFormValues, 'avatar'>) =>
+    (field: ControllerRenderProps<UserProfileFormValues, "avatar">) =>
     (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const files = (ev.target as HTMLInputElement).files;
       field.onChange(files);

@@ -16,6 +16,7 @@ specifiers:
   clsx: ^1.1.1
   eslint: 8.15.0
   eslint-config-next: 12.1.6
+  eslint-config-prettier: ^8.5.0
   firebase: ^9.8.1
   firebase-admin: ^10.2.0
   husky: ^8.0.1
@@ -69,6 +70,7 @@ devDependencies:
   "@typescript-eslint/parser": 5.26.0_hcfsmds2fshutdssjqluwm76uu
   eslint: 8.15.0
   eslint-config-next: 12.1.6_6vdljae35l7howjttefzzsim3e
+  eslint-config-prettier: 8.5.0_eslint@8.15.0
   husky: 8.0.1
   lint-staged: 12.4.2
   prettier: 2.6.2
@@ -2465,6 +2467,18 @@ packages:
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - supports-color
+    dev: true
+
+  /eslint-config-prettier/8.5.0_eslint@8.15.0:
+    resolution:
+      {
+        integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==,
+      }
+    hasBin: true
+    peerDependencies:
+      eslint: ">=7.0.0"
+    dependencies:
+      eslint: 8.15.0
     dev: true
 
   /eslint-import-resolver-node/0.3.6:

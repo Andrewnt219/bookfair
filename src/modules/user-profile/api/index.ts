@@ -1,18 +1,18 @@
-import { updateProfile } from 'firebase/auth';
-import { ref, uploadBytes } from 'firebase/storage';
-import { ToastException } from '../../../errors';
-import { firebaseAuth } from '../../../lib/firebase';
-import { firebaseStorage } from '../../../lib/firebase/storage';
-import { getErrorMessage } from '../../../utils';
+import { updateProfile } from "firebase/auth";
+import { ref, uploadBytes } from "firebase/storage";
+import { ToastException } from "../../../errors";
+import { firebaseAuth } from "../../../lib/firebase";
+import { firebaseStorage } from "../../../lib/firebase/storage";
+import { getErrorMessage } from "../../../utils";
 
 export class UserProfileApi {
   static async postAvatar(file: File | Blob) {
     const { currentUser } = firebaseAuth;
     if (!currentUser)
-      throw new ToastException('Fail to update avatar. Try login in again');
+      throw new ToastException("Fail to update avatar. Try login in again");
 
-    const storageRef = this.getStorageRef(
-      this.getStoragePathToAvatar(currentUser.uid)
+    const storageRef = this.#getStorageRef(
+      this.#getStoragePathToAvatar(currentUser.uid)
     );
 
     try {
@@ -23,17 +23,17 @@ export class UserProfileApi {
     } catch (error) {
       console.error({ error });
       throw new ToastException(
-        'Fail to update avatar: ' + getErrorMessage(error)
+        "Fail to update avatar: " + getErrorMessage(error)
       );
     }
   }
 
   //#region Helpers
-  private static getStoragePathToAvatar(userId: string) {
+  static #getStoragePathToAvatar(userId: string) {
     return `${userId}/images/avatar`;
   }
 
-  private static getStorageRef = (path: string) => ref(firebaseStorage, path);
+  static #getStorageRef = (path: string) => ref(firebaseStorage, path);
 
   //#endregion
 }
