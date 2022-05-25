@@ -1,21 +1,20 @@
-import { Controller, ControllerRenderProps } from "react-hook-form";
-import NextImage from "next/image";
-import { useUserProfileUpdateForm } from "./useUserProfileUpdateForm";
-import { UserProfileFormValues } from "../../types";
-import { Button, Form, Stack } from "react-bootstrap";
+import { Controller, ControllerRenderProps } from 'react-hook-form';
+import NextImage from 'next/image';
+import { useUserProfileUpdateForm } from './useUserProfileUpdateForm';
+import { UserProfileFormValues } from '../../types';
+import { Button, Form, Image, Stack } from 'react-bootstrap';
 
 export const UserProfileUpdateForm = () => {
-  const { form, dataUrlFileReader, submitMutation } =
+  const { form, dataUrlFileReader, submitMutation, userAbsolutePhotoUrlQuery } =
     useUserProfileUpdateForm();
 
   const { errors } = form.formState;
-  console.log({ errors });
   const onSubmit = form.handleSubmit((data) => {
-    submitMutation.mutate(data.avatar);
+    submitMutation.mutate(data);
   });
 
   const onAvatarChange =
-    (field: ControllerRenderProps<UserProfileFormValues, "avatar">) =>
+    (field: ControllerRenderProps<UserProfileFormValues, 'avatar'>) =>
     (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const files = (ev.target as HTMLInputElement).files;
       field.onChange(files);
@@ -25,6 +24,21 @@ export const UserProfileUpdateForm = () => {
   return (
     <Form noValidate validated={form.formState.isValid} onSubmit={onSubmit}>
       <Stack gap={2}>
+        <div className="text-center">
+          {userAbsolutePhotoUrlQuery.data && (
+            <Image
+              roundedCircle
+              src={userAbsolutePhotoUrlQuery.data}
+              alt=""
+              className="h-100 w-50"
+              style={{
+                aspectRatio: '1 / 1',
+                objectFit: 'cover',
+              }}
+            />
+          )}
+        </div>
+
         <Form.Group controlId="profile-displayName">
           <Form.Label>Display name</Form.Label>
           <Controller
