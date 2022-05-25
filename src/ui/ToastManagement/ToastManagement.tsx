@@ -13,7 +13,7 @@ export const ToastManagement = (props: ToastManagementProps) => {
   const onCloseToast = (toastId: string) => toastStore.dequeue(toastId);
 
   return (
-    <ToastContainer position="top-end">
+    <ToastContainer className="position-fixed" position="top-end">
       {toastStore.toasts.map((toast) => (
         <Toast
           key={toast.id}
