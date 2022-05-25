@@ -1,34 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Prod application is hosted at [https://prj666-bookfair.vercel.app/](https://prj666-bookfair.vercel.app/)
+Dev application is hosted at [https://dev-prj666-bookfair.vercel.app](https://dev-prj666-bookfair.vercel.app)
 
-## Getting Started
+## Development
 
-First, run the development server:
+1. Clone the repo
 
 ```bash
-npm run dev
-# or
-yarn dev
+git clone https://github.com/Andrewnt219/bookfair.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install pnpm (if you haven't)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+npm i -g pnpm
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3. Copy the secrets file `.env.local` into the root of your project. [Get it here](https://seneca.sharepoint.com/:u:/r/sites/Spring2022-PRJ666NBB-Team05/Shared%20Documents/Team%2005/.env.local?csf=1&web=1&e=TWPxt4)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+4. Install dependencies
 
-## Learn More
+```
+pnpm install --frozen-lockfile
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. Run the project.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+6. Website is live at `http://localhost:3000`
 
-## Deploy on Vercel
+## Contribution
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+On your local machine
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Create an issue for what you are working/fixing
+2. Create a new branch for the issue. Convention: `<YourName>/<IssueNumber>-<ShortBranchDescription>`
+
+```bash
+git fetch origin
+git checkout origin/dev
+git switch -c "Andrew/19-CreateProfile
+```
+
+3. Update your local machine code
+
+```
+git pull origin dev --rebase
+```
+
+4. Work on the issue, commit as you go
+
+```bash
+git commit -m "fix dog"
+git commit -m "add cat"
+```
+
+5. Check if your branch has any conflicts
+
+```
+git pull origin dev --rebase
+```
+
+6. Fix conflicts if any
+
+7. Push to remote repo
+
+```
+git push origin <your-branch-name> --set-upstream
+```
+
+8. Code review
+
+## Pull Request (Code Review)
+
+1. Create Pull Request
+
+2. Make sure all checks are passed (Linters and TypeScript)
+
+3. If any changes are required by reviewers, go back to your local machine. Go back to step 4 of the Contribution guide. If you recently solve conflicts, instead of `git push`, use `git push --force` **with caution as this will overwrite your previous work**
+
+4. Repeat step 3 until your Pull Request is approved.
