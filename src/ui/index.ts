@@ -1,2 +1,2 @@
-export * from './AppBar';
-export * from './ToastManagement';
+export * from "./AppBar";
+export * from "./ToastManagement";

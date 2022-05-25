@@ -1,14 +1,14 @@
-import { isBrowser } from '@firebase/util';
-import axios, { AxiosError } from 'axios';
-import { TResultError } from '@bookfair/common';
-import { hasMessage, isFirebaseError, isNullOrUndefined } from './validate';
+import { isBrowser } from "@firebase/util";
+import axios, { AxiosError } from "axios";
+import { TResultError } from "@bookfair/common";
+import { hasMessage, isFirebaseError, isNullOrUndefined } from "./validate";
 
 export function getAxiosError(error: AxiosError<TResultError>): string {
   if (error.response?.data.error) return error.response.data.error.message;
 
-  if (error.request) return 'Network problem';
+  if (error.request) return "Network problem";
 
-  return 'Something went wrong';
+  return "Something went wrong";
 }
 
 export function getErrorMessage(error: unknown): string {
@@ -19,11 +19,11 @@ export function getErrorMessage(error: unknown): string {
 
   if (hasMessage(error)) return error.message;
 
-  if (typeof error === 'string') return error;
+  if (typeof error === "string") return error;
 
-  return 'Something went wrong';
+  return "Something went wrong";
 }
 
 export const getBearerToken = (authorizationHeader: string) => {
-  return authorizationHeader.replace('Bearer', '').trim();
+  return authorizationHeader.replace("Bearer", "").trim();
 };

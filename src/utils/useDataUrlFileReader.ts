@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export const useDataUrlFileReader = () => {
   const [result, setResult] = useState<string | ArrayBuffer | null>(null);
@@ -6,7 +6,7 @@ export const useDataUrlFileReader = () => {
 
   useEffect(() => {
     if (!file) {
-      setResult('');
+      setResult("");
       return;
     }
 

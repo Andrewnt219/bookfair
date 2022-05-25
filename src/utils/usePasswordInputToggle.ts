@@ -1,5 +1,5 @@
-import { useToggle } from './useToggle';
+import { useToggle } from "./useToggle";
 
 export const usePasswordInputToggle = () => {
-  return useToggle(['password', 'text']);
+  return useToggle(["password", "text"]);
 };

@@ -1,7 +1,7 @@
-import { useDataUrlFileReader } from '../../../../utils';
+import { useDataUrlFileReader } from "../../../../utils";
 
-import { useForm } from './useForm';
-import { useSubmitMutation } from './useSubmitMutation';
+import { useForm } from "./useForm";
+import { useSubmitMutation } from "./useSubmitMutation";
 
 export const useUserProfileUpdateForm = () => {
   const form = useForm();

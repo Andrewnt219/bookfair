@@ -1,18 +1,18 @@
-import { TResult } from '@bookfair/common';
-import { UserRecord } from 'firebase-admin/auth';
+import { TResult } from "@bookfair/common";
+import { UserRecord } from "firebase-admin/auth";
 import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
   User,
-} from 'firebase/auth';
-import { axios } from '../../../lib/axios';
-import { firebaseAuth } from '../../../lib/firebase';
+} from "firebase/auth";
+import { axios } from "../../../lib/axios";
+import { firebaseAuth } from "../../../lib/firebase";
 import {
   User_CreateOne_Return,
   User_CreateOne_Body,
-} from '../../../pages/api/user/createOne';
-import { SigninSchema } from '../types';
+} from "../../../pages/api/user/createOne";
+import { SigninSchema } from "../types";
 
 export class AuthApi {
   static resetPassword(email: string) {
@@ -30,7 +30,7 @@ export class AuthApi {
 
   static async signup(body: User_CreateOne_Body): Promise<TResult<UserRecord>> {
     const res = await axios.post<User_CreateOne_Return>(
-      '/user/createOne',
+      "/user/createOne",
       body
     );
     return res.data;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export const useToggle = <T extends string>(keys: T[]) => {
   const [toggleIndex, setToggleIndex] = useState(0);
