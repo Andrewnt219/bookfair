@@ -1,6 +1,6 @@
-import { TResultSuccess } from "@bookfair/common";
-import { authMiddleware } from "../../../middlewares";
-import { ResultSuccess, withApiHandler, WithApiHandler } from "../../../utils";
+import { TResultSuccess } from '@bookfair/common';
+import { authMiddleware } from '../../../middlewares';
+import { ResultSuccess, withApiHandler, WithApiHandler } from '../../../utils';
 
 type Data = [];
 export type Listing_GetByUser_Return = TResultSuccess<Data>;

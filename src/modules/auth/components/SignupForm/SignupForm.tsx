@@ -1,9 +1,9 @@
-import React from "react";
-import { Controller } from "react-hook-form";
-import { useSignupForm } from "./useSignupForm";
-import { Button, Form, InputGroup, Stack } from "react-bootstrap";
-import { Icon } from "@iconify/react";
-import Link from "next/link";
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { useSignupForm } from './useSignupForm';
+import { Button, Form, InputGroup, Stack } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
+import Link from 'next/link';
 
 export const SignupForm = () => {
   const { form, submitMutation, passwordInputToggle } = useSignupForm();
@@ -78,9 +78,9 @@ export const SignupForm = () => {
           >
             <Icon
               icon={
-                passwordInputToggle.currentKey === "password"
-                  ? "bi:eye-fill"
-                  : "bi:eye-slash-fill"
+                passwordInputToggle.currentKey === 'password'
+                  ? 'bi:eye-fill'
+                  : 'bi:eye-slash-fill'
               }
             />
           </Button>
@@ -112,9 +112,9 @@ export const SignupForm = () => {
           >
             <Icon
               icon={
-                passwordInputToggle.currentKey === "password"
-                  ? "bi:eye-fill"
-                  : "bi:eye-slash-fill"
+                passwordInputToggle.currentKey === 'password'
+                  ? 'bi:eye-fill'
+                  : 'bi:eye-slash-fill'
               }
             />
           </Button>

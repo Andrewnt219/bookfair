@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import { Nav } from "react-bootstrap";
-import { Icon } from "@iconify/react";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { Nav } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
 
 export interface AppBarProps {
   className?: string;

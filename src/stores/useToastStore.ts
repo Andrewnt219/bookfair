@@ -1,28 +1,28 @@
-import { nanoid } from "nanoid";
-import { ReactNode } from "react";
-import create from "zustand";
-import { devtools } from "zustand/middleware";
-import { getErrorMessage } from "../utils";
+import { nanoid } from 'nanoid';
+import { ReactNode } from 'react';
+import create from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { getErrorMessage } from '../utils';
 
 export interface Toast {
   id: string;
   message: ReactNode;
   variant:
-    | "primary"
-    | "secondary"
-    | "success"
-    | "danger"
-    | "warning"
-    | "info"
-    | "dark"
-    | "light";
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'danger'
+    | 'warning'
+    | 'info'
+    | 'dark'
+    | 'light';
 }
 
 export interface ToastStore {
   toasts: Toast[];
-  enqueue(toast: Omit<Toast, "id">): void;
+  enqueue(toast: Omit<Toast, 'id'>): void;
   dequeue(toastId: string): void;
-  success(message: Toast["message"]): void;
+  success(message: Toast['message']): void;
   error(error: unknown): void;
 }
 
@@ -41,10 +41,10 @@ export const useToastStore = create(
       }));
     },
     success(message) {
-      get().enqueue({ message, variant: "success" });
+      get().enqueue({ message, variant: 'success' });
     },
     error(error) {
-      get().enqueue({ message: getErrorMessage(error), variant: "danger" });
+      get().enqueue({ message: getErrorMessage(error), variant: 'danger' });
     },
   }))
 );

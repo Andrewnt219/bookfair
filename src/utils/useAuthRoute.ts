@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useAuthUserStore } from "../stores";
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useAuthUserStore } from '../stores';
 
 export const useAuthRoute = () => {
   const authUserStore = useAuthUserStore();
@@ -8,7 +8,7 @@ export const useAuthRoute = () => {
 
   useEffect(() => {
     if (!authUserStore.authUser) {
-      router.push("/signin");
+      router.push('/signin');
     }
   }, [authUserStore.authUser, router]);
 };

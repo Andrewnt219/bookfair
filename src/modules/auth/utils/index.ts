@@ -1,1 +1,1 @@
-export * from "./getSignupErrorMessage";
+export * from './getSignupErrorMessage';

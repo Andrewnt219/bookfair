@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
-import { useMutation } from "react-query";
-import { useAuthUserStore, useToastStore } from "../../../../stores";
-import { AuthApi } from "../../api";
+import { useRouter } from 'next/router';
+import { useMutation } from 'react-query';
+import { useAuthUserStore, useToastStore } from '../../../../stores';
+import { AuthApi } from '../../api';
 
 export const useSubmitMutation = () => {
   const toastStore = useToastStore();
@@ -15,8 +15,8 @@ export const useSubmitMutation = () => {
     },
     onSuccess: (user) => {
       authUserStore.setAuthUser(user);
-      toastStore.success("Login successfully");
-      router.push("/");
+      toastStore.success('Login successfully');
+      router.push('/');
     },
   });
 };

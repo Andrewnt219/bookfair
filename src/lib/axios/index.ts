@@ -1,8 +1,8 @@
-import Axios, { AxiosRequestConfig } from "axios";
-import { firebaseAuth } from "../firebase";
+import Axios, { AxiosRequestConfig } from 'axios';
+import { firebaseAuth } from '../firebase';
 
 export const axios = Axios.create({
-  baseURL: "/api",
+  baseURL: '/api',
 });
 
 async function authRequestInterceptor(config: AxiosRequestConfig) {

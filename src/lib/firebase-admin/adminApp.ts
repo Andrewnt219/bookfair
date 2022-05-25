@@ -1,5 +1,5 @@
-import { initializeApp, cert, getApps } from "firebase-admin/app";
-import serviceAccount from "./serviceAccount";
+import { initializeApp, cert, getApps } from 'firebase-admin/app';
+import serviceAccount from './serviceAccount';
 
 const apps = getApps();
 export const adminApp =

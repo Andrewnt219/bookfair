@@ -1,10 +1,10 @@
-import { NextPageWithLayout } from "@bookfair/next";
-import Head from "next/head";
-import { Container } from "react-bootstrap";
-import { RootLayout } from "../layouts";
-import { UserProfileUpdateForm } from "../modules/user-profile";
-import { useAuthUserStore } from "../stores";
-import { useAuthRoute } from "../utils/useAuthRoute";
+import { NextPageWithLayout } from '@bookfair/next';
+import Head from 'next/head';
+import { Container } from 'react-bootstrap';
+import { RootLayout } from '../layouts';
+import { UserProfileUpdateForm } from '../modules/user-profile';
+import { useAuthUserStore } from '../stores';
+import { useAuthRoute } from '../utils/useAuthRoute';
 
 const Home: NextPageWithLayout = () => {
   useAuthRoute();

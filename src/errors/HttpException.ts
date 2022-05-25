@@ -3,6 +3,6 @@ export class HttpException extends Error {
   constructor(code: number, message: string) {
     super(message);
     this.code = code;
-    this.name = "HttpException";
+    this.name = 'HttpException';
   }
 }
