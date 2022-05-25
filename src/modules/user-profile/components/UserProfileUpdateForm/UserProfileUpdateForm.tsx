@@ -2,10 +2,10 @@ import { Controller, ControllerRenderProps } from 'react-hook-form';
 import NextImage from 'next/image';
 import { useUserProfileUpdateForm } from './useUserProfileUpdateForm';
 import { UserProfileFormValues } from '../../types';
-import { Button, Form, Image, Stack } from 'react-bootstrap';
+import { Button, Form, Stack } from 'react-bootstrap';
 
 export const UserProfileUpdateForm = () => {
-  const { form, dataUrlFileReader, submitMutation, userAbsolutePhotoUrlQuery } =
+  const { form, dataUrlFileReader, submitMutation } =
     useUserProfileUpdateForm();
 
   const { errors } = form.formState;
@@ -24,21 +24,6 @@ export const UserProfileUpdateForm = () => {
   return (
     <Form noValidate validated={form.formState.isValid} onSubmit={onSubmit}>
       <Stack gap={2}>
-        <div className="text-center">
-          {userAbsolutePhotoUrlQuery.data && (
-            <Image
-              roundedCircle
-              src={userAbsolutePhotoUrlQuery.data}
-              alt=""
-              className="h-100 w-50"
-              style={{
-                aspectRatio: '1 / 1',
-                objectFit: 'cover',
-              }}
-            />
-          )}
-        </div>
-
         <Form.Group controlId="profile-displayName">
           <Form.Label>Display name</Form.Label>
           <Controller
