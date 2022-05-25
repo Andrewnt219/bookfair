@@ -1,2 +1,2 @@
 export * from './userProfileSchema';
-export * from './UserProfile';
+export * from './DbUser';

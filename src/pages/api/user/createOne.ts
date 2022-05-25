@@ -12,7 +12,7 @@ import {
   WithApiHandler,
 } from '../../../utils';
 import { ValidateBody, TResultSuccess } from '@bookfair/common';
-import { SignupService } from '../../../modules/auth/service';
+import { AuthService } from '../../../modules/auth/service';
 
 type Data = UserRecord;
 export type User_CreateOne_Return = TResultSuccess<Data>;
@@ -33,8 +33,17 @@ const post: WithApiHandler<Data> = async (req, res) => {
   if (bodyResult.type !== 'success') {
     return res.status(422).json(bodyResult);
   }
+  const { data } = bodyResult;
   try {
-    const user = await SignupService.createUser(bodyResult.data);
+    const user = await AuthService.signupUser({
+      email: data.email,
+      password: data.password,
+    });
+    await AuthService.addUser({
+      displayName: data.displayName,
+      uid: user.uid,
+      createdDate: new Date(user.metadata.creationTime),
+    });
     return res.status(201).json(ResultSuccess(user));
   } catch (error) {
     console.error({ error });
