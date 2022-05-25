@@ -1,6 +1,6 @@
-import { useSubmitMutation } from "./useSubmitMutation";
-import { useForm } from "./useForm";
-import { usePasswordInputToggle } from "../../../../utils";
+import { useSubmitMutation } from './useSubmitMutation';
+import { useForm } from './useForm';
+import { usePasswordInputToggle } from '../../../../utils';
 
 export const useSignupForm = () => {
   const submitMutation = useSubmitMutation();

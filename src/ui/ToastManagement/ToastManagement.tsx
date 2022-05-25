@@ -1,6 +1,6 @@
-import React from "react";
-import { Toast, ToastContainer } from "react-bootstrap";
-import { useToastStore } from "../../stores";
+import React from 'react';
+import { Toast, ToastContainer } from 'react-bootstrap';
+import { useToastStore } from '../../stores';
 
 export interface ToastManagementProps {
   className?: string;

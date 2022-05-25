@@ -1,10 +1,10 @@
-import { AxiosError } from "axios";
+import { AxiosError } from 'axios';
 import {
   QueryClient,
   UseQueryOptions,
   UseMutationOptions,
   DefaultOptions,
-} from "react-query";
+} from 'react-query';
 
 const queryConfig: DefaultOptions = {
   queries: {
@@ -21,7 +21,7 @@ export type ExtractFnReturnType<FnType extends () => unknown> = Awaited<
 
 export type QueryConfig<QueryFnType extends () => unknown> = Omit<
   UseQueryOptions<ExtractFnReturnType<QueryFnType>>,
-  "queryKey" | "queryFn"
+  'queryKey' | 'queryFn'
 >;
 
 export type MutationConfig<MutationFnType extends () => unknown> =

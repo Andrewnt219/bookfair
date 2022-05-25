@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
-import { Container } from "react-bootstrap";
-import { AppBar } from "../ui";
+import React, { ReactNode } from 'react';
+import { Container } from 'react-bootstrap';
+import { AppBar } from '../ui';
 
 export interface DefaultLayoutProps {
   children: ReactNode;

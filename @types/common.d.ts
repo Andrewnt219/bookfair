@@ -1,12 +1,12 @@
-declare module "@bookfair/common" {
+declare module '@bookfair/common' {
   export type TResultError = {
-    type: "error";
+    type: 'error';
     error: HasMessage | Error;
     timestamp: string;
   };
 
   export type TResultSuccess<Data = unknown> = {
-    type: "success";
+    type: 'success';
     timestamp: string;
     data: Data;
   };

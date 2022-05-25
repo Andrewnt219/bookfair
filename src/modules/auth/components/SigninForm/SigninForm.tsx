@@ -1,9 +1,9 @@
-import React from "react";
-import { Controller } from "react-hook-form";
-import { useSigninForm } from "./useSigninForm";
-import { Button, Form, InputGroup, Stack } from "react-bootstrap";
-import { Icon } from "@iconify/react";
-import Link from "next/link";
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { useSigninForm } from './useSigninForm';
+import { Button, Form, InputGroup, Stack } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
+import Link from 'next/link';
 
 export const SigninForm = () => {
   const { form, submitMutation, resetPasswordMutation, passwordInputToggle } =
@@ -11,7 +11,7 @@ export const SigninForm = () => {
 
   const { errors } = form.formState;
 
-  const emailInputValue = form.watch("email");
+  const emailInputValue = form.watch('email');
   const onResetPasswordClick = () =>
     resetPasswordMutation.mutate(emailInputValue);
 
@@ -61,9 +61,9 @@ export const SigninForm = () => {
             >
               <Icon
                 icon={
-                  passwordInputToggle.currentKey === "password"
-                    ? "bi:eye-fill"
-                    : "bi:eye-slash-fill"
+                  passwordInputToggle.currentKey === 'password'
+                    ? 'bi:eye-fill'
+                    : 'bi:eye-slash-fill'
                 }
               />
             </Button>
@@ -72,7 +72,7 @@ export const SigninForm = () => {
               {errors.password?.message}
             </Form.Control.Feedback>
           </InputGroup>
-        </Form.Group>{" "}
+        </Form.Group>{' '}
       </Stack>
 
       <Stack className="mt-4" gap={1}>

@@ -1,6 +1,6 @@
-import { useMutation } from "react-query";
-import { useToastStore } from "../../../../stores";
-import { AuthApi } from "../../api";
+import { useMutation } from 'react-query';
+import { useToastStore } from '../../../../stores';
+import { AuthApi } from '../../api';
 
 export const useSubmitMutation = () => {
   const toastStore = useToastStore();
@@ -11,7 +11,7 @@ export const useSubmitMutation = () => {
       toastStore.error(error);
     },
     onSuccess: () => {
-      toastStore.success("Welcome to the market");
+      toastStore.success('Welcome to the market');
     },
   });
 };

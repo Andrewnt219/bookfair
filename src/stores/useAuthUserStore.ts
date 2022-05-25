@@ -1,6 +1,6 @@
-import { User } from "firebase/auth";
-import create from "zustand";
-import { devtools } from "zustand/middleware";
+import { User } from 'firebase/auth';
+import create from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 export interface AuthUserStore {
   authUser: User | null;
