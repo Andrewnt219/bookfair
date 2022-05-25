@@ -1,29 +1,17 @@
-import { useMutation } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { toastActions } from '../../../../stores';
-import { getErrorMessage } from '../../../../utils';
-import { UserProfileApi } from '../../api';
+import { useMutation } from "react-query";
+import { useToastStore } from "../../../../stores";
+import { UserProfileApi } from "../../api";
 
 export const useSubmitMutation = () => {
-  const dispatch = useDispatch();
+  const toastStore = useToastStore();
 
   return useMutation({
     mutationFn: UserProfileApi.postAvatar,
     onSuccess: () => {
-      dispatch(
-        toastActions.enqueue({
-          message: 'Profile is updated successfully',
-          variant: 'success',
-        })
-      );
+      toastStore.success("Profile is updated successfully");
     },
     onError: (error) => {
-      dispatch(
-        toastActions.enqueue({
-          message: getErrorMessage(error),
-          variant: 'danger',
-        })
-      );
+      toastStore.error(error);
     },
   });
 };

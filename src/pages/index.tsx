@@ -1,14 +1,14 @@
-import { NextPageWithLayout } from '@bookfair/next';
-import Head from 'next/head';
-import { Container } from 'react-bootstrap';
-import { RootLayout } from '../layouts';
-import { useAuthUserSlice } from '../stores';
-import { UserProfileUpdateForm } from '../modules/user-profile';
-import { useAuthRoute } from '../utils/useAuthRoute';
+import { NextPageWithLayout } from "@bookfair/next";
+import Head from "next/head";
+import { Container } from "react-bootstrap";
+import { RootLayout } from "../layouts";
+import { UserProfileUpdateForm } from "../modules/user-profile";
+import { useAuthUserStore } from "../stores";
+import { useAuthRoute } from "../utils/useAuthRoute";
 
 const Home: NextPageWithLayout = () => {
   useAuthRoute();
-  const { authUser } = useAuthUserSlice();
+  const authUserStore = useAuthUserStore();
 
   return (
     <Container className="mx-auto col-lg-4">
@@ -16,7 +16,7 @@ const Home: NextPageWithLayout = () => {
         <title>Profile</title>
       </Head>
 
-      <h1>Hello {authUser?.displayName}</h1>
+      <h1>Hello {authUserStore.authUser?.displayName}</h1>
 
       <div className="mt-5 shadow p-5 rounded">
         <UserProfileUpdateForm />

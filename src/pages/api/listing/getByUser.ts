@@ -4,7 +4,6 @@ import { ResultSuccess, withApiHandler, WithApiHandler } from "../../../utils";
 
 type Data = [];
 export type Listing_GetByUser_Return = TResultSuccess<Data>;
-export type Listing_GetByUser_Query = {};
 
 const get: WithApiHandler<Data> = async (req, res) => {
   await authMiddleware(req);

@@ -1,22 +1,17 @@
-import { useMutation } from 'react-query';
-import { useDispatch } from 'react-redux';
-import { toastActions } from '../../../../stores';
-import { AuthApi } from '../../api';
+import { useMutation } from "react-query";
+import { useToastStore } from "../../../../stores";
+import { AuthApi } from "../../api";
 
 export const useSubmitMutation = () => {
-  const dispatch = useDispatch();
+  const toastStore = useToastStore();
 
   return useMutation({
     mutationFn: AuthApi.signup,
     onError: (error) => {
-      dispatch(toastActions.error({ error }));
+      toastStore.error(error);
     },
     onSuccess: () => {
-      dispatch(
-        toastActions.success({
-          message: 'Welcome to the market',
-        })
-      );
+      toastStore.success("Welcome to the market");
     },
   });
 };

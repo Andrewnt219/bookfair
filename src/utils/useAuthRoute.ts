@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useAuthUserSlice } from '../stores';
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useAuthUserStore } from "../stores";
 
 export const useAuthRoute = () => {
-  const { authUser } = useAuthUserSlice();
+  const authUserStore = useAuthUserStore();
   const router = useRouter();
 
   useEffect(() => {
-    if (!authUser) {
-      router.push('/signin');
+    if (!authUserStore.authUser) {
+      router.push("/signin");
     }
-  }, [authUser, router]);
+  }, [authUserStore.authUser, router]);
 };
