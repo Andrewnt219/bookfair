@@ -1,8 +1,8 @@
-import { Result500, ResultError } from './result';
-import { NextApiHandler } from 'next';
-import { HttpMethod, isHttpMethod } from './isHttpMethod';
-import { TResult } from '@bookfair/common';
-import { HttpException } from '../errors';
+import { Result500, ResultError } from "./result";
+import { NextApiHandler } from "next";
+import { HttpMethod, isHttpMethod } from "./isHttpMethod";
+import { TResult } from "@bookfair/common";
+import { HttpException } from "../errors";
 
 type ApiHandler = NextApiHandler<TResult>;
 type HttpMethodHandlers = Partial<Record<HttpMethod, ApiHandler>>;
@@ -16,11 +16,11 @@ export const withApiHandler = (handlers: HttpMethodHandlers): ApiHandler => {
     const method = req.method?.toLowerCase();
 
     if (!isHttpMethod(method))
-      return res.status(400).json(ResultError('Method is missing'));
+      return res.status(400).json(ResultError("Method is missing"));
 
     const handler = handlers[method];
     if (!handler) {
-      return res.status(405).json(ResultError('Method is not allowed'));
+      return res.status(405).json(ResultError("Method is not allowed"));
     }
 
     try {

@@ -1,3 +1,3 @@
-export * from './displayNameSchema';
-export * from './emailSchema';
-export * from './passwordSchema';
+export * from "./displayNameSchema";
+export * from "./emailSchema";
+export * from "./passwordSchema";
