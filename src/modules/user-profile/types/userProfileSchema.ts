@@ -1,29 +1,31 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
 const MAX_FILE_SIZE_MB = 5;
+const MAX_FILE_SIZE_BYTEs = MAX_FILE_SIZE_MB * 1024 * 1024;
 
 export const userProfileSchema = z.object({
   displayName: z.string(),
   avatar: z
     .any()
-    .superRefine((files: FileList | undefined, ctx) => {
-      if (!files || files.length === 0) {
+    // Always has 1 file due to fatal superRefine
+    .transform((files: FileList, ctx) => {
+      const file = files?.[0];
+      if (file && !SUPPORTED_FORMATS.includes(file.type)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Avatar is required",
-          fatal: true,
+          message: `Supported format: ${SUPPORTED_FORMATS.join(', ')}`,
         });
       }
-    })
-    // Always has 1 file due to fatal superRefine
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    .transform((files: FileList) => files[0]!)
-    .refine((file) => SUPPORTED_FORMATS.includes(file.type), {
-      message: `Supported format: ${SUPPORTED_FORMATS.join(", ")}`,
-    })
-    .refine((file) => file.size <= MAX_FILE_SIZE_MB * 1024 * 1024, {
-      message: `Max file size is ${MAX_FILE_SIZE_MB}MB`,
+
+      if (file && file.size > MAX_FILE_SIZE_BYTEs) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `Max file size is ${MAX_FILE_SIZE_MB}MB`,
+        });
+      }
+
+      return file;
     }),
 });
 export type UserProfileFormValues = z.infer<typeof userProfileSchema>;

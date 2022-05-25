@@ -1,36 +1,56 @@
-import { updateProfile } from "firebase/auth";
-import { ref, uploadBytes } from "firebase/storage";
-import { ToastException } from "../../../errors";
-import { firebaseAuth } from "../../../lib/firebase";
-import { firebaseStorage } from "../../../lib/firebase/storage";
-import { getErrorMessage } from "../../../utils";
+import { updateProfile, User } from 'firebase/auth';
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  UploadResult,
+} from 'firebase/storage';
+import { ToastException } from '../../../errors';
+import { firebaseAuth } from '../../../lib/firebase';
+import { firebaseStorage } from '../../../lib/firebase/storage';
+import { UserProfileFormValues } from '../types';
 
 export class UserProfileApi {
-  static async postAvatar(file: File | Blob) {
+  static async uploadAvatar(file: File | Blob): Promise<UploadResult> {
+    const currentUser = UserProfileApi.#getDefinedCurrentUser();
+    const avatarRef = UserProfileApi.#getStoragePathToAvatar(currentUser.uid);
+    return uploadBytes(avatarRef, file);
+  }
+
+  static async updateProfile(profile: Partial<UserProfileFormValues>) {
+    const currentUser = UserProfileApi.#getDefinedCurrentUser();
+
+    let avatarPath: string | undefined;
+
+    if (profile.avatar) {
+      const uploadResult = await UserProfileApi.uploadAvatar(profile.avatar);
+      avatarPath = uploadResult.metadata.fullPath;
+    }
+
+    await updateProfile(currentUser, {
+      photoURL: avatarPath,
+      displayName: profile.displayName,
+    });
+  }
+
+  static getUserAbsolutePhotoUrl() {
+    const { currentUser } = firebaseAuth;
+    if (!currentUser) throw new ToastException('Fail to get user photo');
+    if (!currentUser.photoURL) return;
+    const photoRef = UserProfileApi.#getStorageRef(currentUser.photoURL);
+    return getDownloadURL(photoRef);
+  }
+
+  static #getDefinedCurrentUser(): User {
     const { currentUser } = firebaseAuth;
     if (!currentUser)
-      throw new ToastException("Fail to update avatar. Try login in again");
-
-    const storageRef = this.#getStorageRef(
-      this.#getStoragePathToAvatar(currentUser.uid)
-    );
-
-    try {
-      const uploadResult = await uploadBytes(storageRef, file);
-      await updateProfile(currentUser, {
-        photoURL: uploadResult.metadata.fullPath,
-      });
-    } catch (error) {
-      console.error({ error });
-      throw new ToastException(
-        "Fail to update avatar: " + getErrorMessage(error)
-      );
-    }
+      throw new ToastException('Fail to update avatar. Try login in again');
+    return currentUser;
   }
 
   //#region Helpers
   static #getStoragePathToAvatar(userId: string) {
-    return `${userId}/images/avatar`;
+    return UserProfileApi.#getStorageRef(`${userId}/images/avatar`);
   }
 
   static #getStorageRef = (path: string) => ref(firebaseStorage, path);
