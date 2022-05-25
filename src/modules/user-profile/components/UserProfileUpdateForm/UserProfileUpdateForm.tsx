@@ -79,7 +79,11 @@ export const UserProfileUpdateForm = (props: UserProfileUpdateFormProps) => {
           </div>
         )}
 
-        <Button className="mt-4" type="submit">
+        <Button
+          className="mt-4"
+          type="submit"
+          disabled={submitMutation.isLoading}
+        >
           Submit
         </Button>
       </Stack>

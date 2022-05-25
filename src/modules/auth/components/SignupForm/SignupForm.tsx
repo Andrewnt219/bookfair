@@ -127,7 +127,12 @@ export const SignupForm = () => {
       </Form.Group>
 
       <Stack gap={2}>
-        <Button variant="primary" className="mt-3" type="submit">
+        <Button
+          variant="primary"
+          className="mt-3"
+          type="submit"
+          disabled={submitMutation.isLoading}
+        >
           Signup
         </Button>
 

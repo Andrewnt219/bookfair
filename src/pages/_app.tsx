@@ -4,9 +4,10 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { store } from '../stores';
 import { Provider } from 'react-redux';
 import { queryClient } from '../lib/react-query';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement } from 'react';
 import { NextPageWithLayout } from '@bookfair/next';
 import '../styles/main.scss';
+import { ToastManagement } from '../ui';
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         {getLayout(<Component {...pageProps} />)}
+        <ToastManagement timeInMs={5000} />
       </Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
