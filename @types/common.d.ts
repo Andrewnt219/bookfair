@@ -13,7 +13,5 @@ declare module '@bookfair/common' {
 
   export type TResult<Data = unknown> = TResultSuccess<Data> | TResultError;
 
-  export type ValidateBody<T> = (
-    body: unknown
-  ) => TResult<T> | Promise<TResult<T>>;
+  export type ValidateBody<T> = (body: unknown) => TResult<T>;
 }
