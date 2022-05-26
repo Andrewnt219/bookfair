@@ -11,7 +11,7 @@ export const useSubmitMutation = () => {
   return useMutation({
     mutationFn: UserProfileApi.updateProfile,
     onSuccess: () => {
-      queryClient.invalidateQueries('user-photo-url');
+      queryClient.invalidateQueries('user-profile');
       toastStore.success('Profile is updated successfully');
       if (firebaseAuth.currentUser) {
         authUserStore.setAuthUser(firebaseAuth.currentUser);

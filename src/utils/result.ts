@@ -1,4 +1,5 @@
 import { TResultError, TResultSuccess } from '@bookfair/common';
+import { getErrorMessage } from './get';
 import { HasMessage } from './validate';
 
 export function ResultError(_message: string | string[]): TResultError {
@@ -11,6 +12,10 @@ export function ResultError(_message: string | string[]): TResultError {
     error: { message },
     timestamp: new Date().toISOString(),
   };
+}
+
+export function ResultErrorTryInfer(error: unknown): TResultError {
+  return ResultError(getErrorMessage(error));
 }
 
 export function ResultSuccess<Data = unknown>(
