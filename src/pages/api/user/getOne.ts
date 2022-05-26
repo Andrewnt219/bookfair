@@ -1,4 +1,4 @@
-import { TResultSuccess } from '@bookfair/common';
+import { AssertType, TResultSuccess } from '@bookfair/common';
 import { z } from 'zod';
 import { HttpException } from '../../../errors';
 import { AuthService } from '../../../modules/auth/service';
@@ -19,7 +19,7 @@ const querySchema = z.object({
   userId: z.string().min(1, { message: 'Missing userId' }),
 });
 
-const validateQuery = (query: unknown): User_GetOne_Query => {
+const validateQuery: AssertType<User_GetOne_Query> = (query: unknown) => {
   try {
     return querySchema.parse(query);
   } catch (error) {
