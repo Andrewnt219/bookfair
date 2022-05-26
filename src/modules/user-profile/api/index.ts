@@ -1,4 +1,4 @@
-import { updateProfile, User } from 'firebase/auth';
+import { User } from 'firebase/auth';
 import {
   getDownloadURL,
   ref,
@@ -6,8 +6,13 @@ import {
   UploadResult,
 } from 'firebase/storage';
 import { ToastException } from '../../../errors';
+import { axios } from '../../../lib/axios';
 import { firebaseAuth } from '../../../lib/firebase';
 import { firebaseStorage } from '../../../lib/firebase/storage';
+import {
+  User_UpdateUser_Body,
+  User_UpdateUser_Return,
+} from '../../../pages/api/user/updateUser';
 import { UserProfileFormValues } from '../types';
 
 export class UserProfileApi {
@@ -27,10 +32,15 @@ export class UserProfileApi {
       avatarPath = uploadResult.metadata.fullPath;
     }
 
-    await updateProfile(currentUser, {
-      photoURL: avatarPath,
-      displayName: profile.displayName,
-    });
+    const body: User_UpdateUser_Body = {
+      data: {
+        photoUrl: avatarPath,
+        displayName: profile.displayName,
+      },
+      uid: currentUser.uid,
+    };
+
+    await axios.post<User_UpdateUser_Return>('/user/updateUser', body);
   }
 
   static getUserAbsolutePhotoUrl() {
