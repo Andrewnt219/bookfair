@@ -7,6 +7,5 @@ export const useUserProfileUpdateForm = () => {
   const form = useForm();
   const submitMutation = useSubmitMutation();
   const dataUrlFileReader = useDataUrlFileReader();
-
   return { dataUrlFileReader, submitMutation, form };
 };

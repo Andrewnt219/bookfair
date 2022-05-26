@@ -10,8 +10,9 @@ export class AuthService {
     return db.users.doc(userId).update(data);
   }
 
-  static getUser(userId: string) {
-    return db.users.doc(userId).get();
+  static async getUser(userId: string): Promise<DbUser | null> {
+    const ref = await db.users.doc(userId).get();
+    return ref.data() ?? null;
   }
 
   static signupUser(data: { email: string; password: string }) {

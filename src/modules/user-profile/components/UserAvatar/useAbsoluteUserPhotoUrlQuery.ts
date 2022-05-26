@@ -1,16 +1,18 @@
 import { useQuery } from 'react-query';
-import { firebaseAuth } from '../../../../lib/firebase';
 import { useToastStore } from '../../../../stores';
-import { UserProfileApi } from '../../api';
+import { useDbUserQuery, UserProfileApi } from '../../api';
 
 export const useUserAbsolutePhotoUrlQuery = () => {
   const toastStore = useToastStore();
-  const { currentUser } = firebaseAuth;
+  const dbUserQuery = useDbUserQuery();
+  const storageUrl = dbUserQuery.data?.photoUrl;
 
   return useQuery({
-    queryFn: () => UserProfileApi.getUserAbsolutePhotoUrl(),
-    queryKey: 'user-photo-url',
-    enabled: Boolean(currentUser),
+    // Only run when storageUrl exists
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    queryFn: () => UserProfileApi.getUserAbsolutePhotoUrl(storageUrl!),
+    queryKey: ['user-profile', 'user-avatar'],
+    enabled: Boolean(storageUrl),
     onError: (error) => {
       toastStore.error(error);
     },

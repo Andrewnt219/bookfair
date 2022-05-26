@@ -1,0 +1,41 @@
+import { TResultSuccess } from '@bookfair/common';
+import { z } from 'zod';
+import { HttpException } from '../../../errors';
+import { AuthService } from '../../../modules/auth/service';
+import { DbUser } from '../../../modules/user-profile';
+import {
+  getErrorMessage,
+  handleApiError,
+  ResultSuccess,
+  withApiHandler,
+  WithApiHandler,
+} from '../../../utils';
+
+type Data = DbUser | null;
+export type User_GetOne_Return = TResultSuccess<Data>;
+export type User_GetOne_Query = z.infer<typeof querySchema>;
+
+const querySchema = z.object({
+  userId: z.string().min(1, { message: 'Missing userId' }),
+});
+
+const validateQuery = (query: unknown): User_GetOne_Query => {
+  try {
+    return querySchema.parse(query);
+  } catch (error) {
+    throw new HttpException(422, getErrorMessage(error));
+  }
+};
+
+const get: WithApiHandler<Data> = async (req, res) => {
+  try {
+    const query = validateQuery(req.query);
+    const user = await AuthService.getUser(query.userId);
+    if (!user) throw new HttpException(404, 'User not found');
+    return res.status(200).json(ResultSuccess(user));
+  } catch (error) {
+    return handleApiError(res, error);
+  }
+};
+
+export default withApiHandler({ get });

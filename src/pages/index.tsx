@@ -4,15 +4,15 @@ import { Container } from 'react-bootstrap';
 import { RootLayout } from '../layouts';
 import {
   SignoutButton,
+  useDbUserQuery,
   UserAvatar,
   UserProfileUpdateForm,
 } from '../modules/user-profile';
-import { useAuthUserStore } from '../stores';
 import { useAuthRoute } from '../utils/useAuthRoute';
 
 const Home: NextPageWithLayout = () => {
   useAuthRoute();
-  const authUserStore = useAuthUserStore();
+  const dbUserQuery = useDbUserQuery();
 
   return (
     <Container className="mx-auto col-lg-4">
@@ -20,7 +20,7 @@ const Home: NextPageWithLayout = () => {
         <title>Profile</title>
       </Head>
 
-      <h1>Hello {authUserStore.authUser?.displayName}</h1>
+      <h1>Hello {dbUserQuery.data?.displayName}</h1>
       <SignoutButton />
 
       <div className="mt-5 shadow p-5 rounded">
