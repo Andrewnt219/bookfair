@@ -13,5 +13,5 @@ declare module '@bookfair/common' {
 
   export type TResult<Data = unknown> = TResultSuccess<Data> | TResultError;
 
-  export type ValidateBody<T> = (body: unknown) => TResult<T>;
+  export type AssertType<T> = (type: unknown) => T;
 }
