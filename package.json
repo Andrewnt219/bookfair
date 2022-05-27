@@ -7,7 +7,10 @@
     "prepare": "husky install",
     "lint": "next lint",
     "format": "prettier --write --ignore-unknown --loglevel silent",
-    "dev": "next dev",
+    "firebase:export": "pnpm firebase emulators:export firebase/seeds -f",
+    "dev:firebase": "pnpm firebase emulators:start --import=\"firebase/seeds\"",
+    "dev:next": "next dev",
+    "dev": "run-p dev:next dev:firebase",
     "build": "next build",
     "start": "next start"
   },
@@ -45,8 +48,10 @@
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
     "eslint-config-prettier": "^8.5.0",
+    "firebase-tools": "^11.0.1",
     "husky": "^8.0.1",
     "lint-staged": "^12.4.2",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
     "typescript": "4.6.4"
   }

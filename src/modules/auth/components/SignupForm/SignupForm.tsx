@@ -14,8 +14,6 @@ export const SignupForm = () => {
     submitMutation.mutate(data);
   });
 
-  console.log({ errors });
-
   return (
     <Form
       className="d-flex flex-column gap-2"

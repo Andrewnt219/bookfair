@@ -16,7 +16,6 @@ export const useForm = () => {
   useEffect(
     function updateDisplayNameField() {
       if (dbUserQuery.data) {
-        console.log({ dbUser: dbUserQuery.data });
         form.setValue('displayName', dbUserQuery.data.displayName);
       }
     },
