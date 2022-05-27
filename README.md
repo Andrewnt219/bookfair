@@ -1,4 +1,5 @@
 Prod application is hosted at [https://prj666-bookfair.vercel.app/](https://prj666-bookfair.vercel.app/)
+
 Dev application is hosted at [https://dev-prj666-bookfair.vercel.app](https://dev-prj666-bookfair.vercel.app)
 
 ## Development
@@ -29,7 +30,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-6. Website is live at `http://localhost:3000`
+6. Website is lived at `http://localhost:3000`. Firebase UI emulator is lived `http://localhost:4000`
 
 ## Contribution
 
