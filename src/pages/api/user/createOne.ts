@@ -38,6 +38,8 @@ const post: WithApiHandler<Data> = async (req, res) => {
       displayName: body.displayName,
       uid: user.uid,
       createdDate: new Date(user.metadata.creationTime),
+      bio: 'Hello',
+      rating: 0,
     });
     return res.status(201).json(ResultSuccess(user));
   } catch (error) {
