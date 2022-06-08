@@ -9,6 +9,7 @@ import {
   UserProfileUpdateForm,
 } from '../../modules/user-profile';
 import { useAuthUserStore } from '../../stores';
+import { WithQueryData } from '../../ui/WithQueryData';
 import { useAuthRoute } from '../../utils/useAuthRoute';
 
 const UserMePage: NextPageWithLayout = () => {
@@ -17,19 +18,24 @@ const UserMePage: NextPageWithLayout = () => {
   const dbUserQuery = useDbUserQuery(authUser?.uid);
 
   return (
-    <Container className="mx-auto col-lg-4">
-      <Head>
-        <title>Profile</title>
-      </Head>
+    <WithQueryData query={dbUserQuery}>
+      {(dbUser) => (
+        <Container className="mx-auto col-lg-4">
+          <Head>
+            <title>Profile</title>
+          </Head>
 
-      <h1>Hello {dbUserQuery.data?.displayName}</h1>
-      <SignoutButton />
+          <div className="d-flex justify-content-end">
+            <SignoutButton />
+          </div>
 
-      <div className="mt-5 shadow p-5 rounded">
-        {authUser && <UserAvatar uid={authUser.uid} />}
-        <UserProfileUpdateForm />
-      </div>
-    </Container>
+          <div className="mt-5 shadow p-5 rounded">
+            <UserAvatar uid={dbUser.uid} />
+            <UserProfileUpdateForm />
+          </div>
+        </Container>
+      )}
+    </WithQueryData>
   );
 };
 

@@ -5,31 +5,28 @@ import { Container } from 'react-bootstrap';
 import { RootLayout } from '../../layouts';
 import { useDbUserQuery, UserAvatar } from '../../modules/user-profile';
 import { UserProfile } from '../../modules/user-profile';
+import { WithQueryData } from '../../ui/WithQueryData';
 
 const UserUserIdPage: NextPageWithLayout = () => {
   const { query } = useRouter();
   const userId = query.userId?.toString();
   const dbUserQuery = useDbUserQuery(userId);
 
-  if (dbUserQuery.error) {
-    return <h1>Fail to fetch user</h1>;
-  }
-
-  if (!dbUserQuery.data) {
-    return <h1>Fetching user...</h1>;
-  }
-
   return (
-    <Container className="mx-auto col-lg-4">
-      <Head>
-        <title>{dbUserQuery.data?.displayName}</title>
-      </Head>
+    <WithQueryData query={dbUserQuery}>
+      {(dbUser) => (
+        <Container className="mx-auto col-lg-4">
+          <Head>
+            <title>{dbUser.displayName}</title>
+          </Head>
 
-      <div className="mt-5 shadow p-5 rounded">
-        <UserAvatar uid={dbUserQuery.data.uid} />
-        <UserProfile user={dbUserQuery.data} />
-      </div>
-    </Container>
+          <div className="mt-5 shadow p-5 rounded">
+            <UserAvatar uid={dbUser.uid} />
+            <UserProfile user={dbUser} />
+          </div>
+        </Container>
+      )}
+    </WithQueryData>
   );
 };
 
