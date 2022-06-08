@@ -5,7 +5,7 @@ const MAX_FILE_SIZE_MB = 5;
 const MAX_FILE_SIZE_BYTEs = MAX_FILE_SIZE_MB * 1024 * 1024;
 
 export const userProfileSchema = z.object({
-  displayName: z.string(),
+  displayName: z.string().min(1, { message: 'Display name cannot be empty' }),
   avatar: z
     .any()
     // Always has 1 file due to fatal superRefine
@@ -27,5 +27,6 @@ export const userProfileSchema = z.object({
 
       return file;
     }),
+  bio: z.string(),
 });
 export type UserProfileFormValues = z.infer<typeof userProfileSchema>;

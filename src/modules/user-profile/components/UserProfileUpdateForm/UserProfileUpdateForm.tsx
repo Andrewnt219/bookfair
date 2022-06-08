@@ -42,6 +42,25 @@ export const UserProfileUpdateForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
+        <Form.Group controlId="profile-bio">
+          <Form.Label>Bio</Form.Label>
+          <Controller
+            control={form.control}
+            name="bio"
+            render={({ field }) => (
+              <Form.Control
+                isInvalid={Boolean(errors.bio)}
+                type="text"
+                as="textarea"
+                {...field}
+              />
+            )}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.bio?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+
         <Form.Group controlId="profile-avatar">
           <Form.Label>Upload avatar</Form.Label>
           <Controller

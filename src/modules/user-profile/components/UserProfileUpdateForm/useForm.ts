@@ -10,6 +10,7 @@ export const useForm = () => {
     resolver: zodResolver(userProfileSchema),
     defaultValues: {
       displayName: '',
+      bio: '',
     },
   });
 
@@ -19,6 +20,7 @@ export const useForm = () => {
     function updateDisplayNameField() {
       if (dbUserQuery.data) {
         form.setValue('displayName', dbUserQuery.data.displayName);
+        form.setValue('bio', dbUserQuery.data.bio);
       }
     },
     [dbUserQuery.data, form]

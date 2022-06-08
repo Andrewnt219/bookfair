@@ -40,6 +40,7 @@ export class UserProfileApi {
       data: {
         photoUrl: avatarPath,
         displayName: profile.displayName,
+        bio: profile.bio,
       },
       uid: currentUser.uid,
     };
