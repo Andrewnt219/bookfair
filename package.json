@@ -6,7 +6,7 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "lint": "next lint",
-    "format": "prettier --write --ignore-unknown --loglevel silent",
+    "format": "prettier --ignore-unknown --loglevel silent --write ",
     "firebase:export": "pnpm firebase emulators:export firebase/seeds -f",
     "dev:firebase": "pnpm firebase emulators:start --import=\"firebase/seeds\"",
     "dev:next": "next dev",

@@ -15,7 +15,7 @@ export const AppBar = () => {
     <header className="fixed-bottom bg-light">
       <Nav variant="pills" as="nav" activeKey={pathname} fill>
         <Nav.Item>
-          <Link href="/" passHref>
+          <Link href="/user/me" passHref>
             <Nav.Link>
               <Icon icon="bi:house-door-fill" />
             </Nav.Link>

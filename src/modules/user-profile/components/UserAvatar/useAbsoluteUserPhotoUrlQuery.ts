@@ -1,10 +1,11 @@
 import { useQuery } from 'react-query';
-import { useToastStore } from '../../../../stores';
+import { useAuthUserStore, useToastStore } from '../../../../stores';
 import { useDbUserQuery, UserProfileApi } from '../../api';
 
 export const useUserAbsolutePhotoUrlQuery = () => {
+  const { authUser } = useAuthUserStore();
   const toastStore = useToastStore();
-  const dbUserQuery = useDbUserQuery();
+  const dbUserQuery = useDbUserQuery(authUser?.uid);
   const storageUrl = dbUserQuery.data?.photoUrl;
 
   return useQuery({
