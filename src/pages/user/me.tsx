@@ -26,7 +26,7 @@ const UserMePage: NextPageWithLayout = () => {
       <SignoutButton />
 
       <div className="mt-5 shadow p-5 rounded">
-        <UserAvatar />
+        {authUser && <UserAvatar uid={authUser.uid} />}
         <UserProfileUpdateForm />
       </div>
     </Container>

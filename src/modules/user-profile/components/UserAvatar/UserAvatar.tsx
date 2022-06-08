@@ -2,8 +2,11 @@ import React from 'react';
 import { Image } from 'react-bootstrap';
 import { useUserAvatar } from './useUserAvatar';
 
-export const UserAvatar = () => {
-  const { userAbsolutePhotoUrlQuery } = useUserAvatar();
+export interface UserAvatarProps {
+  uid: string;
+}
+export const UserAvatar = ({ uid }: UserAvatarProps) => {
+  const { userAbsolutePhotoUrlQuery } = useUserAvatar(uid);
 
   return (
     <div className="text-center">

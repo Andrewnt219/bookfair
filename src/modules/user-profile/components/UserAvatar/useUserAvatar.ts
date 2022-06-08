@@ -1,7 +1,7 @@
 import { useUserAbsolutePhotoUrlQuery } from './useAbsoluteUserPhotoUrlQuery';
 
-export const useUserAvatar = () => {
-  const userAbsolutePhotoUrlQuery = useUserAbsolutePhotoUrlQuery();
+export const useUserAvatar = (uid: string) => {
+  const userAbsolutePhotoUrlQuery = useUserAbsolutePhotoUrlQuery(uid);
 
   return { userAbsolutePhotoUrlQuery };
 };

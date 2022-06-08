@@ -8,7 +8,7 @@ export const useDbUserQuery = (uid: string | undefined) => {
     // Only run when exist
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     queryFn: () => UserProfileApi.getUserById({ userId: uid! }),
-    queryKey: 'user-profile',
+    queryKey: ['user-profile', uid],
     enabled: Boolean(uid),
   });
 };

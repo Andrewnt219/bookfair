@@ -7,7 +7,8 @@ import { useDbUserQuery, UserAvatar } from '../../modules/user-profile';
 
 const UserUserIdPage: NextPageWithLayout = () => {
   const { query } = useRouter();
-  const dbUserQuery = useDbUserQuery(query.userId?.toString());
+  const userId = query.userId?.toString();
+  const dbUserQuery = useDbUserQuery(userId);
 
   if (dbUserQuery.error) {
     return <h1>Fail to fetch user</h1>;
@@ -26,7 +27,7 @@ const UserUserIdPage: NextPageWithLayout = () => {
       <h1>{dbUserQuery.data?.displayName}</h1>
 
       <div className="mt-5 shadow p-5 rounded">
-        <UserAvatar />
+        {userId && <UserAvatar uid={userId} />}
       </div>
     </Container>
   );
