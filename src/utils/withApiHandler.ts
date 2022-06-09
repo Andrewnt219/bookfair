@@ -5,7 +5,7 @@ import { TResult } from '@bookfair/common';
 import { handleApiError } from './handleErrors';
 
 type ApiHandler = NextApiHandler<TResult>;
-type HttpMethodHandlers = Partial<Record<HttpMethod, ApiHandler>>;
+type HttpMethodHandlers = Partial<Record<`${HttpMethod}Handler`, ApiHandler>>;
 
 export type WithApiHandler<Data> = NextApiHandler<TResult<Data>>;
 /**
@@ -18,7 +18,7 @@ export const withApiHandler = (handlers: HttpMethodHandlers): ApiHandler => {
     if (!isHttpMethod(method))
       return res.status(400).json(ResultError('Method is missing'));
 
-    const handler = handlers[method];
+    const handler = handlers[`${method}Handler`];
     if (!handler) {
       return res.status(405).json(ResultError('Method is not allowed'));
     }

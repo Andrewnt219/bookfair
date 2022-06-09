@@ -27,7 +27,7 @@ const validateBody: AssertType<User_CreateOne_Body> = (body) => {
   }
 };
 
-const post: WithApiHandler<Data> = async (req, res) => {
+const postHandler: WithApiHandler<Data> = async (req, res) => {
   try {
     const body = validateBody(req.body);
     const user = await AuthService.signupUser({
@@ -51,4 +51,4 @@ const post: WithApiHandler<Data> = async (req, res) => {
   }
 };
 
-export default withApiHandler({ post });
+export default withApiHandler({ postHandler });
