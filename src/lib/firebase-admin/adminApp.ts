@@ -4,5 +4,8 @@ import serviceAccount from './serviceAccount';
 const apps = getApps();
 export const adminApp =
   apps.length === 0
-    ? initializeApp({ credential: cert(serviceAccount) })
+    ? initializeApp({
+        credential: cert(serviceAccount),
+        storageBucket: 'bookfair-ba688.appspot.com',
+      })
     : apps[0];
