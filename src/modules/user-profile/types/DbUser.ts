@@ -7,6 +7,7 @@ export const dbUserSchema = z.object({
   createdDate: z.date(),
   rating: z.number(),
   bio: z.string(),
+  isActive: z.boolean(),
 });
 
 export type DbUser = z.infer<typeof dbUserSchema>;

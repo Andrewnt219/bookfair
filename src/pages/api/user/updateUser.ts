@@ -4,9 +4,7 @@ import { HttpException } from '../../../errors';
 import { AuthService } from '../../../modules/auth/service';
 import { dbUserSchema } from '../../../modules/user-profile';
 import {
-  getErrorMessage,
   HasMessage,
-  ResultError,
   ResultOk,
   withApiHandler,
   WithApiHandler,
@@ -29,15 +27,10 @@ const validateBody: AssertType<User_UpdateUser_Body> = (body: unknown) => {
   }
 };
 
-const post: WithApiHandler<Data> = async (req, res) => {
-  try {
-    const body = validateBody(req.body);
-    await AuthService.updateUser(body.uid, body.data);
-    return res.status(200).json(ResultOk());
-  } catch (error) {
-    console.error({ error });
-    return res.status(400).json(ResultError(getErrorMessage(error)));
-  }
+const postHandler: WithApiHandler<Data> = async (req, res) => {
+  const body = validateBody(req.body);
+  await AuthService.updateUser(body.uid, body.data);
+  return res.status(200).json(ResultOk());
 };
 
-export default withApiHandler({ post });
+export default withApiHandler({ postHandler });

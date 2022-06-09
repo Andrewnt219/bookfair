@@ -5,7 +5,6 @@ import { AuthService } from '../../../modules/auth/service';
 import { DbUser } from '../../../modules/user-profile';
 import {
   getErrorMessage,
-  handleApiError,
   ResultSuccess,
   withApiHandler,
   WithApiHandler,
@@ -28,14 +27,10 @@ const validateQuery: AssertType<User_GetOne_Query> = (query: unknown) => {
 };
 
 const getHandler: WithApiHandler<Data> = async (req, res) => {
-  try {
-    const query = validateQuery(req.query);
-    const user = await AuthService.getUser(query.userId);
-    if (!user) throw new HttpException(404, 'User not found');
-    return res.status(200).json(ResultSuccess(user));
-  } catch (error) {
-    return handleApiError(res, error);
-  }
+  const query = validateQuery(req.query);
+  const user = await AuthService.getUser(query.userId);
+  if (!user) throw new HttpException(404, 'User not found');
+  return res.status(200).json(ResultSuccess(user));
 };
 
 export default withApiHandler({ getHandler });
