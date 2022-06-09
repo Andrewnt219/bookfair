@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { Container } from 'react-bootstrap';
 import { RootLayout } from '../../layouts';
 import {
+  DeleteUserButton,
   SignoutButton,
   useDbUserQuery,
   UserAvatar,
@@ -31,7 +32,14 @@ const UserMePage: NextPageWithLayout = () => {
 
           <div className="mt-5 shadow p-5 rounded">
             <UserAvatar uid={dbUser.uid} />
-            <UserProfileUpdateForm />
+            <p className="h3 text-center mt-2">{dbUser.displayName}</p>
+            <div className="mt-3">
+              <UserProfileUpdateForm />
+            </div>
+          </div>
+
+          <div className="text-center mt-3">
+            <DeleteUserButton />
           </div>
         </Container>
       )}
