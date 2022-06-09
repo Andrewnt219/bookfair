@@ -1,6 +1,5 @@
-import { adminAuth, db } from '../../../lib/firebase-admin';
+import { adminAuth, adminStorage, db } from '../../../lib/firebase-admin';
 import { DbUser } from '../../user-profile';
-
 export class AuthService {
   static addUser(data: DbUser) {
     return db.users.doc(data.uid).set(data);
@@ -20,14 +19,19 @@ export class AuthService {
   }
 
   static async deleteUser(userId: string) {
-    await adminAuth.deleteUser(userId);
-    await db.users.doc(userId).update({
-      bio: '',
-      displayName: '',
-      photoUrl: '',
-      rating: 0,
-      uid: '',
-      isActive: false,
-    });
+    return Promise.all([
+      adminAuth.deleteUser(userId),
+      adminStorage.bucket().deleteFiles({
+        prefix: `${userId}/`,
+      }),
+      db.users.doc(userId).update({
+        bio: '',
+        displayName: '',
+        photoUrl: '',
+        rating: 0,
+        uid: '',
+        isActive: false,
+      }),
+    ]);
   }
 }
