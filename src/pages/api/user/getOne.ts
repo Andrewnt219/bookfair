@@ -27,7 +27,7 @@ const validateQuery: AssertType<User_GetOne_Query> = (query: unknown) => {
   }
 };
 
-const get: WithApiHandler<Data> = async (req, res) => {
+const getHandler: WithApiHandler<Data> = async (req, res) => {
   try {
     const query = validateQuery(req.query);
     const user = await AuthService.getUser(query.userId);
@@ -38,4 +38,4 @@ const get: WithApiHandler<Data> = async (req, res) => {
   }
 };
 
-export default withApiHandler({ get });
+export default withApiHandler({ getHandler });
