@@ -6,3 +6,4 @@ export * from './useDataUrlFileReader';
 export * from './usePasswordInputToggle';
 export * from './useToggle';
 export * from './handleErrors';
+export * from './useDialog';

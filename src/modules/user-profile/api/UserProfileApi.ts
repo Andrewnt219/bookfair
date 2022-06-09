@@ -60,6 +60,10 @@ export class UserProfileApi {
     return data.data;
   }
 
+  static async deleteCurrentUser() {
+    return axios.delete<User_GetOne_Return>('/user/deleteOne');
+  }
+
   static #getDefinedCurrentUser(): User {
     const { currentUser } = firebaseAuth;
     if (!currentUser)

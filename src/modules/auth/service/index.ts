@@ -18,4 +18,16 @@ export class AuthService {
   static signupUser(data: { email: string; password: string }) {
     return adminAuth.createUser({ ...data, emailVerified: true });
   }
+
+  static async deleteUser(userId: string) {
+    await adminAuth.deleteUser(userId);
+    await db.users.doc(userId).update({
+      bio: '',
+      displayName: '',
+      photoUrl: '',
+      rating: 0,
+      uid: '',
+      isActive: false,
+    });
+  }
 }
