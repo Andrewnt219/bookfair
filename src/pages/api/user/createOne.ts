@@ -1,16 +1,10 @@
-import { FirebaseError } from '@firebase/util';
 import { UserRecord } from 'firebase-admin/auth';
 import {
   SignupSchema,
   getSignupErrorMessage,
   signupSchema,
 } from '../../../modules/auth';
-import {
-  withApiHandler,
-  ResultSuccess,
-  WithApiHandler,
-  handleApiError,
-} from '../../../utils';
+import { withApiHandler, ResultSuccess, WithApiHandler } from '../../../utils';
 import { AssertType, TResultSuccess } from '@bookfair/common';
 import { AuthService } from '../../../modules/auth/service';
 import { HttpException } from '../../../errors';
@@ -28,27 +22,22 @@ const validateBody: AssertType<User_CreateOne_Body> = (body) => {
 };
 
 const postHandler: WithApiHandler<Data> = async (req, res) => {
-  try {
-    const body = validateBody(req.body);
-    const user = await AuthService.signupUser({
-      email: body.email,
-      password: body.password,
-    });
-    await AuthService.addUser({
-      displayName: body.displayName,
-      uid: user.uid,
-      createdDate: new Date(user.metadata.creationTime),
-      bio: 'Hello',
-      rating: 0,
-    });
-    return res.status(201).json(ResultSuccess(user));
-  } catch (error) {
-    if (error instanceof FirebaseError) {
-      return handleApiError(res, getSignupErrorMessage(error));
-    }
-
-    return handleApiError(res, error);
-  }
+  const body = validateBody(req.body);
+  const user = await AuthService.signupUser({
+    email: body.email,
+    password: body.password,
+  });
+  await AuthService.addUser({
+    displayName: body.displayName,
+    uid: user.uid,
+    createdDate: new Date(user.metadata.creationTime),
+    bio: 'Hello',
+    rating: 0,
+    isActive: true,
+  }).catch((error) => {
+    throw new HttpException(422, getSignupErrorMessage(error));
+  });
+  return res.status(201).json(ResultSuccess(user));
 };
 
 export default withApiHandler({ postHandler });
