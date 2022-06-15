@@ -1,7 +1,9 @@
 import { TResult } from '@bookfair/common';
 import { UserRecord } from 'firebase-admin/auth';
 import {
+  browserLocalPersistence,
   sendPasswordResetEmail,
+  setPersistence,
   signInWithEmailAndPassword,
   signOut,
   User,
@@ -20,6 +22,7 @@ export class AuthApi {
   }
 
   static async signin(body: SigninSchema): Promise<User> {
+    await setPersistence(firebaseAuth, browserLocalPersistence);
     const credentials = await signInWithEmailAndPassword(
       firebaseAuth,
       body.email,
