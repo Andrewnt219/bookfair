@@ -1,5 +1,6 @@
 import { TResultSuccess } from '@bookfair/common';
 import z from 'zod';
+import { authMiddleware } from '../../../middlewares';
 import { ListingService } from '../../../modules/listing/ListingService';
 import { updateListingSchema } from '../../../modules/listing/types/update-listing-schema';
 import {
@@ -19,7 +20,8 @@ const bodySchema = updateListingSchema.omit({ photos: true });
 const validateBody = createAssertSchema<Listing_UpdateOne_Body>(bodySchema);
 
 const patchHandler: WithApiHandler<Data> = async (req, res) => {
-  const { userId, ...body } = validateBody(req.body);
+  const userId = await authMiddleware(req);
+  const body = validateBody(req.body);
   await ListingService.updateOne(userId, body);
   return res.status(201).json(ResultSuccess({ message: 'Created' }));
 };

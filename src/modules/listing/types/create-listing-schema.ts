@@ -21,7 +21,6 @@ const validateFiles = (files: FileList): string[] => {
 };
 
 export const createListingSchema = z.object({
-  userId: z.string().min(1, { message: 'userId is required' }),
   title: z.string().min(1, { message: 'Title is required' }),
   price: z.number().positive({ message: 'Number cannot be lower than 0' }),
   description: z
