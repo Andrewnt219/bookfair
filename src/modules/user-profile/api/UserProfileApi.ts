@@ -45,7 +45,7 @@ export class UserProfileApi {
       uid: currentUser.uid,
     };
 
-    await axios.post<User_UpdateUser_Return>('/user/updateUser', body);
+    await axios.patch<User_UpdateUser_Return>('/user/updateUser', body);
   }
 
   static getUserAbsolutePhotoUrl(storageUrl: string) {
