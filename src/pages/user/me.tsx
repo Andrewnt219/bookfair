@@ -31,7 +31,7 @@ const UserMePage: NextPageWithLayout = () => {
     <ul className="list-unstyled row">
       {routes.map(({ text, iconName, ...route }) => (
         <li key={route.href.toString()} className="col-6 mt-3">
-          <NextLink href="/user/profile">
+          <NextLink {...route}>
             <a
               className="d-flex flex-column fw-normal align-items-center justify-content-center gap-2 shadow-sm rounded"
               style={{ aspectRatio: '1/1' }}

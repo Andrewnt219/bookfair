@@ -24,7 +24,10 @@ export const UserProfileLayout = (props: UserProfileLayoutProps) => {
     <RootLayout>
       <WithQueryData query={dbUserQuery}>
         {(dbUser) => (
-          <Container className="mx-auto col-lg-4">
+          <Container
+            className="mx-auto col-lg-4"
+            style={{ isolation: 'isolate' }}
+          >
             <div className="position-relative pt-5">
               <div
                 aria-hidden="true"
