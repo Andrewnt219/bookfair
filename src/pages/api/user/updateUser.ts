@@ -27,10 +27,10 @@ const validateBody: AssertType<User_UpdateUser_Body> = (body: unknown) => {
   }
 };
 
-const postHandler: WithApiHandler<Data> = async (req, res) => {
+const patchHandler: WithApiHandler<Data> = async (req, res) => {
   const body = validateBody(req.body);
   await AuthService.updateUser(body.uid, body.data);
   return res.status(200).json(ResultOk());
 };
 
-export default withApiHandler({ postHandler });
+export default withApiHandler({ patchHandler });
