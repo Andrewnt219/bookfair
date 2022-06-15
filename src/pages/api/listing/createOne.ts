@@ -1,6 +1,7 @@
 import { TResultSuccess } from '@bookfair/common';
 import { nanoid } from 'nanoid';
 import z from 'zod';
+import { authMiddleware } from '../../../middlewares';
 import { ListingService } from '../../../modules/listing/ListingService';
 import { createListingSchema } from '../../../modules/listing/types/create-listing-schema';
 import {
@@ -20,9 +21,11 @@ const bodySchema = createListingSchema.omit({ photos: true });
 const validateBody = createAssertSchema<Listing_CreateOne_Body>(bodySchema);
 
 const postHandler: WithApiHandler<Data> = async (req, res) => {
+  const userId = await authMiddleware(req);
   const body = validateBody(req.body);
   await ListingService.createOne({
     ...body,
+    userId,
     id: nanoid(),
     createdAt: new Date().toISOString(),
     isSold: false,
