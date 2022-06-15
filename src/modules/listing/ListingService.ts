@@ -12,4 +12,14 @@ export class ListingService {
   ): Promise<void> {
     await db.listings.doc(listingId).update(data);
   }
+
+  static async getOne(listingId: string): Promise<DbListing | undefined> {
+    const docRef = await db.listings.doc(listingId).get();
+    return docRef.data();
+  }
+
+  static async getAllByUserId(userId: string): Promise<DbListing[]> {
+    const queryRef = await db.listings.where('userId', '==', userId).get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
 }
