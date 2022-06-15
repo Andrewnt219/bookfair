@@ -5,7 +5,6 @@ import { AuthApi } from '../../api';
 
 export const useSubmitMutation = () => {
   const toastStore = useToastStore();
-  const authUserStore = useAuthUserStore();
   const router = useRouter();
 
   return useMutation({
@@ -14,7 +13,6 @@ export const useSubmitMutation = () => {
       toastStore.error(error);
     },
     onSuccess: (user) => {
-      authUserStore.setAuthUser(user);
       toastStore.success('Login successfully');
       router.push('/');
     },

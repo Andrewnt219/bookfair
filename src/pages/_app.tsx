@@ -17,9 +17,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const { setAuthUser, unsetAuthUser } = useAuthUserStore();
 
   useEffect(() => {
-    console.log({ user: firebaseAuth.currentUser });
-    if (firebaseAuth.currentUser) setAuthUser(firebaseAuth.currentUser);
-    else unsetAuthUser();
+    firebaseAuth.onAuthStateChanged((user) => {
+      if (user) setAuthUser(user);
+      else unsetAuthUser();
+    });
   }, [setAuthUser, unsetAuthUser]);
 
   return (
