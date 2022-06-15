@@ -33,8 +33,10 @@ export const UserProfileLayout = (props: UserProfileLayoutProps) => {
 
               <div style={{ zIndex: 10, position: 'relative' }}>
                 <UserAvatar uid={dbUser.uid} />
-                <p className="h3 text-center mt-2">{dbUser.displayName}</p>
-                <div className="text-primary h6 d-flex gap-1 align-items-center justify-content-center">
+                <p className="h1 fw-bold text-center mt-2">
+                  {dbUser.displayName}
+                </p>
+                <div className="text-primary h4 fw-normal d-flex gap-1 align-items-center justify-content-center">
                   <Icon icon="bi:star-fill" />
                   <span>{dbUser.rating.toFixed(1)}</span>
                 </div>

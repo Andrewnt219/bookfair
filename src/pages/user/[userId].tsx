@@ -12,6 +12,10 @@ const UserUserIdPage: NextPageWithLayout = () => {
   const userId = query.userId?.toString();
   const dbUserQuery = useDbUserQuery(userId);
 
+  if (dbUserQuery.data?.isActive === false) {
+    return <h1>Deactivated</h1>;
+  }
+
   return (
     <WithQueryData query={dbUserQuery}>
       {(dbUser) => (
