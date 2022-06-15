@@ -8,7 +8,7 @@ export const SignoutButton = () => {
   const onButtonClick = () => signoutMutation.mutate(undefined);
 
   return (
-    <Button onClick={onButtonClick} variant="danger">
+    <Button onClick={onButtonClick} variant="danger" size="sm">
       Sign out
     </Button>
   );
