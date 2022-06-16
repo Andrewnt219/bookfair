@@ -73,7 +73,7 @@ export class UserProfileApi {
 
   //#region Helpers
   static #getStoragePathToAvatar(userId: string) {
-    return UserProfileApi.#getStorageRef(`${userId}/images/avatar`);
+    return UserProfileApi.#getStorageRef(`/images/${userId}/avatar`);
   }
 
   static #getStorageRef = (path: string) => ref(firebaseStorage, path);
