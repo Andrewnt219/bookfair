@@ -1,4 +1,5 @@
 declare module '@bookfair/common' {
+  import { z } from 'zod';
   export type TResultError = {
     type: 'error';
     error: HasMessage | Error;
@@ -14,4 +15,9 @@ declare module '@bookfair/common' {
   export type TResult<Data = unknown> = TResultSuccess<Data> | TResultError;
 
   export type AssertType<T> = (type: unknown) => T;
+
+  export interface Api<Out, In extends z.ZodSchema> {
+    input: z.infer<In>;
+    return: TResultSuccess<Out>;
+  }
 }
