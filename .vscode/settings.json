@@ -1,4 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "editor.foldingImportsByDefault": false
+  "editor.foldingImportsByDefault": false,
+  "cSpell.words": ["bookfair", "iconify"]
 }

@@ -76,6 +76,7 @@ export const CreateListingForm = () => {
           <Controller
             control={form.control}
             name="photos"
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             render={({ field: { value, onChange, ...field } }) => (
               <Form.Control
                 type="file"

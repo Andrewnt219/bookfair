@@ -23,6 +23,8 @@ export const useListingPhotoSources = ({
 
   return useTypedQuery<typeof getPhotoSources>({
     ...config,
+    // Only run when listingId exists
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     queryKey: ['listing-photos', listingId!],
     queryFn: () => getPhotoSources(paths),
     enabled: Boolean(listingId),

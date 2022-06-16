@@ -15,6 +15,7 @@ const queryConfig: DefaultOptions = {
   },
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FnType = (...args: any) => any;
 
 export const queryClient = new QueryClient({ defaultOptions: queryConfig });

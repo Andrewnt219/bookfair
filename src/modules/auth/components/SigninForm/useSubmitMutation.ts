@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
-import { useAuthUserStore, useToastStore } from '../../../../stores';
+import { useToastStore } from '../../../../stores';
 import { AuthApi } from '../../api';
 
 export const useSubmitMutation = () => {
@@ -12,7 +12,7 @@ export const useSubmitMutation = () => {
     onError: (error) => {
       toastStore.error(error);
     },
-    onSuccess: (user) => {
+    onSuccess: () => {
       toastStore.success('Login successfully');
       router.push('/');
     },

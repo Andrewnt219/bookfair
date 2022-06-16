@@ -1,7 +1,6 @@
 import { TResultSuccess } from '@bookfair/common';
 import { z } from 'zod';
 import { HttpException } from '../../../errors';
-import { authMiddleware } from '../../../middlewares';
 import { DbListing } from '../../../modules/listing';
 import { ListingService } from '../../../modules/listing/ListingService';
 import {

@@ -1,7 +1,7 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import { UserProfileLayout } from '../../layouts';
 import NextLink, { LinkProps } from 'next/link';
-import { Icon, IconProps } from '@iconify/react';
+import { Icon } from '@iconify/react';
 
 interface Route extends LinkProps {
   text: string;
