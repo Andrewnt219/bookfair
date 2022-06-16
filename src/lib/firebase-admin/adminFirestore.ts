@@ -1,5 +1,5 @@
 import { FirestoreDataConverter, getFirestore } from 'firebase-admin/firestore';
-import { DbListing } from '../../modules/listing';
+import { DbListing, DbListingPhoto } from '../../modules/listing';
 import { DbUser } from '../../modules/user-profile';
 import { adminApp } from './adminApp';
 
@@ -17,4 +17,7 @@ export const db = {
   listings: adminFirestore
     .collection('listings')
     .withConverter(createConverter<DbListing>()),
+  listingPhotos: adminFirestore
+    .collection('listingPhots')
+    .withConverter(createConverter<DbListingPhoto>()),
 };
