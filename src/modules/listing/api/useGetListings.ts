@@ -22,6 +22,8 @@ export const useGetListings = ({ userId, config }: UseListingsConfig) => {
     ...config,
     queryKey: ['listings', userId],
     enabled: Boolean(userId),
+    // Only run when userId exists
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     queryFn: () => getListingsByUserId({ userId: userId! }),
   });
 };

@@ -1,6 +1,6 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import { RootLayout } from '../../layouts';
-import { CreateListingForm, ListingList } from '../../modules/listing';
+import { ListingList } from '../../modules/listing';
 import { useGetListings } from '../../modules/listing/api';
 import { useAuthUserStore } from '../../stores';
 import { WithQueryData } from '../../ui/WithQueryData';

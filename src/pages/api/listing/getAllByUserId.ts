@@ -1,6 +1,5 @@
-import { Api, TResultSuccess } from '@bookfair/common';
+import { Api } from '@bookfair/common';
 import { z } from 'zod';
-import { authMiddleware } from '../../../middlewares';
 import { DbListing } from '../../../modules/listing';
 import { ListingService } from '../../../modules/listing/ListingService';
 import {
