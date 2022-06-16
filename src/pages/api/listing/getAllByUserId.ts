@@ -1,4 +1,4 @@
-import { TResultSuccess } from '@bookfair/common';
+import { Api, TResultSuccess } from '@bookfair/common';
 import { z } from 'zod';
 import { authMiddleware } from '../../../middlewares';
 import { DbListing } from '../../../modules/listing';
@@ -11,15 +11,14 @@ import {
 } from '../../../utils';
 
 type Data = DbListing[];
-export type Listing_GetAllByUser_Return = TResultSuccess<Data>;
-export type Listing_GetAllByUser_Query = z.infer<typeof querySchema>;
+export type Listing_GetAllByUserId = Api<Data, typeof querySchema>;
 
 const querySchema = z.object({
   userId: z.string().min(1, { message: 'userId is required' }),
 });
 
 const validateQuery =
-  createAssertSchema<Listing_GetAllByUser_Query>(querySchema);
+  createAssertSchema<Listing_GetAllByUserId['input']>(querySchema);
 
 const getHandler: WithApiHandler<Data> = async (req, res) => {
   const query = validateQuery(req.query);
