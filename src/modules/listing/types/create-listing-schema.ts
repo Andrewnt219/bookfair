@@ -22,7 +22,11 @@ const validateFiles = (files: FileList): string[] => {
 
 export const createListingSchema = z.object({
   title: z.string().min(1, { message: 'Title is required' }),
-  price: z.number().positive({ message: 'Number cannot be lower than 0' }),
+  price: z
+    .union([z.string(), z.number()])
+    .transform((value) => +value)
+    .refine((value) => !isNaN(value), { message: 'Unexpected number' })
+    .refine((value) => value >= 0, { message: 'Price cannot be lower than 0' }),
   description: z
     .string()
     .min(20, { message: 'Description is at least 20 characters' }),
