@@ -1,38 +1,54 @@
-import { TResultSuccess } from '@bookfair/common';
+import { Api } from '@bookfair/common';
 import { nanoid } from 'nanoid';
 import z from 'zod';
 import { authMiddleware } from '../../../middlewares';
+import { DbListing, DbListingPhoto } from '../../../modules/listing';
 import { ListingService } from '../../../modules/listing/ListingService';
 import { createListingSchema } from '../../../modules/listing/types/create-listing-schema';
 import {
   createAssertSchema,
-  HasMessage,
   ResultSuccess,
   withApiHandler,
   WithApiHandler,
 } from '../../../utils';
 
-type Data = HasMessage;
-export type Listing_CreateOne_Return = TResultSuccess<Data>;
+type Data = DbListing;
 
-export type Listing_CreateOne_Body = z.infer<typeof bodySchema>;
+export type Listing_CreateOne = Api<Data, typeof bodySchema>;
 
-const bodySchema = createListingSchema.omit({ photos: true });
-const validateBody = createAssertSchema<Listing_CreateOne_Body>(bodySchema);
+const bodySchema = createListingSchema
+  .omit({ photos: true })
+  .merge(z.object({ photoPaths: z.string().array() }));
+const validateBody = createAssertSchema<Listing_CreateOne['input']>(bodySchema);
 
 const postHandler: WithApiHandler<Data> = async (req, res) => {
   const userId = await authMiddleware(req);
-  const body = validateBody(req.body);
-  await ListingService.createOne({
+  const { photoPaths, ...body } = validateBody(req.body);
+
+  const listingId = nanoid();
+  const timestamp = new Date().toISOString();
+  const photos: DbListingPhoto[] = photoPaths.map((path) => {
+    return {
+      createdAt: timestamp,
+      id: nanoid(),
+      listingId,
+      mediaUrl: path,
+      updatedAt: timestamp,
+    };
+  });
+  const newListing: DbListing = {
     ...body,
     userId,
-    id: nanoid(),
-    createdAt: new Date().toISOString(),
+    id: listingId,
+    createdAt: timestamp,
     isSold: false,
-    updatedAt: new Date().toISOString(),
+    updatedAt: timestamp,
     viewCount: 0,
-  });
-  return res.status(201).json(ResultSuccess({ message: 'Created' }));
+    photos,
+  };
+
+  await ListingService.createOne(newListing);
+  return res.status(201).json(ResultSuccess(newListing));
 };
 
 export default withApiHandler({ postHandler });
