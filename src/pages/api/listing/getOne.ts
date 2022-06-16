@@ -22,7 +22,6 @@ const querySchema = z.object({
 const validateQuery = createAssertSchema<Listing_GetOne_Query>(querySchema);
 
 const getHandler: WithApiHandler<Data> = async (req, res) => {
-  await authMiddleware(req);
   const query = validateQuery(req.query);
   const dbListing = await ListingService.getOne(query.listingId);
   if (!dbListing) throw new HttpException(404, 'Listing not found');

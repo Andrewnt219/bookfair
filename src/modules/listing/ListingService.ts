@@ -1,5 +1,5 @@
 import { db } from '../../lib/firebase-admin';
-import { DbListing } from './types';
+import { DbListing, DbListingPhoto } from './types';
 
 export class ListingService {
   static async createOne(data: DbListing): Promise<void> {
@@ -20,6 +20,15 @@ export class ListingService {
 
   static async getAllByUserId(userId: string): Promise<DbListing[]> {
     const queryRef = await db.listings.where('userId', '==', userId).get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
+
+  static async getPhotosByListingId(
+    listingId: string
+  ): Promise<DbListingPhoto[]> {
+    const queryRef = await db.listingPhotos
+      .where('listingId', '==', listingId)
+      .get();
     return queryRef.docs.map((doc) => doc.data());
   }
 }
