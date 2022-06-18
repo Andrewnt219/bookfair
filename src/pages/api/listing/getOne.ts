@@ -1,4 +1,4 @@
-import { TResultSuccess } from '@bookfair/common';
+import { Api, TResultSuccess } from '@bookfair/common';
 import { z } from 'zod';
 import { HttpException } from '../../../errors';
 import { DbListing } from '../../../modules/listing';
@@ -11,14 +11,13 @@ import {
 } from '../../../utils';
 
 type Data = DbListing;
-export type Listing_GetOne_Return = TResultSuccess<Data>;
-export type Listing_GetOne_Query = z.infer<typeof querySchema>;
+export type Listing_GetOne = Api<Data, typeof querySchema>;
 
 const querySchema = z.object({
   listingId: z.string(),
 });
 
-const validateQuery = createAssertSchema<Listing_GetOne_Query>(querySchema);
+const validateQuery = createAssertSchema<Listing_GetOne['input']>(querySchema);
 
 const getHandler: WithApiHandler<Data> = async (req, res) => {
   const query = validateQuery(req.query);

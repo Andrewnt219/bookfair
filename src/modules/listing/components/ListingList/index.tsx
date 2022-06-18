@@ -8,7 +8,7 @@ export interface ListingListProps {
 
 export const ListingList = ({ listings }: ListingListProps) => {
   return (
-    <ul className="list-unstyled row">
+    <ul className="list-unstyled row gap-3">
       {listings.map((listing) => (
         <li key={listing.id}>
           <ListingListItem listing={listing} />
