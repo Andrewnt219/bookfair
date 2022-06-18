@@ -1,12 +1,18 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import { RootLayout } from '../../layouts';
 import { CreateListingForm } from '../../modules/listing';
+import { BackButton } from '../../ui';
 import { useAuthRoute } from '../../utils/useAuthRoute';
 
 const ListingNewPage: NextPageWithLayout = () => {
   useAuthRoute();
 
-  return <CreateListingForm />;
+  return (
+    <section>
+      <BackButton />
+      <CreateListingForm />
+    </section>
+  );
 };
 
 ListingNewPage.getLayout = (page) => {
