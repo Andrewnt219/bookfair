@@ -1,5 +1,6 @@
 import { FirestoreDataConverter, getFirestore } from 'firebase-admin/firestore';
-import { DbListing, DbListingPhoto } from '../../modules/listing';
+import { DbListing } from '../../modules/listing';
+import { DbPayment } from '../../modules/payments';
 import { DbUser } from '../../modules/user-profile';
 import { adminApp } from './adminApp';
 
@@ -17,4 +18,7 @@ export const db = {
   listings: adminFirestore
     .collection('listings')
     .withConverter(createConverter<DbListing>()),
+  payments: adminFirestore
+    .collection('payments')
+    .withConverter(createConverter<DbPayment>()),
 };

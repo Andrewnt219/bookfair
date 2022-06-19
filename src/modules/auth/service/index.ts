@@ -1,3 +1,4 @@
+import { Except } from 'type-fest';
 import { adminAuth, adminStorage, db } from '../../../lib/firebase-admin';
 import { DbUser } from '../../user-profile';
 export class AuthService {
@@ -5,7 +6,7 @@ export class AuthService {
     return db.users.doc(data.uid).set(data);
   }
 
-  static updateUser(userId: string, data: Partial<DbUser>) {
+  static updateUser(userId: string, data: Except<Partial<DbUser>, 'uid'>) {
     return db.users.doc(userId).update(data);
   }
 
