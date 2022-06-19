@@ -1,4 +1,5 @@
 import { NextPageWithLayout } from '@bookfair/next';
+import { Container } from 'react-bootstrap';
 import { RootLayout } from '../../layouts';
 import { CreateListingForm } from '../../modules/listing';
 import { BackButton } from '../../ui';
@@ -8,10 +9,13 @@ const ListingNewPage: NextPageWithLayout = () => {
   useAuthRoute();
 
   return (
-    <section>
+    <Container fluid className="col-lg-4">
       <BackButton />
-      <CreateListingForm />
-    </section>
+      <div className="shadow rounded p-4 mt-3">
+        <h1>New listing</h1>
+        <CreateListingForm />
+      </div>
+    </Container>
   );
 };
 
