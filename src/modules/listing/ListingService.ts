@@ -1,5 +1,5 @@
 import { db } from '../../lib/firebase-admin';
-import { DbListing, DbListingPhoto } from './types';
+import { DbListing } from './types';
 import { Except } from 'type-fest';
 
 export class ListingService {

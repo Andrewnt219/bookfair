@@ -8,6 +8,7 @@ export const dbUserSchema = z.object({
   rating: z.number(),
   bio: z.string(),
   isActive: z.boolean(),
+  listingLimit: z.number(),
 });
 
 export type DbUser = z.infer<typeof dbUserSchema>;
