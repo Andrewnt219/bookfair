@@ -36,13 +36,13 @@ export const ListingListItem = ({ listing }: ListingListItemProps) => {
             <dd> {listing.price}</dd>
           </dl>
 
-          <Stack direction="horizontal" gap={1}>
+          <div className="d-flex gap-1 justify-content-end">
+            <Button variant="danger">Delete</Button>
+
             <NextLink href={`/listing/${listing.id}/edit`}>
               <a className="btn btn-primary">Edit</a>
             </NextLink>
-
-            <Button variant="danger">Delete</Button>
-          </Stack>
+          </div>
         </Card.Text>
       </Card.Body>
     </Card>

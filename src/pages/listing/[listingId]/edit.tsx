@@ -2,8 +2,7 @@ import { NextPageWithLayout } from '@bookfair/next';
 import { useRouter } from 'next/router';
 import { z } from 'zod';
 import { RootLayout } from '../../../layouts';
-import { EditListingForm } from '../../../modules/listing';
-import { BackButton } from '../../../ui';
+import { ListingEditPage } from '../../../modules/listing';
 import { useAuthRoute } from '../../../utils/useAuthRoute';
 
 const querySchema = z.object({
@@ -14,16 +13,12 @@ const ListingNewPage: NextPageWithLayout = () => {
   useAuthRoute();
   const router = useRouter();
   const query = querySchema.safeParse(router.query);
+
   if (!query.success) {
     return <h1>Invalid listing</h1>;
   }
 
-  return (
-    <section>
-      <BackButton />
-      <EditListingForm listingId={query.data.listingId} />
-    </section>
-  );
+  return <ListingEditPage listingId={query.data.listingId} />;
 };
 
 ListingNewPage.getLayout = (page) => {
