@@ -1,5 +1,6 @@
 import { db } from '../../lib/firebase-admin';
 import { DbListing, DbListingPhoto } from './types';
+import { Except } from 'type-fest';
 
 export class ListingService {
   static async createOne(data: DbListing): Promise<void> {
@@ -8,7 +9,7 @@ export class ListingService {
 
   static async updateOne(
     listingId: string,
-    data: Partial<DbListing>
+    data: Except<Partial<DbListing>, 'id'>
   ): Promise<void> {
     await db.listings.doc(listingId).update(data);
   }

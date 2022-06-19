@@ -1,5 +1,5 @@
-import { TResultSuccess } from '@bookfair/common';
-import z from 'zod';
+import { Api } from '@bookfair/common';
+import omit from 'lodash/omit';
 import { authMiddleware } from '../../../middlewares';
 import { ListingService } from '../../../modules/listing/ListingService';
 import { updateListingSchema } from '../../../modules/listing/types/update-listing-schema';
@@ -12,17 +12,15 @@ import {
 } from '../../../utils';
 
 type Data = HasMessage;
-export type Listing_UpdateOne_Return = TResultSuccess<Data>;
-
-export type Listing_UpdateOne_Body = z.infer<typeof bodySchema>;
+export type Listing_UpdateOne = Api<Data, typeof bodySchema>;
 
 const bodySchema = updateListingSchema.omit({ photos: true });
-const validateBody = createAssertSchema<Listing_UpdateOne_Body>(bodySchema);
+const validateBody = createAssertSchema<Listing_UpdateOne['input']>(bodySchema);
 
 const patchHandler: WithApiHandler<Data> = async (req, res) => {
-  const userId = await authMiddleware(req);
+  await authMiddleware(req);
   const body = validateBody(req.body);
-  await ListingService.updateOne(userId, body);
+  await ListingService.updateOne(body.listingId, omit(body, 'listingId'));
   return res.status(201).json(ResultSuccess({ message: 'Created' }));
 };
 
