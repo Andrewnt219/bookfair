@@ -17,7 +17,4 @@ export const db = {
   listings: adminFirestore
     .collection('listings')
     .withConverter(createConverter<DbListing>()),
-  listingPhotos: adminFirestore
-    .collection('listingPhots')
-    .withConverter(createConverter<DbListingPhoto>()),
 };
