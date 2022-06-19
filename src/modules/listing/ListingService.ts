@@ -24,12 +24,7 @@ export class ListingService {
     return queryRef.docs.map((doc) => doc.data());
   }
 
-  static async getPhotosByListingId(
-    listingId: string
-  ): Promise<DbListingPhoto[]> {
-    const queryRef = await db.listingPhotos
-      .where('listingId', '==', listingId)
-      .get();
-    return queryRef.docs.map((doc) => doc.data());
+  static async deleteOne(listingId: string) {
+    await db.listings.doc(listingId).delete();
   }
 }
