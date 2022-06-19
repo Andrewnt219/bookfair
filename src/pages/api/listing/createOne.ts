@@ -1,7 +1,9 @@
 import { Api } from '@bookfair/common';
 import { nanoid } from 'nanoid';
 import z from 'zod';
+import { HttpException } from '../../../errors';
 import { authMiddleware } from '../../../middlewares';
+import { AuthService } from '../../../modules/auth/service';
 import { DbListing, DbListingPhoto } from '../../../modules/listing';
 import { ListingService } from '../../../modules/listing/ListingService';
 import { createListingSchema } from '../../../modules/listing/types/create-listing-schema';
@@ -24,6 +26,13 @@ const validateBody = createAssertSchema<Listing_CreateOne['input']>(bodySchema);
 const postHandler: WithApiHandler<Data> = async (req, res) => {
   const userId = await authMiddleware(req);
   const { photoPaths, ...body } = validateBody(req.body);
+
+  const user = await AuthService.getUser(userId);
+  if (!user) throw new HttpException(401, 'Invalid user token');
+  const listings = await ListingService.getAllByUserId(userId);
+  if (listings.length === user.listingLimit) {
+    throw new HttpException(422, 'Max number of listings reached');
+  }
 
   const listingId = nanoid();
   const timestamp = new Date().toISOString();

@@ -8,6 +8,7 @@ import { withApiHandler, ResultSuccess, WithApiHandler } from '../../../utils';
 import { AssertType, TResultSuccess } from '@bookfair/common';
 import { AuthService } from '../../../modules/auth/service';
 import { HttpException } from '../../../errors';
+import { businessRules } from '../../../constants';
 
 type Data = UserRecord;
 export type User_CreateOne_Return = TResultSuccess<Data>;
@@ -34,6 +35,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     bio: 'Hello',
     rating: 0,
     isActive: true,
+    listingLimit: businessRules.DEFAULT_MAX_LISTINGS,
   }).catch((error) => {
     throw new HttpException(422, getSignupErrorMessage(error));
   });
