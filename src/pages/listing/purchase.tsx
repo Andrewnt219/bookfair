@@ -1,7 +1,7 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import { Container } from 'react-bootstrap';
 import { RootLayout } from '../../layouts';
-import { BackButton } from '../../ui';
+import { BackButton, PriceSummary } from '../../ui';
 import { useAuthRoute } from '../../utils/useAuthRoute';
 
 const ListingPurchasePage: NextPageWithLayout = () => {
@@ -10,7 +10,8 @@ const ListingPurchasePage: NextPageWithLayout = () => {
   return (
     <Container fluid className="col-lg-4">
       <BackButton />
-      <h1>Purchase</h1>
+      <h1>Purchase slot</h1>
+      <PriceSummary subtotal={10.3213213213} tax={0.13} />
     </Container>
   );
 };
