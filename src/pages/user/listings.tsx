@@ -6,6 +6,8 @@ import { useAuthUserStore } from '../../stores';
 import { WithQueryData } from '../../ui/WithQueryData';
 import { useAuthRoute } from '../../utils/useAuthRoute';
 import NextLink from 'next/link';
+import { Container } from 'react-bootstrap';
+import { Icon } from '@iconify/react';
 
 const UserListingsPage: NextPageWithLayout = () => {
   useAuthRoute();
@@ -13,15 +15,22 @@ const UserListingsPage: NextPageWithLayout = () => {
   const getListingsQuery = useGetListings({ userId: authUser?.uid });
 
   return (
-    <section>
-      <WithQueryData query={getListingsQuery}>
-        {(listings) => <ListingList listings={listings} />}
-      </WithQueryData>
+    <Container fluid as="section" className="col-lg-4">
+      <h1>My listings</h1>
 
       <NextLink href="/listing/new">
-        <a className="btn btn-primary">Create new listing</a>
+        <a className="btn btn-primary d-inline-flex gap-2 align-items-center mt-5">
+          Create new listing
+          <Icon icon="bi:plus-circle-fill" width={20} />
+        </a>
       </NextLink>
-    </section>
+
+      <div className="mt-4">
+        <WithQueryData query={getListingsQuery}>
+          {(listings) => <ListingList listings={listings} />}
+        </WithQueryData>
+      </div>
+    </Container>
   );
 };
 

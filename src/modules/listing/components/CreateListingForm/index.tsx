@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Stack } from 'react-bootstrap';
+import { Button, Form, Stack } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
 import { useCreateListingForm } from './useCreateListingForm';
 
@@ -95,7 +95,9 @@ export const CreateListingForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <button type="submit">Submit</button>
+        <div className="mt-3 d-flex justify-content-end">
+          <Button type="submit">Submit</Button>
+        </div>
       </Stack>
     </Form>
   );
