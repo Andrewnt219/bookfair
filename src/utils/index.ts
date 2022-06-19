@@ -8,3 +8,4 @@ export * from './useToggle';
 export * from './handleErrors';
 export * from './useDialog';
 export * from './create-assert-schema';
+export * from './currency';
