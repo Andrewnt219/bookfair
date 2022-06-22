@@ -5,6 +5,7 @@ export const formatCurrency = (amount: number) => {
     style: 'currency',
     currency: 'USD',
     currencySign: 'accounting',
+    currencyDisplay: 'symbol',
   }).format(amount);
 };
 

@@ -13,14 +13,12 @@ import {
 import admin from 'firebase-admin';
 import { PaymentService } from '../../../modules/payments/PaymentService';
 import { nanoid } from 'nanoid';
+import { purchaseSlotSchema } from '../../../modules/user-profile/types/purchase-slot-schema';
 type Data = HasMessage;
-export type User_PurchaseListing = Api<Data, typeof requestSchema>;
+export type User_PurchaseListing = Api<Data, typeof purchaseSlotSchema>;
 
-const requestSchema = z.object({
-  quantity: z.number().min(1, { message: 'quantity must be 1 or more' }),
-});
 const validateRequest =
-  createAssertSchema<User_PurchaseListing['input']>(requestSchema);
+  createAssertSchema<User_PurchaseListing['input']>(purchaseSlotSchema);
 
 const postHandler: WithApiHandler<Data> = async (req, res) => {
   const userId = await authMiddleware(req);
