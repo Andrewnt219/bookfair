@@ -3,7 +3,7 @@ import { calculateTotal, formatCurrency } from '../utils';
 
 export interface PriceSummaryProps {
   subtotal: number;
-  tax: number;
+  taxRate: number;
 }
 
 export const PriceSummary = (props: PriceSummaryProps) => {
@@ -13,10 +13,10 @@ export const PriceSummary = (props: PriceSummaryProps) => {
         <dt>Subtotal</dt>
         <dd>{formatCurrency(props.subtotal)}</dd>
         <dt>Tax</dt>
-        <dd>{formatCurrency(props.tax)}</dd>
+        <dd>{formatCurrency(props.subtotal * props.taxRate)}</dd>
         <dt className="h2">Total</dt>
         <dd className="h2">
-          {formatCurrency(calculateTotal(props.subtotal, props.tax))}
+          {formatCurrency(calculateTotal(props.subtotal, props.taxRate))}
         </dd>
       </dl>
 
