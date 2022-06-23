@@ -55,6 +55,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     viewCount: 0,
     photos,
     promote: null,
+    isActive: true,
   };
 
   await ListingService.createOne(newListing);

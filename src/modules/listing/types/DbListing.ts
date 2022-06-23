@@ -12,6 +12,7 @@ export const dbListingSchema = z
     promote: z.string().nullable(),
     viewCount: z.number().nonnegative(),
     photos: z.array(dbListingPhotoSchema),
+    isActive: z.boolean(),
   })
   .merge(dbWriteableItemSchema);
 
