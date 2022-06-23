@@ -12,7 +12,7 @@ const useRHF = () => {
   return useForm<PurchaseSlotSchema>({
     resolver: zodResolver(purchaseSlotSchema),
     defaultValues: {
-      quantity: 0,
+      quantity: 1,
     },
   });
 };
