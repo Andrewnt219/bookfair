@@ -21,7 +21,7 @@ export const useEditListingForm = ({ listing }: EditListingFormProps) => {
     resolver: zodResolver(updateListingSchema),
     defaultValues: {
       description: listing.description,
-      listingId: listing.id,
+      id: listing.id,
       photos: null,
       price: listing.price,
       title: listing.title,
