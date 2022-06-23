@@ -1,12 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { useQueryClient } from 'react-query';
 import { EditListingFormProps } from '.';
+import { firebaseAuth } from '../../../../lib/firebase';
 import { useToastStore } from '../../../../stores';
-import {
-  useListingPhotoSources,
-  useUpdateListing,
-  UseUpdateListingOptions,
-} from '../../api';
+import { useListingPhotoSources, useUpdateListing } from '../../api';
 import {
   UpdateListingSchema,
   updateListingSchema,
@@ -14,6 +13,8 @@ import {
 
 export const useEditListingForm = ({ listing }: EditListingFormProps) => {
   const toastStore = useToastStore();
+  const router = useRouter();
+  const qc = useQueryClient();
 
   const photosQuery = useListingPhotoSources({ photos: listing.photos });
 
@@ -28,16 +29,17 @@ export const useEditListingForm = ({ listing }: EditListingFormProps) => {
     },
   });
 
-  const config: UseUpdateListingOptions['config'] = {
-    onSuccess() {
-      toastStore.success('Listing is updated');
-    },
-    onError(error) {
-      toastStore.error(error);
-    },
-  };
   const updateListingMutation = useUpdateListing({
-    config,
+    config: {
+      onSuccess() {
+        toastStore.success('Listing is updated');
+        router.push('/user/listings');
+        qc.invalidateQueries(['listings', firebaseAuth.currentUser?.uid]);
+      },
+      onError(error) {
+        toastStore.error(error);
+      },
+    },
   });
 
   return { photosQuery, form, updateListingMutation };

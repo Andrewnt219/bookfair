@@ -25,6 +25,6 @@ export class ListingService {
   }
 
   static async deleteOne(listingId: string) {
-    await db.listings.doc(listingId).delete();
+    await db.listings.doc(listingId).update({ isActive: false });
   }
 }

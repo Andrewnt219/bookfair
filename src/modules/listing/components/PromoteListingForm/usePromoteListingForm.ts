@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
+import { firebaseAuth } from '../../../../lib/firebase';
 import { useToastStore } from '../../../../stores';
 import { usePromoteListing } from '../../api';
 import { promoteListingSchema, PromoteListingSchema } from '../../types';
@@ -29,7 +30,7 @@ export const usePromoteListingForm = ({
     config: {
       onSuccess() {
         toastStore.success('Listing is promoted');
-        qc.invalidateQueries(['listings'], listingId);
+        qc.invalidateQueries(['listings', firebaseAuth.currentUser?.uid]);
       },
       onError(error) {
         toastStore.error(error);
