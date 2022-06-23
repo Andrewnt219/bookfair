@@ -1,5 +1,10 @@
-import { DbItem } from './DbItem';
+import { z } from 'zod';
+import { dbItemSchema } from './DbItem';
 
-export interface DbReadnonlyItem extends DbItem {
-  createdAt: string;
-}
+export const dbReadonlyItemSchema = z
+  .object({
+    createdAt: z.string(),
+  })
+  .merge(dbItemSchema);
+
+export type DbReadonlyItem = z.infer<typeof dbReadonlyItemSchema>;

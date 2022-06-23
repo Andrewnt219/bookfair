@@ -3,7 +3,7 @@ import { createListingSchema } from './create-listing-schema';
 
 export const updateListingSchema = createListingSchema.partial().merge(
   z.object({
-    listingId: z.string().min(1, { message: 'listingId is required' }),
+    id: z.string().min(1, { message: 'listingId is required' }),
   })
 );
 

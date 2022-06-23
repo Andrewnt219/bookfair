@@ -1,12 +1,18 @@
-import { DbWriteableItem } from '../../../interfaces';
-import { DbListingPhoto } from './DbListingPhoto';
+import { z } from 'zod';
+import { dbWriteableItemSchema } from '../../../interfaces';
+import { dbListingPhotoSchema } from './DbListingPhoto';
 
-export interface DbListing extends DbWriteableItem {
-  userId: string;
-  title: string;
-  price: number;
-  description: string;
-  isSold: boolean;
-  viewCount: number;
-  photos: DbListingPhoto[];
-}
+export const dbListingSchema = z
+  .object({
+    userId: z.string(),
+    title: z.string(),
+    price: z.number().nonnegative(),
+    description: z.string(),
+    isSold: z.boolean(),
+    promote: z.string().nullable(),
+    viewCount: z.number().nonnegative(),
+    photos: z.array(dbListingPhotoSchema),
+  })
+  .merge(dbWriteableItemSchema);
+
+export type DbListing = z.infer<typeof dbListingSchema>;

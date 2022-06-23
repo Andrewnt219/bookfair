@@ -1,6 +1,11 @@
-import { DbWriteableItem } from '../../../interfaces';
+import { z } from 'zod';
+import { dbWriteableItemSchema } from '../../../interfaces';
 
-export interface DbListingPhoto extends DbWriteableItem {
-  listingId: string;
-  mediaUrl: string;
-}
+export const dbListingPhotoSchema = z
+  .object({
+    listingId: z.string(),
+    mediaUrl: z.string(),
+  })
+  .merge(dbWriteableItemSchema);
+
+export type DbListingPhoto = z.infer<typeof dbListingPhotoSchema>;
