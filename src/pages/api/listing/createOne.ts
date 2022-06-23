@@ -29,7 +29,9 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
 
   const user = await AuthService.getUser(userId);
   if (!user) throw new HttpException(401, 'Invalid user token');
-  const listings = await ListingService.getAllByUserId(userId);
+  const listings = (await ListingService.getAllByUserId(userId)).filter(
+    (listing) => listing.isActive
+  );
   if (listings.length === user.listingLimit) {
     throw new HttpException(422, 'Max number of listings reached');
   }
