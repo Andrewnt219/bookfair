@@ -5,6 +5,10 @@ import { DbListing } from '../../../types';
 import NextLink from 'next/link';
 import { Card } from 'react-bootstrap';
 import { DeleteListingButton } from '../../DeleteListingButton';
+import { PromoteListingButton } from '../../PromoteListingButton';
+import dayjs from 'dayjs';
+import { Icon } from '@iconify/react';
+import { formatCurrency } from '../../../../../utils';
 
 export interface ListingListItemProps {
   listing: DbListing;
@@ -29,16 +33,42 @@ export const ListingListItem = ({ listing }: ListingListItemProps) => {
         <Card.Body>
           <Card.Title>{listing.title}</Card.Title>
           <Card.Text>
-            <dl>
-              <dt>View count</dt>
-              <dd> {listing.viewCount}</dd>
-              <dt>Description</dt>
-              <dd> {listing.description}</dd>
-              <dt>Price</dt>
-              <dd> {listing.price}</dd>
+            <p> {listing.description}</p>
+            <dl
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'min-content max-content',
+                gap: '0.5rem 1rem',
+              }}
+            >
+              {listing.promote && (
+                <>
+                  <dt className="text-danger">
+                    <Icon
+                      icon="bi:chevron-double-up"
+                      aria-label="Promotion's end date"
+                    />
+                  </dt>
+                  <dd>
+                    {dayjs(listing.promote).format('MMMM DD, YYYY hh:mm:ss A')}
+                  </dd>
+                </>
+              )}
+              <dt>
+                <Icon icon="bi:cart-fill" aria-label="Listing's Price" />
+              </dt>
+              <dd>{formatCurrency(listing.price)}</dd>
+
+              <dt>
+                <Icon icon="bi:eye-fill" aria-label="Listing's view count" />
+              </dt>
+              <dd>{listing.viewCount}</dd>
             </dl>
 
             <div className="d-flex gap-1 justify-content-end">
+              {!listing.promote && (
+                <PromoteListingButton listingId={listing.id} />
+              )}
               <DeleteListingButton listingId={listing.id} />
               <NextLink href={`/listing/${listing.id}/edit`}>
                 <a className="btn btn-primary">Edit</a>
