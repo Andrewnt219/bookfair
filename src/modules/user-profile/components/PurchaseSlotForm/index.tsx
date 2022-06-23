@@ -45,7 +45,11 @@ export const PurchaseSlotForm = () => {
           />
         </div>
 
-        <Button type="submit" className="d-block ms-auto">
+        <Button
+          type="submit"
+          className="d-block ms-auto"
+          disabled={purchaseSlotMutation.isLoading}
+        >
           Purchase slot
         </Button>
       </Form>

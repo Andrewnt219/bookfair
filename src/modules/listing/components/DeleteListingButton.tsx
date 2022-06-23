@@ -51,7 +51,11 @@ export const DeleteListingButton = ({
           <Button variant="secondary" onClick={dialog.close}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={onAccept}>
+          <Button
+            variant="danger"
+            onClick={onAccept}
+            disabled={deleteMutation.isLoading}
+          >
             Delete listing
           </Button>
         </Modal.Footer>

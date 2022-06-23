@@ -96,7 +96,9 @@ export const CreateListingForm = () => {
         </Form.Group>
 
         <div className="mt-3 d-flex justify-content-end">
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={submitMutation.isLoading}>
+            Submit
+          </Button>
         </div>
       </Stack>
     </Form>

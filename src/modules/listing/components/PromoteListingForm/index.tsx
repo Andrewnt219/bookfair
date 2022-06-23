@@ -54,7 +54,11 @@ export const PromoteListingForm = (props: PromoteListingFormProps) => {
         <PriceSummary subtotal={subtotal} taxRate={businessRules.CONTEXT_TAX} />
       </div>
 
-      <Button type="submit" className="mt-3 d-block ms-auto">
+      <Button
+        type="submit"
+        disabled={promoteListingMutation.isLoading}
+        className="mt-3 d-block ms-auto"
+      >
         Promote listing
       </Button>
     </Form>
