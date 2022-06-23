@@ -34,7 +34,7 @@ export const useEditListingForm = ({ listing }: EditListingFormProps) => {
       onSuccess() {
         toastStore.success('Listing is updated');
         router.push('/user/listings');
-        qc.invalidateQueries(['listings', firebaseAuth.currentUser?.uid]);
+        qc.invalidateQueries(['listing', listing.id]);
       },
       onError(error) {
         toastStore.error(error);
