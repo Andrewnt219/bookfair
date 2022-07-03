@@ -27,4 +27,9 @@ export class ListingService {
   static async deleteOne(listingId: string) {
     await db.listings.doc(listingId).update({ isActive: false });
   }
+
+  static async getAll(): Promise<DbListing[]> {
+    const queryRef = await db.listings.get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
 }

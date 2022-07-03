@@ -5,3 +5,4 @@ export * from './useGetListing';
 export * from './useUpdateListing';
 export * from './useDeleteListing';
 export * from './usePromoteListing';
+export * from './useSearchListings';

@@ -4,17 +4,15 @@ import { useListingPhotoSources } from '../../../api';
 import { DbListing } from '../../../types';
 import NextLink from 'next/link';
 import { Card } from 'react-bootstrap';
-import { DeleteListingButton } from '../../DeleteListingButton';
-import { PromoteListingButton } from '../../PromoteListingButton';
 import dayjs from 'dayjs';
 import { Icon } from '@iconify/react';
 import { formatCurrency } from '../../../../../utils';
 
-export interface ListingListItemProps {
+export interface ResultListItemProps {
   listing: DbListing;
 }
 
-export const ListingListItem = ({ listing }: ListingListItemProps) => {
+export const ResultListItem = ({ listing }: ResultListItemProps) => {
   const photoSourcesQuery = useListingPhotoSources({ photos: listing.photos });
 
   return (
@@ -66,12 +64,8 @@ export const ListingListItem = ({ listing }: ListingListItemProps) => {
             </dl>
 
             <div className="d-flex gap-1 justify-content-end">
-              {!listing.promote && (
-                <PromoteListingButton listingId={listing.id} />
-              )}
-              <DeleteListingButton listingId={listing.id} />
-              <NextLink href={`/listing/${listing.id}/edit`}>
-                <a className="btn btn-primary">Edit</a>
+              <NextLink href={`/listing/${listing.id}`}>
+                <a className="btn btn-primary">View</a>
               </NextLink>
             </div>
           </Card.Text>

@@ -1,8 +1,13 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import { RootLayout } from '../../layouts';
+import { ListingSearchPage } from '../../modules/listing';
 
 const ListingPage: NextPageWithLayout = () => {
-  return <div>Listing</div>;
+  return (
+    <div>
+      <ListingSearchPage />
+    </div>
+  );
 };
 
 ListingPage.getLayout = (page) => {
