@@ -8,6 +8,7 @@ import '../styles/main.scss';
 import { ToastManagement } from '../ui';
 import { useAuthUserStore } from '../stores';
 import { firebaseAuth } from '../lib/firebase';
+
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
