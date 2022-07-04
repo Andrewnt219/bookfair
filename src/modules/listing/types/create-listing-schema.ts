@@ -30,6 +30,8 @@ export const createListingSchema = z.object({
   description: z
     .string()
     .min(20, { message: 'Description is at least 20 characters' }),
+  tags: z.string(),
+  course: z.string().min(1, { message: 'Course is required' }),
   photos: z.any().transform((files: FileList | null, ctx) => {
     if (!files) return null;
 

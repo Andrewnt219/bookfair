@@ -13,6 +13,8 @@ export const dbListingSchema = z
     viewCount: z.number().nonnegative(),
     photos: z.array(dbListingPhotoSchema),
     isActive: z.boolean(),
+    tags: z.array(z.string()),
+    course: z.string(),
   })
   .merge(dbWriteableItemSchema);
 

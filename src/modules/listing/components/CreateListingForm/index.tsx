@@ -71,6 +71,44 @@ export const CreateListingForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
+        <Form.Group controlId="listing-course">
+          <Form.Label>Course&apos;s code</Form.Label>
+          <Controller
+            control={form.control}
+            name="course"
+            render={({ field }) => (
+              <Form.Control
+                type="text"
+                isInvalid={Boolean(errors.course)}
+                placeholder="PR666"
+                {...field}
+              />
+            )}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.course?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group controlId="listing-tags">
+          <Form.Label>Tags (comma-separated)</Form.Label>
+          <Controller
+            control={form.control}
+            name="tags"
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            render={({ field }) => (
+              <Form.Control
+                isInvalid={Boolean(errors.tags)}
+                placeholder="PR666, book, pick-up"
+                {...field}
+              />
+            )}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.tags?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+
         <Form.Group controlId="listing-files">
           <Form.Label>Files</Form.Label>
           <Controller

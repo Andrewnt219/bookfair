@@ -3,7 +3,7 @@ import { WithQueryData } from '../../../../../ui/WithQueryData';
 import { useListingPhotoSources } from '../../../api';
 import { DbListing } from '../../../types';
 import NextLink from 'next/link';
-import { Card } from 'react-bootstrap';
+import { Badge, Card } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import { Icon } from '@iconify/react';
 import { formatCurrency } from '../../../../../utils';
@@ -31,7 +31,16 @@ export const ResultListItem = ({ listing }: ResultListItemProps) => {
         <Card.Body>
           <Card.Title>{listing.title}</Card.Title>
           <Card.Text as="div">
-            <p> {listing.description}</p>
+            <ul className="list-unstyled d-flex gap-1 flex-wrap">
+              {listing.tags.map((tag, index) => (
+                <li key={index}>
+                  <Badge bg="light" text="dark">
+                    {tag}
+                  </Badge>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3"> {listing.description}</p>{' '}
             <dl
               style={{
                 display: 'grid',
@@ -53,6 +62,14 @@ export const ResultListItem = ({ listing }: ResultListItemProps) => {
                 </>
               )}
               <dt>
+                <Icon
+                  icon="bi:aspect-ratio-fill"
+                  aria-label="Listing's course"
+                />
+              </dt>
+              <dd>{listing.course}</dd>
+
+              <dt>
                 <Icon icon="bi:cart-fill" aria-label="Listing's Price" />
               </dt>
               <dd>{formatCurrency(listing.price)}</dd>
@@ -62,7 +79,6 @@ export const ResultListItem = ({ listing }: ResultListItemProps) => {
               </dt>
               <dd>{listing.viewCount}</dd>
             </dl>
-
             <div className="d-flex gap-1 justify-content-end">
               <NextLink href={`/listing/${listing.id}`}>
                 <a className="btn btn-primary">View</a>

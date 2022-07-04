@@ -23,6 +23,8 @@ const bodySchema = dbListingSchema
     title: true,
     viewCount: true,
     id: true,
+    course: true,
+    tags: true,
   })
   .partial({
     isSold: true,
@@ -30,6 +32,8 @@ const bodySchema = dbListingSchema
     price: true,
     title: true,
     viewCount: true,
+    course: true,
+    tags: true,
   });
 const validateBody = createAssertSchema<Listing_UpdateOne['input']>(bodySchema);
 
@@ -37,7 +41,7 @@ const patchHandler: WithApiHandler<Data> = async (req, res) => {
   const userId = await authMiddleware(req);
   const body = validateBody(req.body);
   await listingMiddleware(userId, body.id);
-  await ListingService.updateOne(body.id, omit(body, 'listingId'));
+  await ListingService.updateOne(body.id, omit(body, 'id'));
   return res.status(201).json(ResultSuccess({ message: 'Created' }));
 };
 

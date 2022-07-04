@@ -18,6 +18,8 @@ const useForm = () => {
       photos: null,
       price: 0,
       title: '',
+      course: '',
+      tags: '',
     },
   });
 };
@@ -38,6 +40,7 @@ export const useCreateListingForm = () => {
         router.push('/user/listings');
       },
       onError(error) {
+        // TODO delete uploaded photos on error
         toastStore.error(error);
       },
     },
