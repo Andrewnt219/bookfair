@@ -9,6 +9,7 @@ import { DbListing } from '../types';
 const searchListings = async (term: string) => {
   const { hits } = await algoliaListings.search(term, {
     filters: 'isActive:true',
+    cacheable: false,
   });
   return hits;
 };
@@ -29,5 +30,6 @@ export const useSearchListingsQuery = () => {
   return useTypedQuery<typeof querySearchListings>({
     queryKey: 'search-listings',
     queryFn: querySearchListings,
+    cacheTime: 0,
   });
 };
