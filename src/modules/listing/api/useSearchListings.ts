@@ -7,7 +7,9 @@ import {
 import { DbListing } from '../types';
 
 const searchListings = async (term: string) => {
-  const { hits } = await algoliaListings.search(term);
+  const { hits } = await algoliaListings.search(term, {
+    filters: 'isActive:true',
+  });
   return hits;
 };
 
