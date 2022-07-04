@@ -1,7 +1,7 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import { RootLayout } from '../../layouts';
 import { ListingList } from '../../modules/listing';
-import { useGetListings } from '../../modules/listing/api';
+import { useGetListingsByUser } from '../../modules/listing/api';
 import { useAuthUserStore } from '../../stores';
 import { WithQueryData } from '../../ui/WithQueryData';
 import { useAuthRoute } from '../../utils/useAuthRoute';
@@ -13,7 +13,7 @@ import { useDbUserQuery } from '../../modules/user-profile';
 const UserListingsPage: NextPageWithLayout = () => {
   useAuthRoute();
   const { authUser } = useAuthUserStore();
-  const getListingsQuery = useGetListings({ userId: authUser?.uid });
+  const getListingsQuery = useGetListingsByUser({ userId: authUser?.uid });
   const userProfileQuery = useDbUserQuery(authUser?.uid);
 
   return (
