@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
 import { EditListingFormProps } from '.';
-import { firebaseAuth } from '../../../../lib/firebase';
 import { useToastStore } from '../../../../stores';
 import { useListingPhotoSources, useUpdateListing } from '../../api';
 import {
@@ -26,6 +25,8 @@ export const useEditListingForm = ({ listing }: EditListingFormProps) => {
       photos: null,
       price: listing.price,
       title: listing.title,
+      course: listing.course,
+      tags: listing.tags.join(', '),
     },
   });
 

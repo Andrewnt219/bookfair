@@ -25,7 +25,7 @@ const validateBody = createAssertSchema<Listing_CreateOne['input']>(bodySchema);
 
 const postHandler: WithApiHandler<Data> = async (req, res) => {
   const userId = await authMiddleware(req);
-  const { photoPaths, ...body } = validateBody(req.body);
+  const { photoPaths, tags, ...body } = validateBody(req.body);
 
   const user = await AuthService.getUser(userId);
   if (!user) throw new HttpException(401, 'Invalid user token');
@@ -47,8 +47,10 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
       updatedAt: timestamp,
     };
   });
+  const tagList = tags.split(',').map((tag) => tag.trim());
   const newListing: DbListing = {
     ...body,
+    tags: tagList,
     userId,
     id: listingId,
     createdAt: timestamp,
