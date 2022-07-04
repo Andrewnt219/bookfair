@@ -1,5 +1,4 @@
 import { Api } from '@bookfair/common';
-import { z } from 'zod';
 import { authMiddleware } from '../../../middlewares';
 import { AuthService } from '../../../modules/auth/service';
 import {
