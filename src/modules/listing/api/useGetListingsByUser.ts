@@ -13,11 +13,14 @@ const getListingsByUserId = async (
   return data.data;
 };
 
-export type UseListingsConfig = {
+export type UseListingsByUserConfig = {
   userId: string | undefined;
   config?: QueryConfig<typeof getListingsByUserId>;
 };
-export const useGetListings = ({ userId, config }: UseListingsConfig) => {
+export const useGetListingsByUser = ({
+  userId,
+  config,
+}: UseListingsByUserConfig) => {
   return useTypedQuery<typeof getListingsByUserId>({
     ...config,
     queryKey: ['listings', userId],
