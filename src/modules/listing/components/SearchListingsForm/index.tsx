@@ -4,13 +4,21 @@ import { Controller } from 'react-hook-form';
 import { useSearchListingForm } from './useSearchListingForm';
 
 export const SearchListingsForm = () => {
-  const { form, searchListingsMutation } = useSearchListingForm();
+  const { form, searchListingsMutation, createAlertMutation, authUser } =
+    useSearchListingForm();
 
   const { errors } = form.formState;
 
   const onSubmit = form.handleSubmit((data) =>
     searchListingsMutation.mutate(data.search)
   );
+
+  const search = form.watch('search');
+  const onCreateAlertClick = () => {
+    if (!authUser?.email) return;
+    if (search.length === 0) return;
+    createAlertMutation.mutate({ search, userEmail: authUser.email });
+  };
 
   return (
     <Form noValidate validated={form.formState.isValid} onSubmit={onSubmit}>
@@ -33,9 +41,24 @@ export const SearchListingsForm = () => {
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button className="mt-3 d-flex justify-content-end" type="submit">
-        Search
-      </Button>
+      <div className="d-flex gap-1">
+        <Button
+          className="mt-3 d-flex justify-content-end"
+          type="submit"
+          disabled={searchListingsMutation.isLoading}
+        >
+          Search
+        </Button>
+
+        <Button
+          onClick={onCreateAlertClick}
+          variant="secondary"
+          className="mt-3 d-flex justify-content-end"
+          disabled={createAlertMutation.isLoading}
+        >
+          Create Alert
+        </Button>
+      </div>
     </Form>
   );
 };

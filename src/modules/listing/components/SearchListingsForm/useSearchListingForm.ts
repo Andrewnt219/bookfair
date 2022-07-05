@@ -1,7 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from 'react-query';
-import { useToastStore } from '../../../../stores';
+import { useAuthUserStore, useToastStore } from '../../../../stores';
+import { useCreateAlert } from '../../../alert';
 import { useSearchListings } from '../../api';
 import { searchListingSchema, SearchListingSchema } from '../../types';
 
@@ -16,6 +17,7 @@ const useRHF = () => {
 export const useSearchListingForm = () => {
   const toastStore = useToastStore();
   const client = useQueryClient();
+  const { authUser } = useAuthUserStore();
 
   const form = useRHF();
   const searchListingsMutation = useSearchListings({
@@ -29,5 +31,16 @@ export const useSearchListingForm = () => {
     },
   });
 
-  return { form, searchListingsMutation };
+  const createAlertMutation = useCreateAlert({
+    config: {
+      onSuccess(data) {
+        toastStore.success('Alert created');
+      },
+      onError(error) {
+        toastStore.error(error);
+      },
+    },
+  });
+
+  return { form, searchListingsMutation, createAlertMutation, authUser };
 };
