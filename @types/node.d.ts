@@ -8,5 +8,8 @@ declare namespace NodeJS {
     NEXT_PUBLIC_EMULATORS: 'on' | 'off';
     NEXT_PUBLIC_ALGOLIA_APP_ID: string;
     NEXT_PUBLIC_ALGOLIA_API_KEY: string;
+    VERCEL_URL: string;
+    SENDGRID_API_KEY: string;
+    SENDGRID_SENDER: string;
   }
 }
