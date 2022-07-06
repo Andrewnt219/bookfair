@@ -1,6 +1,6 @@
 import { FirestoreDataConverter } from 'firebase-admin/firestore';
 import { DbAlert } from '../../modules/alert';
-import { DbListing } from '../../modules/listing';
+import { DbListing, DbTransaction } from '../../modules/listing';
 import { DbPayment } from '../../modules/payments';
 import { DbUser } from '../../modules/user-profile';
 import { adminFirestore } from './adminFirestore';
@@ -23,4 +23,7 @@ export const db = {
   alerts: adminFirestore
     .collection('alerts')
     .withConverter(createConverter<DbAlert>()),
+  transactions: adminFirestore
+    .collection('transactions')
+    .withConverter(createConverter<DbTransaction>()),
 };
