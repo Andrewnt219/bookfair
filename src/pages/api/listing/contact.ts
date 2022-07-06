@@ -25,9 +25,11 @@ const validateRequest =
 const postHandler: WithApiHandler<Data> = async (req, res) => {
   const buyerId = await authMiddleware(req);
   const body = validateRequest(req.body);
+
   const listing = await ListingService.getOne(body.listingId);
   if (!listing) throw new HttpException(404, 'Listing not found');
-
+  if (buyerId === listing.userId)
+    throw new HttpException(400, 'You cannot contact yourself');
   if (await TransactionService.isBuyerExist(listing.id, buyerId))
     throw new HttpException(
       400,

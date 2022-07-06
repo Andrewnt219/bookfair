@@ -6,7 +6,7 @@ import { getBearerToken } from '../utils';
 export const authMiddleware = async (req: NextApiRequest): Promise<string> => {
   const { authorization } = req.headers;
   if (!authorization) {
-    throw new HttpException(400, 'Missing authentication header');
+    throw new HttpException(400, 'User is not logged in');
   }
   const idToken = getBearerToken(authorization);
   if (!idToken) {
