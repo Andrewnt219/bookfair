@@ -3,6 +3,8 @@ import { nanoid } from 'nanoid';
 import { z } from 'zod';
 import { HttpException } from '../../../errors';
 import { authMiddleware } from '../../../middlewares';
+import { AuthService } from '../../../modules/auth/service';
+import { EmailService } from '../../../modules/email/EmailService';
 import { DbTransaction } from '../../../modules/listing';
 import { ListingService } from '../../../modules/listing/ListingService';
 import { TransactionService } from '../../../modules/listing/TransactionService';
@@ -36,6 +38,15 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
       'You have already made a contact for this listing'
     );
 
+  const buyer = await AuthService.getUser(buyerId);
+  const seller = await AuthService.getUser(listing.userId);
+
+  if (!buyer || !seller) throw new HttpException(404, 'User not found');
+  await EmailService.sendContactMail({
+    buyerEmail: buyer.email,
+    to: seller.email,
+    listing,
+  });
   const transaction: DbTransaction = {
     id: nanoid(),
     buyerId,
@@ -43,6 +54,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     listingId: listing.id,
     createdAt: new Date().toISOString(),
     isPending: true,
+    rating: 0,
   };
   await TransactionService.createOne(transaction);
   return res.status(201).json(ResultSuccess(transaction));
