@@ -16,7 +16,7 @@ declare module '@bookfair/common' {
 
   export type AssertType<T> = (type: unknown) => T;
 
-  export interface Api<Out, In extends z.ZodSchema> {
+  export interface Api<Out, In extends z.ZodSchema = z.AnyZodObject> {
     input: z.infer<In>;
     return: TResultSuccess<Out>;
   }
