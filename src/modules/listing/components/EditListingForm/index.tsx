@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
-import { WithQueryData } from '../../../../ui/WithQueryData';
+import { PhotosGrid, WithQueryData } from '../../../../ui';
 import { DbListing } from '../../types';
 import { useEditListingForm } from './useEditListingForm';
 
@@ -122,27 +122,7 @@ export const EditListingForm = ({ listing }: EditListingFormProps) => {
         </Form.Group>
 
         <WithQueryData query={photosQuery}>
-          {(photos) => (
-            <ul
-              className="list-unstyled"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '0.5rem',
-              }}
-            >
-              {photos.map((src) => (
-                <li key={src}>
-                  <img
-                    src={src}
-                    className="w-100"
-                    alt="Listing's photos"
-                    style={{ objectFit: 'cover', aspectRatio: '1/1' }}
-                  />
-                </li>
-              ))}
-            </ul>
-          )}
+          {(photos) => <PhotosGrid photoSrcs={photos} />}
         </WithQueryData>
         <div className="d-flex gap-2 justify-content-end">
           <Button
