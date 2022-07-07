@@ -1,5 +1,7 @@
 import { Api } from '@bookfair/common';
 import { nanoid } from 'nanoid';
+import { HttpException } from '../../../errors';
+import { authMiddleware } from '../../../middlewares';
 import { DbReview, dbReviewSchema } from '../../../modules/listing';
 import { ReviewService } from '../../../modules/listing/ReviewService';
 import { TransactionService } from '../../../modules/listing/TransactionService';
@@ -23,10 +25,15 @@ const validateRequest =
   createAssertSchema<Review_CreateOne['input']>(requestSchema);
 
 const postHandler: WithApiHandler<Data> = async (req, res) => {
+  const userId = await authMiddleware(req);
   const body = validateRequest(req.body);
+  const transaction = await TransactionService.getOne(body.transactionId);
+  if (!transaction) throw new HttpException(404, 'Transaction not found');
   const review: DbReview = {
     ...body,
     id: nanoid(),
+    listingId: transaction.listingId,
+    userId,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };

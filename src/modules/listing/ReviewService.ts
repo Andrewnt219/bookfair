@@ -10,4 +10,9 @@ export class ReviewService {
   static async createOne(data: DbReview) {
     return db.reviews.doc(data.id).set(data);
   }
+
+  static async getByListing(listingId: string): Promise<DbReview | undefined> {
+    const ref = await db.reviews.where('listingId', '==', listingId).get();
+    return ref.docs[0]?.data();
+  }
 }

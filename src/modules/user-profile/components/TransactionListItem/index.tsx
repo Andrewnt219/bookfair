@@ -38,7 +38,9 @@ export const TransactionListItem = (props: TransactionListItemProps) => {
             <Link href={`/listing/${transaction.listing.id}`}>
               <a className="btn btn-sm btn-secondary">View</a>
             </Link>
-            <RatingModalButton transaction={transaction} />
+            {!transaction.review && (
+              <RatingModalButton transaction={transaction} />
+            )}
           </div>
         </article>
       )}
