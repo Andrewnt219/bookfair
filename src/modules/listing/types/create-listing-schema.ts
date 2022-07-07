@@ -1,8 +1,7 @@
 import { z } from 'zod';
+import { businessRules } from '../../../constants';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
-const MAX_FILE_SIZE_MB = 5;
-const MAX_FILE_SIZE_BYTEs = MAX_FILE_SIZE_MB * 1024 * 1024;
 
 const validateFiles = (files: FileList): string[] => {
   const errors: Set<string> = new Set();
@@ -12,8 +11,8 @@ const validateFiles = (files: FileList): string[] => {
       errors.add(`Supported format: ${SUPPORTED_FORMATS.join(', ')}`);
     }
 
-    if (file.size > MAX_FILE_SIZE_BYTEs) {
-      errors.add(`Max file size is ${MAX_FILE_SIZE_MB}MB`);
+    if (file.size > businessRules.MAX_FILE_SIZE_BYTEs()) {
+      errors.add(`Max file size is ${businessRules.MAX_FILE_SIZE_MB}MB`);
     }
   }
 
