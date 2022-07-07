@@ -30,6 +30,8 @@ const patchHandler: WithApiHandler<Data> = async (req, res) => {
     sellerId
   );
   if (!transaction) throw new HttpException(404, 'Transaction not found');
+  if (transaction.reviewId)
+    throw new HttpException(400, 'Transaction has already been reviewed');
 
   await ListingService.updateOne(listing.id, { isSold: false });
   await TransactionService.updateOne(transaction.id, { isPending: true });

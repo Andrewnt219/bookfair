@@ -7,6 +7,8 @@ export const dbReviewSchema = z
     transactionId: z.string(),
     rating: z.number().positive(),
     body: z.string(),
+    listingId: z.string(),
+    userId: z.string(),
   })
   .merge(dbWriteableItemSchema);
 

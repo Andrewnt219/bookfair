@@ -3,8 +3,8 @@ import { Container } from 'react-bootstrap';
 import { useQueryClient } from 'react-query';
 import { BackButton } from '../../../ui';
 import { WithQueryData } from '../../../ui/WithQueryData';
-import { useGetListing } from '../api';
-import { EditListingForm, ToggleSoldButton } from '../components';
+import { useGetListing, useListingReview } from '../api';
+import { EditListingForm, ReviewCard, ToggleSoldButton } from '../components';
 import { DbListing } from '../types';
 
 export interface ListingEditPageProps {
@@ -27,17 +27,24 @@ export const ListingEditPage = ({ listingId }: ListingEditPageProps) => {
     },
   });
 
+  const reviewQuery = useListingReview({ listingId });
+
   return (
     <WithQueryData query={listingQuery}>
       {(listing) => (
         <Container as="section" fluid className="col-lg-4">
           <BackButton />
-          <div className="shadow p-4 rounded mt-3">
+          {reviewQuery.data && (
+            <div className="border p-3 rounded">
+              <ReviewCard review={reviewQuery.data} />
+            </div>
+          )}
+          <section className="shadow p-4 rounded mt-3">
             <h1>Edit listing</h1>
             <ToggleSoldButton listing={listing} />
 
             <EditListingForm listing={listing} />
-          </div>
+          </section>
         </Container>
       )}
     </WithQueryData>
