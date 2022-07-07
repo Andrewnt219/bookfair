@@ -9,6 +9,7 @@ export interface ResultListProps {
 export const ResultList = ({ listings }: ResultListProps) => {
   return (
     <ul className="list-unstyled row gap-3">
+      {listings.length === 0 && <p>(No results)</p>}
       {listings.map((listing) => (
         <li key={listing.id}>
           <ResultListItem listing={listing} />

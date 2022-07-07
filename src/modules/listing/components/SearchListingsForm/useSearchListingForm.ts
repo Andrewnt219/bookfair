@@ -23,6 +23,9 @@ export const useSearchListingForm = () => {
   const searchListingsMutation = useSearchListings({
     config: {
       onSuccess(data) {
+        if (data.length === 0) {
+          toastStore.enqueue({ message: 'No results', variant: 'warning' });
+        }
         client.setQueryData(['search-listings'], data);
       },
       onError(error) {
