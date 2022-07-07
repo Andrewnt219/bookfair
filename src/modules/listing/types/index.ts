@@ -5,3 +5,5 @@ export * from './create-listing-schema';
 export * from './update-listing-schema';
 export * from './search-listing-schema';
 export * from './DbTransaction';
+export * from './DbReview';
+export * from './ExpandedDbTransaction';

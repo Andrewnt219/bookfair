@@ -43,7 +43,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
 
   if (!buyer || !seller) throw new HttpException(404, 'User not found');
   await EmailService.sendContactMail({
-    buyerEmail: buyer.email,
+    buyer,
     to: seller.email,
     listing,
   });
@@ -54,7 +54,6 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     listingId: listing.id,
     createdAt: new Date().toISOString(),
     isPending: true,
-    rating: 0,
   };
   await TransactionService.createOne(transaction);
   return res.status(201).json(ResultSuccess(transaction));

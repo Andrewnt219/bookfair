@@ -1,4 +1,9 @@
+import { HttpException } from '../../errors';
 import { db } from '../../lib/firebase-admin';
+import { AuthService } from '../auth/service';
+import { ListingService } from './ListingService';
+import { ReviewService } from './ReviewService';
+import { ExpandedDbTransaction } from './types';
 import { DbTransaction } from './types/DbTransaction';
 
 export class TransactionService {
@@ -34,5 +39,41 @@ export class TransactionService {
       .where('buyerId', '==', buyerId)
       .get();
     return query.docs.length > 0;
+  }
+
+  static async getExpanded(
+    transactionId: string,
+    userId: string
+  ): Promise<ExpandedDbTransaction> {
+    const transaction = await this.getOne(transactionId);
+    if (!transaction) throw new HttpException(404, 'Transaction not found');
+
+    if (userId !== transaction.buyerId)
+      throw new HttpException(
+        403,
+        'You are not allowed to view this transaction'
+      );
+
+    const listing = await ListingService.getOne(transaction.listingId);
+    if (!listing) throw new HttpException(404, 'Listing not found');
+
+    const buyer = await AuthService.getUser(transaction.buyerId);
+    const seller = await AuthService.getUser(listing.userId);
+    if (!buyer || !seller)
+      throw new HttpException(404, 'Buyer or seller not found');
+
+    const review = transaction.reviewId
+      ? await ReviewService.getOne(transaction.reviewId)
+      : undefined;
+
+    return {
+      buyer,
+      isPending: transaction.isPending,
+      listing,
+      seller,
+      review,
+      createdAt: transaction.createdAt,
+      id: transaction.id,
+    };
   }
 }

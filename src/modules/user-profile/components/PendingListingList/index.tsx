@@ -3,11 +3,11 @@ import { ListGroup } from 'react-bootstrap';
 import { DbListing } from '../../../listing';
 import { PendingListingListItem } from '../PendingListingListItem';
 
-export interface TransactionListProps {
+export interface PendingListingListProps {
   listings: DbListing[];
 }
 
-export const PendingListingList = (props: TransactionListProps) => {
+export const PendingListingList = (props: PendingListingListProps) => {
   return (
     <ListGroup as="ul">
       {props.listings.map((listing) => (
