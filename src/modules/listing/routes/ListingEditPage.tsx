@@ -4,7 +4,7 @@ import { useQueryClient } from 'react-query';
 import { BackButton } from '../../../ui';
 import { WithQueryData } from '../../../ui/WithQueryData';
 import { useGetListing } from '../api';
-import { EditListingForm } from '../components';
+import { EditListingForm, ToggleSoldButton } from '../components';
 import { DbListing } from '../types';
 
 export interface ListingEditPageProps {
@@ -34,6 +34,8 @@ export const ListingEditPage = ({ listingId }: ListingEditPageProps) => {
           <BackButton />
           <div className="shadow p-4 rounded mt-3">
             <h1>Edit listing</h1>
+            <ToggleSoldButton listing={listing} />
+
             <EditListingForm listing={listing} />
           </div>
         </Container>

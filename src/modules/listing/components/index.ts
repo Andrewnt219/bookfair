@@ -5,3 +5,4 @@ export * from './DeleteListingButton';
 export * from './PromoteListingButton';
 export * from './SearchListingsForm';
 export * from './SearchListingResult';
+export * from './ToggleSoldButton';

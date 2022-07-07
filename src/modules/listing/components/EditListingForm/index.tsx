@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import React from 'react';
 import { Button, Form, Stack } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
@@ -34,6 +35,7 @@ export const EditListingForm = ({ listing }: EditListingFormProps) => {
             render={({ field }) => (
               <Form.Control
                 type="text"
+                disabled={listing.isSold}
                 isInvalid={Boolean(errors.title)}
                 placeholder={listing.title}
                 {...field}
@@ -53,6 +55,7 @@ export const EditListingForm = ({ listing }: EditListingFormProps) => {
             render={({ field }) => (
               <Form.Control
                 type="text"
+                disabled={listing.isSold}
                 isInvalid={Boolean(errors.description)}
                 placeholder={listing.description}
                 {...field}
@@ -72,6 +75,7 @@ export const EditListingForm = ({ listing }: EditListingFormProps) => {
             render={({ field }) => (
               <Form.Control
                 type="number"
+                disabled={listing.isSold}
                 isInvalid={Boolean(errors.price)}
                 placeholder={listing.price.toString()}
                 {...field}
@@ -91,6 +95,7 @@ export const EditListingForm = ({ listing }: EditListingFormProps) => {
             render={({ field }) => (
               <Form.Control
                 type="text"
+                disabled={listing.isSold}
                 isInvalid={Boolean(errors.course)}
                 placeholder="PR666"
                 {...field}
@@ -110,6 +115,7 @@ export const EditListingForm = ({ listing }: EditListingFormProps) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             render={({ field }) => (
               <Form.Control
+                disabled={listing.isSold}
                 isInvalid={Boolean(errors.tags)}
                 placeholder="PR666, book, pick-up"
                 {...field}
@@ -124,15 +130,19 @@ export const EditListingForm = ({ listing }: EditListingFormProps) => {
         <WithQueryData query={photosQuery}>
           {(photos) => <PhotosGrid photoSrcs={photos} />}
         </WithQueryData>
+
         <div className="d-flex gap-2 justify-content-end">
           <Button
-            disabled={updateListingMutation.isLoading}
+            disabled={updateListingMutation.isLoading || listing.isSold}
             onClick={onReset}
             variant="outline-danger"
           >
             Reset
           </Button>
-          <Button type="submit" disabled={updateListingMutation.isLoading}>
+          <Button
+            type="submit"
+            disabled={updateListingMutation.isLoading || listing.isSold}
+          >
             Update
           </Button>
         </div>

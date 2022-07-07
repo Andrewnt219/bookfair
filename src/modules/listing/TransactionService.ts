@@ -1,3 +1,4 @@
+import { Except } from 'type-fest';
 import { HttpException } from '../../errors';
 import { db } from '../../lib/firebase-admin';
 import { AuthService } from '../auth/service';
@@ -14,6 +15,24 @@ export class TransactionService {
   static async getOne(id: string) {
     const ref = await db.transactions.doc(id).get();
     return ref.data();
+  }
+
+  static async updateOne(
+    transactionId: string,
+    data: Except<Partial<DbTransaction>, 'id'>
+  ): Promise<void> {
+    await db.transactions.doc(transactionId).update(data);
+  }
+
+  static async getOneByListing(
+    listingId: string,
+    sellerId: string
+  ): Promise<DbTransaction | undefined> {
+    const ref = await db.transactions
+      .where('listingId', '==', listingId)
+      .where('sellerId', '==', sellerId)
+      .get();
+    return ref.docs[0]?.data();
   }
 
   static async getManyByBuyer(buyerId: string) {
