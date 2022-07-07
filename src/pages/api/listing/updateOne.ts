@@ -3,7 +3,6 @@ import omit from 'lodash/omit';
 import { authMiddleware, listingMiddleware } from '../../../middlewares';
 import { dbListingSchema } from '../../../modules/listing';
 import { ListingService } from '../../../modules/listing/ListingService';
-import { updateListingSchema } from '../../../modules/listing/types/update-listing-schema';
 import {
   createAssertSchema,
   HasMessage,

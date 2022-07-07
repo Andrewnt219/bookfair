@@ -81,16 +81,24 @@ export const ListingListItem = ({ listing }: ListingListItemProps) => {
                 </dt>
                 <dd>{listing.viewCount}</dd>
               </dl>
-
-              <div className="d-flex gap-1 justify-content-end">
-                {!listing.promote && (
-                  <PromoteListingButton listingId={listing.id} />
-                )}
-                <DeleteListingButton listingId={listing.id} />
-                <NextLink href={`/listing/${listing.id}/edit`}>
-                  <a className="btn btn-primary">Edit</a>
-                </NextLink>
-              </div>
+              {listing.isSold ? (
+                <div className="d-flex gap-1 justify-content-between align-items-center">
+                  <span className="h6 text-danger">SOLD</span>
+                  <NextLink href={`/listing/${listing.id}/edit`}>
+                    <a className="btn btn-primary">Edit</a>
+                  </NextLink>
+                </div>
+              ) : (
+                <div className="d-flex gap-1 justify-content-end">
+                  {!listing.promote && (
+                    <PromoteListingButton listingId={listing.id} />
+                  )}
+                  <DeleteListingButton listingId={listing.id} />
+                  <NextLink href={`/listing/${listing.id}/edit`}>
+                    <a className="btn btn-primary">Edit</a>
+                  </NextLink>
+                </div>
+              )}
             </Card.Text>
           </Card.Body>
         </Card>

@@ -13,6 +13,7 @@ export const ZoomablePhoto = ({ src, alt }: ZoomablePhotoProps) => {
   return (
     <div>
       <button
+        type="button"
         onClick={dialog.open}
         title="Zoom image"
         className="border-0 bg-transparent p-0"
