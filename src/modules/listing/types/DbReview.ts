@@ -3,7 +3,9 @@ import { dbWriteableItemSchema } from '../../../interfaces';
 
 export const dbReviewSchema = z
   .object({
-    rating: z.number(),
+    title: z.string(),
+    transactionId: z.string(),
+    rating: z.number().positive(),
     body: z.string(),
   })
   .merge(dbWriteableItemSchema);
