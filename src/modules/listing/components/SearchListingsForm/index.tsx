@@ -12,9 +12,13 @@ export const SearchListingsForm = () => {
 
   const { errors } = form.formState;
 
-  const onSubmit = form.handleSubmit((data) =>
-    searchListingsMutation.mutate(data.search)
-  );
+  const onSubmit = form.handleSubmit((data) => {
+    if (search.length === 0) {
+      toastStore.error('Search term is required');
+      return;
+    }
+    searchListingsMutation.mutate(data.search);
+  });
 
   const search = form.watch('search');
   const onCreateAlertClick = () => {
