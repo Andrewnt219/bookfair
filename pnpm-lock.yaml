@@ -4,6 +4,7 @@ specifiers:
   '@firebase/util': ^1.6.0
   '@hookform/resolvers': ^2.8.10
   '@iconify/react': ^3.2.1
+  '@popperjs/core': ^2.11.5
   '@sendgrid/mail': ^7.7.0
   '@types/axios': ^0.14.0
   '@types/lodash': ^4.14.182
@@ -36,6 +37,7 @@ specifiers:
   react-dom: 18.1.0
   react-hook-form: ^7.31.1
   react-query: ^3.39.0
+  react-simple-star-rating: ^4.0.5
   sass: ^1.52.1
   type-fest: ^2.12.2
   typescript: 4.6.4
@@ -45,10 +47,11 @@ specifiers:
 dependencies:
   '@firebase/util': 1.6.0
   '@hookform/resolvers': 2.8.10_react-hook-form@7.31.1
+  '@popperjs/core': 2.11.5
   '@sendgrid/mail': 7.7.0
   algoliasearch: 4.13.1
   axios: 0.27.2
-  bootstrap: 5.1.3
+  bootstrap: 5.1.3_@popperjs+core@2.11.5
   clsx: 1.1.1
   dayjs: 1.11.3
   firebase: 9.8.1
@@ -62,6 +65,7 @@ dependencies:
   react-dom: 18.1.0_react@18.1.0
   react-hook-form: 7.31.1_react@18.1.0
   react-query: 3.39.0_ef5jwxihqo6n7gxfmzogljlgcm
+  react-simple-star-rating: 4.0.5_ef5jwxihqo6n7gxfmzogljlgcm
   sass: 1.52.1
   type-fest: 2.12.2
   zod: 3.16.0
@@ -2562,13 +2566,15 @@ packages:
       - supports-color
     dev: true
 
-  /bootstrap/5.1.3:
+  /bootstrap/5.1.3_@popperjs+core@2.11.5:
     resolution:
       {
         integrity: sha512-fcQztozJ8jToQWXxVuEyXWW+dSo8AiXWKwiSSrKWsRB/Qt+Ewwza+JWoLKiTuQLaEPhdNAJ7+Dosc9DOIqNy7Q==,
       }
     peerDependencies:
       '@popperjs/core': ^2.10.2
+    dependencies:
+      '@popperjs/core': 2.11.5
     dev: false
 
   /boxen/4.2.0:
@@ -8173,6 +8179,20 @@ packages:
       '@babel/runtime': 7.17.9
       broadcast-channel: 3.7.0
       match-sorter: 6.3.1
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+    dev: false
+
+  /react-simple-star-rating/4.0.5_ef5jwxihqo6n7gxfmzogljlgcm:
+    resolution:
+      {
+        integrity: sha512-995YpXtLNNLim/K59lhRqFnvpRXJHsiJAnYAu2iHEjfCn4u8hP9Eam53hi+ubc6stU25FzvBPyXKzjhu7wl+hA==,
+      }
+    engines: { node: '>=14' }
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
     dev: false

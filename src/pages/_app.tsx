@@ -9,6 +9,7 @@ import { ToastManagement } from '../ui';
 import { useAuthUserStore } from '../stores';
 import { firebaseAuth } from '../lib/firebase';
 
+// TODO mount signin page instead of actual page if Component.authenticate is true
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };

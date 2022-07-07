@@ -4,25 +4,25 @@ import { QueryConfig, useTypedQuery } from '../../../lib/react-query';
 import { Transaction_GetBuyerPendingListings } from '../../../pages/api/transaction/getBuyerPendingListings';
 import { DbListing } from '../../listing';
 
-const getTransactionListings = async (): Promise<DbListing[]> => {
+const getBuyerPendingListings = async (): Promise<DbListing[]> => {
   const { data } = await axios.get<
     Transaction_GetBuyerPendingListings['return']
   >('/transaction/getBuyerPendingListings');
   return data.data;
 };
 
-export interface UseGetTransactionListingsOptions {
-  config?: QueryConfig<typeof getTransactionListings>;
+export interface UseGetBuyerPendingListingsOptions {
+  config?: QueryConfig<typeof getBuyerPendingListings>;
 }
 
-export const useGetTransactionListings = (
-  props: UseGetTransactionListingsOptions = {}
+export const useGetBuyerPendingListings = (
+  props: UseGetBuyerPendingListingsOptions = {}
 ) => {
   const userId = firebaseAuth.currentUser?.uid;
-  return useTypedQuery<typeof getTransactionListings>({
+  return useTypedQuery<typeof getBuyerPendingListings>({
     ...props.config,
-    queryKey: ['transaction-listings', userId],
-    queryFn: () => getTransactionListings(),
+    queryKey: ['pending-transaction-listings', userId],
+    queryFn: () => getBuyerPendingListings(),
     enabled: Boolean(userId),
   });
 };

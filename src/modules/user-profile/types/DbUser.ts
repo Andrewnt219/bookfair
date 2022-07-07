@@ -9,6 +9,7 @@ export const dbUserSchema = z.object({
   bio: z.string(),
   isActive: z.boolean(),
   listingLimit: z.number(),
+  email: z.string().email(),
 });
 
 export type DbUser = z.infer<typeof dbUserSchema>;

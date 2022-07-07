@@ -7,6 +7,7 @@ export const dbTransactionSchema = z
     sellerId: z.string(),
     listingId: z.string(),
     isPending: z.boolean(),
+    reviewId: z.string().optional(),
   })
   .merge(dbReadonlyItemSchema);
 

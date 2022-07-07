@@ -9,7 +9,7 @@ const querySchema = z.object({
   listingId: z.string().min(1, { message: 'listingId is required' }),
 });
 
-const ListingNewPage: NextPageWithLayout = () => {
+const ListingEdit: NextPageWithLayout = () => {
   useAuthRoute();
   const router = useRouter();
   const query = querySchema.safeParse(router.query);
@@ -21,8 +21,8 @@ const ListingNewPage: NextPageWithLayout = () => {
   return <ListingEditPage listingId={query.data.listingId} />;
 };
 
-ListingNewPage.getLayout = (page) => {
+ListingEdit.getLayout = (page) => {
   return <RootLayout>{page}</RootLayout>;
 };
 
-export default ListingNewPage;
+export default ListingEdit;

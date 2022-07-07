@@ -3,13 +3,13 @@ import React from 'react';
 import { formatCurrency } from '../../../../utils';
 import { DbListing } from '../../../listing';
 
-export interface TransactionListItemProps {
+export interface PendingListingListItemProps {
   listing: DbListing;
 }
 
 export const PendingListingListItem = ({
   listing,
-}: TransactionListItemProps) => {
+}: PendingListingListItemProps) => {
   return (
     <article className="d-flex justify-content-between align-items-center">
       <div>

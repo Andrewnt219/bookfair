@@ -1,11 +1,11 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import { useRouter } from 'next/router';
 import { z } from 'zod';
-import { RootLayout } from '../../../layouts';
-import { ListingDetailsPage } from '../../../modules/listing';
+import { RootLayout } from '../../layouts';
+import { TransactionIdRoute } from '../../modules/user-profile';
 
 const querySchema = z.object({
-  listingId: z.string().min(1, { message: 'listingId is required' }),
+  transactionId: z.string().min(1, { message: 'transactionId is required' }),
 });
 
 const ListingIdPage: NextPageWithLayout = () => {
@@ -16,7 +16,7 @@ const ListingIdPage: NextPageWithLayout = () => {
     return <h1>Invalid listing</h1>;
   }
 
-  return <ListingDetailsPage listingId={query.data.listingId} />;
+  return <TransactionIdRoute transactionId={query.data.transactionId} />;
 };
 
 ListingIdPage.getLayout = (page) => {
