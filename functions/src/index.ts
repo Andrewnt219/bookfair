@@ -28,14 +28,29 @@ export const alertUsers = functions
     const previousListing = change.before.data();
 
     // On listing deleted, do nothing
-    if (!listing) return;
+    if (!listing) {
+      functions.logger.warn('Listing not found');
+      return;
+    }
     // On listing irrelevant changes, do nothing
-    if (!shouldSendAlert(listing, previousListing)) return;
+    if (!shouldSendAlert(listing, previousListing)) {
+      functions.logger.warn("Won't change", { listing, previousListing });
+      return;
+    }
 
     const snapshots = await db.collection('alerts').get();
     const alerts = snapshots.docs.map((doc) => doc.data());
 
     for (const alert of alerts) {
+      // ignore user's own listings
+      if (alert.userId === listing.userId) {
+        functions.logger.warn('Same user', {
+          buyer: alert.userId,
+          seller: listing.userId,
+        });
+        continue;
+      }
+
       if (
         listing.title.toLowerCase().includes(alert.search.toLowerCase()) ||
         listing.tags
@@ -43,8 +58,14 @@ export const alertUsers = functions
           .toLowerCase()
           .includes(alert.search.toLowerCase())
       ) {
+        const userRef = await db.collection('users').doc(alert.userId).get();
+        const user = userRef.data();
+        if (!user) {
+          functions.logger.warn('User not found', { userId: alert.userId });
+          continue;
+        }
         const msg: sgMail.MailDataRequired = {
-          to: alert.userEmail,
+          to: user.email,
           from: process.env.SENDGRID_SENDER as string,
           subject: `${listing.title} is now available!`,
           html: `Check out <a href=${new URL(

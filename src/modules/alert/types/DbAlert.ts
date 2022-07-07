@@ -5,7 +5,7 @@ import { dbWriteableItemSchema } from '../../../interfaces';
 export const dbAlertSchema = z
   .object({
     search: z.string(),
-    userEmail: z.string().email(),
+    userId: z.string(),
   })
   .merge(dbWriteableItemSchema);
 

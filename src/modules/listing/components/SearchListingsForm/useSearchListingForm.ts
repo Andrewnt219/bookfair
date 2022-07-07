@@ -33,7 +33,7 @@ export const useSearchListingForm = () => {
 
   const createAlertMutation = useCreateAlert({
     config: {
-      onSuccess(data) {
+      onSuccess() {
         toastStore.success('Alert created');
       },
       onError(error) {

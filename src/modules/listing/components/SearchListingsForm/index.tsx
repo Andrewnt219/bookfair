@@ -1,11 +1,14 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Controller } from 'react-hook-form';
+import { useToastStore } from '../../../../stores';
 import { useSearchListingForm } from './useSearchListingForm';
 
 export const SearchListingsForm = () => {
   const { form, searchListingsMutation, createAlertMutation, authUser } =
     useSearchListingForm();
+
+  const toastStore = useToastStore();
 
   const { errors } = form.formState;
 
@@ -15,9 +18,15 @@ export const SearchListingsForm = () => {
 
   const search = form.watch('search');
   const onCreateAlertClick = () => {
-    if (!authUser?.email) return;
-    if (search.length === 0) return;
-    createAlertMutation.mutate({ search, userEmail: authUser.email });
+    if (!authUser?.email) {
+      toastStore.error('Login to create an alert');
+      return;
+    }
+    if (search.length === 0) {
+      toastStore.error('Search term is required');
+      return;
+    }
+    createAlertMutation.mutate({ search });
   };
 
   return (
