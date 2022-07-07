@@ -10,6 +10,7 @@ export interface PendingListingListProps {
 export const PendingListingList = (props: PendingListingListProps) => {
   return (
     <ListGroup as="ul">
+      {props.listings.length === 0 && <p>(No pending listings)</p>}
       {props.listings.map((listing) => (
         <ListGroup.Item as="li" key={listing.id}>
           <PendingListingListItem listing={listing} />
