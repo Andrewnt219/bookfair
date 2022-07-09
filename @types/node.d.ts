@@ -11,5 +11,8 @@ declare namespace NodeJS {
     VERCEL_URL?: string;
     SENDGRID_API_KEY: string;
     SENDGRID_SENDER: string;
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: string;
+    STRIPE_SECRET_KEY: string;
+    STRIPE_TAX_ID: string;
   }
 }
