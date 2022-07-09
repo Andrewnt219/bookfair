@@ -5,10 +5,11 @@ import { useAuthUserStore } from '../stores';
 
 export const useAuthRoute = () => {
   const router = useRouter();
+  const { authUser } = useAuthUserStore();
 
   useEffect(() => {
-    if (!firebaseAuth.currentUser) {
+    if (authUser === null) {
       router.push('/signin');
     }
-  }, [router]);
+  }, [authUser, router]);
 };
