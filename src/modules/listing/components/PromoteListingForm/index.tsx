@@ -11,17 +11,22 @@ export interface PromoteListingFormProps {
 }
 
 export const PromoteListingForm = (props: PromoteListingFormProps) => {
-  const { form, promoteListingMutation } = usePromoteListingForm({
-    listingId: props.listingId,
-  });
+  const { form, promoteListingMutation, stripeCheckoutMutation } =
+    usePromoteListingForm({
+      listingId: props.listingId,
+    });
 
   const { errors } = form.formState;
   const days = form.watch('days');
   const subtotal = businessRules.calculatePromotionCost(days);
 
-  const onSubmit = form.handleSubmit((data) => {
+  const onSubmit = form.handleSubmit(async (data) => {
+    await stripeCheckoutMutation.mutateAsync({
+      days: data.days,
+      listingId: props.listingId,
+    });
+    await promoteListingMutation.mutateAsync(data);
     props.onSubmit?.(data);
-    promoteListingMutation.mutate(data);
   });
 
   return (
@@ -56,7 +61,7 @@ export const PromoteListingForm = (props: PromoteListingFormProps) => {
 
       <Button
         type="submit"
-        disabled={promoteListingMutation.isLoading}
+        disabled={form.formState.isSubmitting}
         className="mt-3 d-block ms-auto"
       >
         Promote listing

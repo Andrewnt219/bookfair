@@ -16,4 +16,5 @@ export const businessRules = {
     return days * this.PROMOTION_COST_PER_DAY;
   },
   DELAY_BEFORE_INCREASE_VIEW: 3000,
+  STRIPE_CURRENCY: 'cad',
 };

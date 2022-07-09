@@ -12,3 +12,4 @@ export * from './useCreateTransaction';
 export * from './useMarkSold';
 export * from './useMarkUnsold';
 export * from './useListingReview';
+export * from './useStripeListingPromotion';

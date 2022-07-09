@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { firebaseAuth } from '../lib/firebase';
 import { useAuthUserStore } from '../stores';
 
 export const useAuthRoute = () => {
-  const authUserStore = useAuthUserStore();
   const router = useRouter();
 
   useEffect(() => {
-    if (!authUserStore.authUser) {
+    if (!firebaseAuth.currentUser) {
       router.push('/signin');
     }
-  }, [authUserStore.authUser, router]);
+  }, [router]);
 };
