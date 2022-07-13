@@ -6,7 +6,10 @@ export class AuthService {
     return db.users.doc(data.uid).set(data);
   }
 
-  static updateUser(userId: string, data: Except<Partial<DbUser>, 'uid'>) {
+  static updateUser(
+    userId: string,
+    data: Except<Partial<DbUser>, 'uid' | 'role'>
+  ) {
     return db.users.doc(userId).update(data);
   }
 
@@ -16,7 +19,10 @@ export class AuthService {
   }
 
   static signupUser(data: { email: string; password: string }) {
-    return adminAuth.createUser({ ...data, emailVerified: true });
+    return adminAuth.createUser({
+      ...data,
+      emailVerified: true,
+    });
   }
 
   static async deleteUser(userId: string) {

@@ -1,8 +1,9 @@
 import { z } from 'zod';
 import { businessRules } from '../../../constants';
+import { displayNameSchema } from '../../../schemas';
 
 export const userProfileSchema = z.object({
-  displayName: z.string().min(1, { message: 'Display name cannot be empty' }),
+  displayName: displayNameSchema,
   avatar: z
     .any()
     // Always has 1 file due to fatal superRefine
