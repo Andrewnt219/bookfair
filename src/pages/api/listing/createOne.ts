@@ -37,7 +37,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
   }
 
   const listingId = nanoid();
-  const timestamp = new Date().toISOString();
+  const timestamp = new Date().getTime();
   const photos: DbListingPhoto[] = photoPaths.map((path) => {
     return {
       createdAt: timestamp,

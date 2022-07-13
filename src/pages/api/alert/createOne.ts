@@ -30,8 +30,8 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     ...body,
     id: nanoid(),
     userId,
-    createdAt: new Date().toDateString(),
-    updatedAt: new Date().toDateString(),
+    createdAt: new Date().getTime(),
+    updatedAt: new Date().getTime(),
   };
   await AlertService.createOne(alert);
   return res.status(200).json(ResultSuccess(alert));

@@ -25,7 +25,7 @@ export const ReviewCard = ({ review }: ReviewCardProps) => {
               <a className="d-block">{buyer.displayName}</a>
             </Link>
             on
-            <time dateTime={review.createdAt}>
+            <time dateTime={dayjs.unix(review.createdAt).format()}>
               {dayjs(review.createdAt).format('MMM DD, YYYY hh:mm:ss A')}
             </time>
           </div>
