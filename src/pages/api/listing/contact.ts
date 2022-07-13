@@ -1,4 +1,5 @@
 import { Api } from '@bookfair/common';
+import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 import { HttpException } from '../../../errors';
@@ -52,7 +53,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     buyerId,
     sellerId: listing.userId,
     listingId: listing.id,
-    createdAt: new Date().getTime(),
+    createdAt: dayjs().unix(),
     isPending: true,
   };
   await TransactionService.createOne(transaction);
