@@ -26,14 +26,14 @@ const validateRequest =
 const postHandler: WithApiHandler<Data> = async (req, res) => {
   const userId = await authMiddleware(req);
   const body = validateRequest(req.body);
-  await listingMiddleware(userId, body.listingId);
+  const listing = await listingMiddleware(userId, body.listingId);
 
   const promotionExpire = dayjs().add(body.days, 'day').toISOString();
-  await ListingService.updateOne(body.listingId, {
+  await ListingService.updateOne(listing.id, {
     promote: promotionExpire,
   });
   await PaymentService.createOne({
-    createdAt: new Date().getTime(),
+    createdAt: dayjs().unix(),
     id: nanoid(),
     amount: businessRules.calculatePromotionCost(body.days),
     type: 'listing/promote',

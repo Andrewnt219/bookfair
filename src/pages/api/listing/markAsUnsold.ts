@@ -1,7 +1,7 @@
 import { Api } from '@bookfair/common';
 import { z } from 'zod';
 import { HttpException } from '../../../errors';
-import { authMiddleware } from '../../../middlewares';
+import { authMiddleware, listingMiddleware } from '../../../middlewares';
 import { ListingService } from '../../../modules/listing/ListingService';
 import { TransactionService } from '../../../modules/listing/TransactionService';
 import {
@@ -23,8 +23,7 @@ const patchHandler: WithApiHandler<Data> = async (req, res) => {
   const sellerId = await authMiddleware(req);
   const body = validateRequest(req.body);
 
-  const listing = await ListingService.getOne(body.listingId);
-  if (!listing) throw new HttpException(404, 'Listing not found');
+  const listing = await listingMiddleware(sellerId, body.listingId);
   const transaction = await TransactionService.getOneByListing(
     listing.id,
     sellerId

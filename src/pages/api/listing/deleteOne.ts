@@ -1,5 +1,6 @@
 import { Api } from '@bookfair/common';
 import { z } from 'zod';
+import { authMiddleware, listingMiddleware } from '../../../middlewares';
 import { ListingService } from '../../../modules/listing/ListingService';
 import {
   createAssertSchema,
@@ -19,8 +20,10 @@ const validateBody = createAssertSchema<Listing_DeleteOne['input']>(bodySchema);
 
 const deleteHandler: WithApiHandler<Data> = async (req, res) => {
   const body = validateBody(req.body);
+  const userId = await authMiddleware(req);
+  const listing = await listingMiddleware(userId, body.listingId);
   // TODO delete uploaded images
-  await ListingService.deleteOne(body.listingId);
+  await ListingService.deleteOne(listing.id);
   return res.status(204).json(ResultSuccess({ message: 'ok' }));
 };
 

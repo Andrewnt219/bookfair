@@ -1,4 +1,5 @@
 import { Api } from '@bookfair/common';
+import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { HttpException } from '../../../errors';
 import { authMiddleware } from '../../../middlewares';
@@ -34,8 +35,8 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     id: nanoid(),
     listingId: transaction.listingId,
     userId,
-    createdAt: new Date().getTime(),
-    updatedAt: new Date().getTime(),
+    createdAt: dayjs().unix(),
+    updatedAt: dayjs().unix(),
   };
   await ReviewService.createOne(review);
   await TransactionService.updateOne(body.transactionId, {
