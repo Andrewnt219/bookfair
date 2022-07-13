@@ -33,7 +33,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     promote: promotionExpire,
   });
   await PaymentService.createOne({
-    createdAt: new Date().toISOString(),
+    createdAt: new Date().getTime(),
     id: nanoid(),
     amount: businessRules.calculatePromotionCost(body.days),
     type: 'listing/promote',

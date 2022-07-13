@@ -3,8 +3,8 @@ import { dbItemSchema } from './DbItem';
 
 export const dbWriteableItemSchema = z
   .object({
-    createdAt: z.string(),
-    updatedAt: z.string(),
+    createdAt: z.number(),
+    updatedAt: z.number(),
   })
   .merge(dbItemSchema);
 

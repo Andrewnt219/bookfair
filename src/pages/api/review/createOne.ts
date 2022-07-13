@@ -34,8 +34,8 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     id: nanoid(),
     listingId: transaction.listingId,
     userId,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdAt: new Date().getTime(),
+    updatedAt: new Date().getTime(),
   };
   await ReviewService.createOne(review);
   await TransactionService.updateOne(body.transactionId, {

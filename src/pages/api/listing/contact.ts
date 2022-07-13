@@ -52,7 +52,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     buyerId,
     sellerId: listing.userId,
     listingId: listing.id,
-    createdAt: new Date().toISOString(),
+    createdAt: new Date().getTime(),
     isPending: true,
   };
   await TransactionService.createOne(transaction);

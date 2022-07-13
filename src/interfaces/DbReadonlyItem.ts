@@ -3,7 +3,7 @@ import { dbItemSchema } from './DbItem';
 
 export const dbReadonlyItemSchema = z
   .object({
-    createdAt: z.string(),
+    createdAt: z.number(),
   })
   .merge(dbItemSchema);
 

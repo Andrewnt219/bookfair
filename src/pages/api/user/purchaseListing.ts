@@ -25,7 +25,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
 
   await PaymentService.createOne({
     amount: priceListingSlot(body.quantity),
-    createdAt: new Date().toISOString(),
+    createdAt: new Date().getTime(),
     id: nanoid(),
     type: 'listing/slot',
   });
