@@ -16,7 +16,7 @@ export type User_UpdateUser_Body = z.infer<typeof bodySchema>;
 
 const bodySchema = z.object({
   uid: z.string(),
-  data: dbUserSchema.partial(),
+  data: dbUserSchema.partial().omit({ uid: true, role: true }),
 });
 
 const validateBody: AssertType<User_UpdateUser_Body> = (body: unknown) => {

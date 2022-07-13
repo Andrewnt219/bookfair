@@ -8,7 +8,11 @@ interface Route extends LinkProps {
   iconName: string;
 }
 
-const routes: Route[] = [
+interface RoutesProps {
+  routes: Route[];
+}
+
+const userRoutes: Route[] = [
   {
     href: '/user/profile',
     text: 'Profile',
@@ -26,10 +30,33 @@ const routes: Route[] = [
   },
 ];
 
+const adminRoutes: Route[] = [
+  {
+    href: '/admin/reports',
+    text: 'Reports',
+    iconName: 'bi:clipboard2-check-fill',
+  },
+  {
+    href: '/admin/violations',
+    text: 'Violations',
+    iconName: 'bi:exclamation-circle-fill',
+  },
+];
+
 const UserMePage: NextPageWithLayout = () => {
   return (
+    <UserProfileLayout>
+      {(dbUser) => (
+        <Routes routes={dbUser.role === 'admin' ? adminRoutes : userRoutes} />
+      )}
+    </UserProfileLayout>
+  );
+};
+
+const Routes = (props: RoutesProps) => {
+  return (
     <ul className="list-unstyled row">
-      {routes.map(({ text, iconName, ...route }) => (
+      {props.routes.map(({ text, iconName, ...route }) => (
         <li key={route.href.toString()} className="col-6 mt-3">
           <NextLink {...route}>
             <a
@@ -47,7 +74,7 @@ const UserMePage: NextPageWithLayout = () => {
 };
 
 UserMePage.getLayout = (page) => {
-  return <UserProfileLayout>{page}</UserProfileLayout>;
+  return <>{page}</>;
 };
 
 export default UserMePage;

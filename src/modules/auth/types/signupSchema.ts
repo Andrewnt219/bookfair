@@ -11,7 +11,7 @@ export const signupSchema = z
     email: emailSchema,
     password: passwordSchema,
     retypePassword: passwordSchema,
-    displayName: displayNameSchema.min(1, 'Display name is required'),
+    displayName: displayNameSchema,
   })
   .refine((data) => data.password === data.retypePassword, {
     message: "Passwords don't match",

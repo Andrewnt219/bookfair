@@ -1,7 +1,8 @@
 import { Icon } from '@iconify/react';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import {
+  DbUser,
   SignoutButton,
   useDbUserQuery,
   UserAvatar,
@@ -12,7 +13,7 @@ import { useAuthRoute } from '../utils/useAuthRoute';
 import { RootLayout } from './RootLayout';
 
 export interface UserProfileLayoutProps {
-  children: ReactNode;
+  children(dbUser: DbUser): ReactNode;
 }
 
 export const UserProfileLayout = (props: UserProfileLayoutProps) => {
@@ -39,10 +40,12 @@ export const UserProfileLayout = (props: UserProfileLayoutProps) => {
                 <p className="h1 fw-bold text-center mt-2">
                   {dbUser.displayName}
                 </p>
-                <div className="text-primary h4 fw-normal d-flex gap-1 align-items-center justify-content-center">
-                  <Icon icon="bi:star-fill" />
-                  <span>{dbUser.rating.toFixed(1)}</span>
-                </div>
+                {dbUser.role === 'user' && (
+                  <div className="text-primary h4 fw-normal d-flex gap-1 align-items-center justify-content-center">
+                    <Icon icon="bi:star-fill" />
+                    <span>{dbUser.rating.toFixed(1)}</span>
+                  </div>
+                )}
 
                 <div className="d-flex justify-content-end">
                   <SignoutButton />
@@ -50,7 +53,7 @@ export const UserProfileLayout = (props: UserProfileLayoutProps) => {
               </div>
             </div>
 
-            <div className="mt-5">{props.children}</div>
+            <div className="mt-5">{props.children(dbUser)}</div>
           </Container>
         )}
       </WithQueryData>
