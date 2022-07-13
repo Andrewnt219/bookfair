@@ -13,6 +13,7 @@ import admin from 'firebase-admin';
 import { PaymentService } from '../../../modules/payments/PaymentService';
 import { nanoid } from 'nanoid';
 import { purchaseSlotSchema } from '../../../modules/user-profile/types/purchase-slot-schema';
+import dayjs from 'dayjs';
 type Data = HasMessage;
 export type User_PurchaseListing = Api<Data, typeof purchaseSlotSchema>;
 
@@ -25,7 +26,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
 
   await PaymentService.createOne({
     amount: priceListingSlot(body.quantity),
-    createdAt: new Date().getTime(),
+    createdAt: dayjs().unix(),
     id: nanoid(),
     type: 'listing/slot',
   });

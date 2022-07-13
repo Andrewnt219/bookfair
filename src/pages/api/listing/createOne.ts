@@ -1,4 +1,5 @@
 import { Api } from '@bookfair/common';
+import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import z from 'zod';
 import { HttpException } from '../../../errors';
@@ -37,7 +38,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
   }
 
   const listingId = nanoid();
-  const timestamp = new Date().getTime();
+  const timestamp = dayjs().unix();
   const photos: DbListingPhoto[] = photoPaths.map((path) => {
     return {
       createdAt: timestamp,

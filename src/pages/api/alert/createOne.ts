@@ -1,4 +1,5 @@
 import { Api } from '@bookfair/common';
+import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 import { HttpException } from '../../../errors';
@@ -30,8 +31,8 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     ...body,
     id: nanoid(),
     userId,
-    createdAt: new Date().getTime(),
-    updatedAt: new Date().getTime(),
+    createdAt: dayjs().unix(),
+    updatedAt: dayjs().unix(),
   };
   await AlertService.createOne(alert);
   return res.status(200).json(ResultSuccess(alert));
