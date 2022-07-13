@@ -32,4 +32,14 @@ export class ListingService {
     const queryRef = await db.listings.get();
     return queryRef.docs.map((doc) => doc.data());
   }
+
+  static async getBetweenDate(startDate: number, endDate: number) {
+    console.log({ startDate, endDate });
+    const queryRef = await db.listings
+      .where('createdAt', '>=', startDate)
+      .where('createdAt', '<=', endDate)
+      .get();
+    console.log(queryRef.docs.length);
+    return queryRef.docs.map((doc) => doc.data());
+  }
 }

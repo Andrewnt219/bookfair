@@ -11,3 +11,4 @@ export * from './create-assert-schema';
 export * from './currency';
 export * from './compare';
 export * from './useAdminRoute';
+export * from './day';
