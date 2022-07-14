@@ -28,12 +28,13 @@ export const CreateReviewForm = (props: CreateReviewFormProps) => {
   const toastStore = useToastStore();
   const createReviewMutation = useCreateReview({
     config: {
-      onSuccess() {
+      onSuccess(data, ctx) {
         toastStore.success('Thank you for your review');
         queryClient.invalidateQueries([
           'expanded-transaction',
           props.transactionId,
         ]);
+        props.onSubmit?.(ctx);
       },
       onError(error) {
         toastStore.error(error);
@@ -43,7 +44,6 @@ export const CreateReviewForm = (props: CreateReviewFormProps) => {
 
   const onSubmit = form.handleSubmit((data) => {
     createReviewMutation.mutate(data);
-    props.onSubmit?.(data);
   });
 
   return (
@@ -106,7 +106,9 @@ export const CreateReviewForm = (props: CreateReviewFormProps) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Button type="submit">Rate</Button>
+        <Button disabled={createReviewMutation.isLoading} type="submit">
+          Rate
+        </Button>
       </Stack>
     </Form>
   );
