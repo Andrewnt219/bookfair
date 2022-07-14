@@ -32,7 +32,7 @@ const userRoutes: Route[] = [
 
 const adminRoutes: Route[] = [
   {
-    href: '/admin/reports',
+    href: '/admin/stats',
     text: 'Reports',
     iconName: 'bi:clipboard2-check-fill',
   },
