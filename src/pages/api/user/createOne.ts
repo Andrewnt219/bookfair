@@ -9,6 +9,7 @@ import { AssertType, TResultSuccess } from '@bookfair/common';
 import { AuthService } from '../../../modules/auth/service';
 import { HttpException } from '../../../errors';
 import { businessRules } from '../../../constants';
+import dayjs from 'dayjs';
 
 type Data = UserRecord;
 export type User_CreateOne_Return = TResultSuccess<Data>;
@@ -31,7 +32,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
   await AuthService.addUser({
     displayName: body.displayName,
     uid: user.uid,
-    createdDate: new Date(user.metadata.creationTime),
+    createdDate: dayjs().unix(),
     bio: 'Hello',
     rating: 0,
     isActive: true,

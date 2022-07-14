@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { Badge, Button, Container } from 'react-bootstrap';
@@ -76,11 +77,12 @@ export const ListingDetailsPage = ({ listingId }: ListingDetailsPageProps) => {
 
                   <div className="border rounded p-3 mt-3">
                     <h1>{listing.title}</h1>
-                    <p>
-                      Sold by{' '}
+                    <p className="text-muted">
+                      Listed by{' '}
                       <Link href={`/user/${user.uid}`}>
                         <a>{user.displayName}</a>
-                      </Link>
+                      </Link>{' '}
+                      {dayjs.unix(listing.createdAt).fromNow()}
                     </p>
                     <ul className="list-unstyled d-flex flex-wrap gap-1">
                       {listing.tags.map((tag) => (

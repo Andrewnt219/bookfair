@@ -6,27 +6,39 @@ import {
   useTypedQuery,
 } from '../../../lib/react-query';
 import { Stats_GetCreatedListings } from '../../../pages/api/stats/getCreatedListings';
+import { useAuthUserStore } from '../../../stores';
 
 const getCreatedListingsStats = async (
-  body: Stats_GetCreatedListings['input']
+  params: Stats_GetCreatedListings['input']
 ) => {
-  const { data } = await axios.post<Stats_GetCreatedListings['return']>(
+  const { data } = await axios.get<Stats_GetCreatedListings['return']>(
     '/stats/getCreatedListings',
-    body
+    {
+      params,
+    }
   );
 
   return data.data;
 };
 
 export interface UseCreatedListingsStatsOptions {
-  config?: MutationConfig<typeof getCreatedListingsStats>;
+  config?: QueryConfig<typeof getCreatedListingsStats>;
+  startDate: string;
+  endDate: string;
 }
 
 export const useCreatedListingsStats = (
-  props: UseCreatedListingsStatsOptions = {}
+  props: UseCreatedListingsStatsOptions
 ) => {
-  return useTypedMutation<typeof getCreatedListingsStats>({
+  const { authUser } = useAuthUserStore();
+  return useTypedQuery<typeof getCreatedListingsStats>({
     ...props.config,
-    mutationFn: getCreatedListingsStats,
+    queryFn: () =>
+      getCreatedListingsStats({
+        endDate: props.endDate,
+        startDate: props.startDate,
+      }),
+    queryKey: ['stats-created-listings', props.startDate, props.endDate],
+    enabled: Boolean(props.startDate && props.endDate && authUser),
   });
 };

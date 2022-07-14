@@ -9,6 +9,7 @@ export const businessRules = {
     return this.MAX_FILE_SIZE_MB * 1024 * 1024;
   },
   promotionDays: ['1', '3', '7', '30'] as const,
+  reportTypes: ['users-report', 'listings-report'] as const,
   calculatePurchaseSlot(quantity: number) {
     return quantity * this.SLOT_COST;
   },

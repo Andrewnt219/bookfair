@@ -11,10 +11,7 @@ export interface WithDataProps<T> {
 }
 
 export function WithData<T>(props: WithDataProps<T>) {
-  const toastStore = useToastStore();
-
   if (props.error) {
-    toastStore.error(props.error);
     return <p>{getErrorMessage(props.error)}</p>;
   }
 

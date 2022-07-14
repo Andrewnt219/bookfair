@@ -16,26 +16,31 @@ type Data = {
 };
 export type Stats_GetCreatedListings = Api<Data, typeof requestSchema>;
 
-const requestSchema = z.object({
-  startDate: z
-    .string()
-    .refine((val) => dayjs(val).isValid(), { message: 'Invalid start date' }),
-  endDate: z
-    .string()
-    .refine((val) => dayjs(val).isValid(), { message: 'Invalid end date' }),
-});
+const requestSchema = z
+  .object({
+    startDate: z
+      .string()
+      .refine((val) => dayjs(val).isValid(), { message: 'Invalid start date' }),
+    endDate: z
+      .string()
+      .refine((val) => dayjs(val).isValid(), { message: 'Invalid end date' }),
+  })
+  .refine((data) => dayjs(data.startDate).isBefore(data.endDate), {
+    message: 'Start date cannot be after end date',
+    path: ['startDate'],
+  });
 const validateRequest =
   createAssertSchema<Stats_GetCreatedListings['input']>(requestSchema);
 
-const postHandler: WithApiHandler<Data> = async (req, res) => {
+const getHandler: WithApiHandler<Data> = async (req, res) => {
   await adminMiddleware(req);
-  const body = validateRequest(req.body);
+  const query = validateRequest(req.query);
   const listings = await ListingService.getBetweenDate(
-    dayjs(body.startDate).unix(),
-    dayjs(body.endDate).unix()
+    dayjs(query.startDate).unix(),
+    dayjs(query.endDate).unix()
   );
   const groupedListings = groupBy(listings, (listing) =>
-    dayjs.unix(listing.createdAt).format('MMM YYYY')
+    dayjs.unix(listing.createdAt).format('MM/YYYY')
   );
   const labels = Object.keys(groupedListings);
   const data = Object.values(groupedListings).map(
@@ -50,4 +55,4 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
   );
 };
 
-export default withApiHandler({ postHandler });
+export default withApiHandler({ getHandler });
