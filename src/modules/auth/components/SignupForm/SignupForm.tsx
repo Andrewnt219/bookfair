@@ -4,14 +4,17 @@ import { useSignupForm } from './useSignupForm';
 import { Button, Form, InputGroup, Stack } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export const SignupForm = () => {
   const { form, submitMutation, passwordInputToggle } = useSignupForm();
-
+  const router = useRouter();
   const { errors } = form.formState;
 
-  const onSubmit = form.handleSubmit((data) => {
-    submitMutation.mutate(data);
+  const onSubmit = form.handleSubmit(async (data) => {
+    await submitMutation.mutateAsync(data);
+    form.reset();
+    router.push('/signin');
   });
 
   return (
