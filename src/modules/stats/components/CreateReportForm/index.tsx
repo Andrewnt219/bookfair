@@ -43,16 +43,16 @@ export const CreateReportForm = () => {
     form.setValue('endDate', dayjs(endDate).format('YYYY-MM-DD'));
   };
 
+  const onOneDayClick = () => {
+    setDateRange(dayjs().subtract(1, 'day'));
+  };
+
   const onOneWeekClick = () => {
     setDateRange(dayjs().subtract(7, 'day'));
   };
 
   const onOneMonthClick = () => {
     setDateRange(dayjs().subtract(1, 'month'));
-  };
-
-  const onOneQuarterClick = () => {
-    setDateRange(dayjs().subtract(3, 'month'));
   };
 
   const onOneYearClick = () => {
@@ -63,14 +63,14 @@ export const CreateReportForm = () => {
     <Form noValidate validated={form.formState.isValid} onSubmit={onSubmit}>
       <Stack gap={2}>
         <ButtonGroup size="sm">
+          <Button variant="secondary" onClick={onOneDayClick}>
+            Last day
+          </Button>
           <Button variant="secondary" onClick={onOneWeekClick}>
             Last week
           </Button>
           <Button variant="secondary" onClick={onOneMonthClick}>
             Last month
-          </Button>
-          <Button variant="secondary" onClick={onOneQuarterClick}>
-            Last quarter
           </Button>
           <Button variant="secondary" onClick={onOneYearClick}>
             Last year
