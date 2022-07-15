@@ -1,10 +1,8 @@
+import { DayjsAble } from '@bookfair/common';
 import dayjs from 'dayjs';
 
 // get name of months between two dates
-export const getMonthsBetween = (
-  startDate: dayjs.ConfigType,
-  endDate: dayjs.ConfigType
-) => {
+export const getMonthsBetween = (startDate: DayjsAble, endDate: DayjsAble) => {
   const months = [];
   let currentDate = dayjs(startDate);
   while (currentDate.isBefore(endDate)) {

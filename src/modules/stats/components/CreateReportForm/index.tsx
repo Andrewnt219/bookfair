@@ -1,9 +1,10 @@
+import { DayjsAble } from '@bookfair/common';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { sentenceCase } from 'change-case';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { Button, Form, Stack } from 'react-bootstrap';
+import { Button, ButtonGroup, Form, FormSelect, Stack } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { businessRules } from '../../../../constants';
 import {
@@ -37,9 +38,45 @@ export const CreateReportForm = () => {
     });
   });
 
+  const setDateRange = (startDate: DayjsAble, endDate: DayjsAble = dayjs()) => {
+    form.setValue('startDate', dayjs(startDate).format('YYYY-MM-DD'));
+    form.setValue('endDate', dayjs(endDate).format('YYYY-MM-DD'));
+  };
+
+  const onOneWeekClick = () => {
+    setDateRange(dayjs().subtract(7, 'day'));
+  };
+
+  const onOneMonthClick = () => {
+    setDateRange(dayjs().subtract(1, 'month'));
+  };
+
+  const onOneQuarterClick = () => {
+    setDateRange(dayjs().subtract(3, 'month'));
+  };
+
+  const onOneYearClick = () => {
+    setDateRange(dayjs().subtract(1, 'year'));
+  };
+
   return (
     <Form noValidate validated={form.formState.isValid} onSubmit={onSubmit}>
       <Stack gap={2}>
+        <ButtonGroup size="sm">
+          <Button variant="secondary" onClick={onOneWeekClick}>
+            Last week
+          </Button>
+          <Button variant="secondary" onClick={onOneMonthClick}>
+            Last month
+          </Button>
+          <Button variant="secondary" onClick={onOneQuarterClick}>
+            Last quarter
+          </Button>
+          <Button variant="secondary" onClick={onOneYearClick}>
+            Last year
+          </Button>
+        </ButtonGroup>
+
         <Form.Group controlId="report-type">
           <Form.Label>Report type</Form.Label>
           <Controller

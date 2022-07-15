@@ -32,6 +32,11 @@ const userRoutes: Route[] = [
 
 const adminRoutes: Route[] = [
   {
+    href: '/user/profile',
+    text: 'Profile',
+    iconName: 'bi:credit-card-2-front-fill',
+  },
+  {
     href: '/admin/stats',
     text: 'Reports',
     iconName: 'bi:clipboard2-check-fill',

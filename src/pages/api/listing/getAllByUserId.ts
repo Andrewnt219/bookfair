@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { DbListing } from '../../../modules/listing';
 import { ListingService } from '../../../modules/listing/ListingService';
 import {
-  compareDate,
+  compareListingDate,
   createAssertSchema,
   ResultSuccess,
   withApiHandler,
@@ -24,7 +24,7 @@ const getHandler: WithApiHandler<Data> = async (req, res) => {
   const query = validateQuery(req.query);
   const dbListings = (await ListingService.getAllByUserId(query.userId))
     .filter((listing) => listing.isActive)
-    .sort((a, b) => compareDate(b.createdAt, a.createdAt));
+    .sort(compareListingDate);
   return res.status(200).json(ResultSuccess(dbListings));
 };
 
