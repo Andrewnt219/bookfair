@@ -1,9 +1,8 @@
 import dayjs from 'dayjs';
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { Line } from 'react-chartjs-2';
-import { BackButton, WithQueryData } from '../../../ui';
-import { useCreatedListingsStats } from '../data/useCreatedListingsStats';
+import { BackButton } from '../../../ui';
+import { CreatedListingsChart } from '../components/CreatedListingsChart';
 
 export interface AdminStatsListingsReportRouteProps {
   startDate: string;
@@ -13,11 +12,6 @@ export interface AdminStatsListingsReportRouteProps {
 export const AdminStatsListingsReportRoute = (
   props: AdminStatsListingsReportRouteProps
 ) => {
-  const statsQuery = useCreatedListingsStats({
-    endDate: props.endDate,
-    startDate: props.startDate,
-  });
-
   return (
     <Container as="section" fluid className="col-lg-4">
       <BackButton />
@@ -27,33 +21,10 @@ export const AdminStatsListingsReportRoute = (
         {dayjs(props.endDate).format('MMM YYYY')}{' '}
       </p>
 
-      <WithQueryData query={statsQuery}>
-        {(stats) => (
-          <article className="p-3 shadow rounded ">
-            <Line
-              data={{
-                labels: stats.labels,
-                datasets: [
-                  {
-                    label: 'Count',
-                    data: stats.data,
-                    borderColor: '#f47888',
-                    backgroundColor: '#f47888',
-                  },
-                ],
-              }}
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: {
-                    position: 'top' as const,
-                  },
-                },
-              }}
-            />
-          </article>
-        )}
-      </WithQueryData>
+      <CreatedListingsChart
+        startDate={props.startDate}
+        endDate={props.endDate}
+      />
     </Container>
   );
   0;

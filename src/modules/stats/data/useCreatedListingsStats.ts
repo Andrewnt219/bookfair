@@ -1,10 +1,5 @@
 import { axios } from '../../../lib/axios';
-import {
-  MutationConfig,
-  QueryConfig,
-  useTypedMutation,
-  useTypedQuery,
-} from '../../../lib/react-query';
+import { QueryConfig, useTypedQuery } from '../../../lib/react-query';
 import { Stats_GetCreatedListings } from '../../../pages/api/stats/getCreatedListings';
 import { useAuthUserStore } from '../../../stores';
 
