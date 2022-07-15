@@ -12,9 +12,17 @@ import groupBy from 'lodash/groupBy';
 import { adminMiddleware } from '../../../middlewares';
 type Data = {
   labels: string[];
-  data: number[];
+
+  datasets: {
+    label: string;
+    data: number[];
+    backgroundColor: string;
+    borderColor: string;
+  }[];
 };
 export type Stats_GetCreatedListings = Api<Data, typeof requestSchema>;
+
+const color = 'rgb(255, 99, 132)';
 
 const requestSchema = z
   .object({
@@ -46,11 +54,19 @@ const getHandler: WithApiHandler<Data> = async (req, res) => {
   const data = Object.values(groupedListings).map(
     (listings) => listings.length
   );
+  const datasets = [
+    {
+      label: 'Created listings',
+      data,
+      backgroundColor: color,
+      borderColor: color,
+    },
+  ];
 
   return res.status(200).json(
     ResultSuccess({
-      data,
       labels,
+      datasets,
     })
   );
 };

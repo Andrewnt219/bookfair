@@ -16,8 +16,8 @@ export const AdminStatsListingsReportRoute = (
 ) => {
   const uiDateRange = (
     <p className="text-muted">
-      from {dayjs(props.startDate).format('MMM YYYY')} to{' '}
-      {dayjs(props.endDate).format('MMM YYYY')}{' '}
+      from {dayjs(props.startDate).format('MMM DD, YYYY')} to{' '}
+      {dayjs(props.endDate).format('MMM DD, YYYY')}{' '}
     </p>
   );
   return (
