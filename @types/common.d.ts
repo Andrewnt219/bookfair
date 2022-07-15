@@ -1,4 +1,5 @@
 declare module '@bookfair/common' {
+  import { Dayjs } from 'dayjs';
   import { z } from 'zod';
   export type TResultError = {
     type: 'error';
@@ -20,4 +21,6 @@ declare module '@bookfair/common' {
     input: z.infer<In>;
     return: TResultSuccess<Out>;
   }
+
+  export type DayjsAble = Date | Dayjs | string;
 }
