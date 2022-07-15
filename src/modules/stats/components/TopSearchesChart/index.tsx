@@ -40,7 +40,7 @@ export const TopSearchesChart = (props: TopSearchesChartProps) => {
           <Bar
             data={{
               labels: stats.labels,
-              datasets: stats.dataset,
+              datasets: stats.datasets,
             }}
           />
         )}

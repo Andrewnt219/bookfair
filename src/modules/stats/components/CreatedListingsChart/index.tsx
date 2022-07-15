@@ -42,14 +42,7 @@ export const CreatedListingsChart = (props: CreatedListingsChartProps) => {
           <Line
             data={{
               labels: stats.labels,
-              datasets: [
-                {
-                  label: 'Count',
-                  data: stats.data,
-                  borderColor: '#f47888',
-                  backgroundColor: '#f47888',
-                },
-              ],
+              datasets: stats.datasets,
             }}
             options={{
               responsive: true,

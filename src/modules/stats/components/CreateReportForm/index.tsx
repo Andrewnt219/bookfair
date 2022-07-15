@@ -84,7 +84,7 @@ export const CreateReportForm = () => {
             name="type"
             render={({ field }) => (
               <Form.Select
-                title="Promotion's duration"
+                title="Report type"
                 {...field}
                 isInvalid={Boolean(errors.type)}
               >

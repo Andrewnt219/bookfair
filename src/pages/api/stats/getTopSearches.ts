@@ -11,7 +11,7 @@ import {
 
 type Data = {
   labels: string[];
-  dataset: {
+  datasets: {
     label: string;
     backgroundColor: string[];
     borderColor: string[];
@@ -55,9 +55,9 @@ const getHandler: WithApiHandler<Data> = async (req, res) => {
     limit: query.limit ?? DEFAULT_SEARCH_LIMIT,
   });
   const labels = searchData.searches.map((search) => search.search);
-  const dataset = [
+  const datasets = [
     {
-      label: 'Top searches',
+      label: '',
       data: searchData.searches.map((search) => search.count),
       backgroundColor: colors,
       borderColor: colors,
@@ -66,7 +66,7 @@ const getHandler: WithApiHandler<Data> = async (req, res) => {
   return res.status(200).json(
     ResultSuccess({
       labels,
-      dataset,
+      datasets,
     })
   );
 };
