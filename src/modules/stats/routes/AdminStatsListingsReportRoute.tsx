@@ -4,6 +4,7 @@ import { Container, Stack } from 'react-bootstrap';
 import { BackButton } from '../../../ui';
 import { CreatedListingsChart } from '../components/CreatedListingsChart';
 import { ListingsPriceChart } from '../components/ListingsPriceChart';
+import { TopSearchesChart } from '../components/TopSearchesChart';
 
 export interface AdminStatsListingsReportRouteProps {
   startDate: string;
@@ -39,6 +40,16 @@ export const AdminStatsListingsReportRoute = (
           {uiDateRange}
           <div className="p-3 shadow rounded ">
             <ListingsPriceChart
+              startDate={props.startDate}
+              endDate={props.endDate}
+            />
+          </div>
+        </section>
+        <section>
+          <h2 className="h2 mt-3">Top searches</h2>
+          {uiDateRange}
+          <div className="p-3 shadow rounded ">
+            <TopSearchesChart
               startDate={props.startDate}
               endDate={props.endDate}
             />
