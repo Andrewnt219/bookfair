@@ -6,3 +6,4 @@ export const searchClient = algoliasearch(
 );
 
 export const algoliaListings = searchClient.initIndex('listings');
+export * from './algolia-utils';
