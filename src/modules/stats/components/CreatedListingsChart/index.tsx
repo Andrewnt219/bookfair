@@ -36,9 +36,9 @@ export const CreatedListingsChart = (props: CreatedListingsChartProps) => {
   });
 
   return (
-    <WithQueryData query={statsQuery}>
-      {(stats) => (
-        <article className="p-3 shadow rounded ">
+    <article>
+      <WithQueryData query={statsQuery}>
+        {(stats) => (
           <Line
             data={{
               labels: stats.labels,
@@ -60,8 +60,8 @@ export const CreatedListingsChart = (props: CreatedListingsChartProps) => {
               },
             }}
           />
-        </article>
-      )}
-    </WithQueryData>
+        )}
+      </WithQueryData>
+    </article>
   );
 };
