@@ -10,28 +10,8 @@ import { useAuthUserStore } from '../stores';
 import { firebaseAuth } from '../lib/firebase';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 
 dayjs.extend(relativeTime);
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 // TODO mount signin page instead of actual page if Component.authenticate is true
 type AppPropsWithLayout = AppProps & {
