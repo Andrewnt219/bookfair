@@ -1,6 +1,7 @@
 import { Api } from '@bookfair/common';
 import dayjs from 'dayjs';
 import { z } from 'zod';
+import { colors } from '../../../constants';
 import { getTopSearch } from '../../../lib/algolia';
 import {
   createAssertSchema,
@@ -20,12 +21,12 @@ type Data = {
 };
 export type Stats_GetTopSearches = Api<Data, typeof requestSchema>;
 
-const colors = [
-  'rgba(54, 162, 235, 0.6)',
-  'rgba(255, 206, 86, 0.6)',
-  'rgba(75, 192, 192, 0.6)',
-  'rgba(153, 102, 255, 0.6)',
-  'rgba(255, 159, 64, 0.6)',
+const bgColors = [
+  colors.chart.red,
+  colors.chart.green,
+  colors.chart.blue,
+  colors.chart.yellow,
+  colors.chart.purple,
 ];
 
 const DEFAULT_SEARCH_LIMIT = 5;
@@ -59,8 +60,8 @@ const getHandler: WithApiHandler<Data> = async (req, res) => {
     {
       label: '',
       data: searchData.searches.map((search) => search.count),
-      backgroundColor: colors,
-      borderColor: colors,
+      backgroundColor: bgColors,
+      borderColor: bgColors,
     },
   ];
   return res.status(200).json(
