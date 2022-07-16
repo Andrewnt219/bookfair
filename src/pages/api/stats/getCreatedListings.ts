@@ -10,6 +10,7 @@ import {
 } from '../../../utils';
 import groupBy from 'lodash/groupBy';
 import { adminMiddleware } from '../../../middlewares';
+import { colors } from '../../../constants';
 type Data = {
   labels: string[];
 
@@ -21,8 +22,6 @@ type Data = {
   }[];
 };
 export type Stats_GetCreatedListings = Api<Data, typeof requestSchema>;
-
-const color = 'rgb(255, 99, 132)';
 
 const requestSchema = z
   .object({
@@ -58,8 +57,8 @@ const getHandler: WithApiHandler<Data> = async (req, res) => {
     {
       label: 'Created listings',
       data,
-      backgroundColor: color,
-      borderColor: color,
+      backgroundColor: colors.chart.red,
+      borderColor: colors.chart.red,
     },
   ];
 

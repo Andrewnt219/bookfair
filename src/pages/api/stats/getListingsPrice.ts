@@ -11,6 +11,7 @@ import {
   WithApiHandler,
 } from '../../../utils';
 import groupBy from 'lodash/groupBy';
+import { colors } from '../../../constants';
 
 type Data = {
   labels: string[];
@@ -23,11 +24,11 @@ type Data = {
 };
 export type Stats_GetListingsPrice = Api<Data, typeof requestSchema>;
 
-const colors = [
-  'rgba(255, 99, 132, 0.5)',
-  'rgba(54, 162, 235, 0.5)',
-  'rgba(255, 206, 86, 0.5)',
-  'rgba(75, 192, 192, 0.5)',
+const bgColors = [
+  colors.chart.red,
+  colors.chart.green,
+  colors.chart.blue,
+  colors.chart.yellow,
 ];
 
 const requestSchema = z
@@ -77,8 +78,8 @@ const getHandler: WithApiHandler<Data> = async (req, res) => {
         {
           label: 'Price range',
           data,
-          backgroundColor: colors,
-          borderColor: colors,
+          backgroundColor: bgColors,
+          borderColor: bgColors,
         },
       ],
     })
