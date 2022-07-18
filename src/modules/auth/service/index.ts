@@ -47,8 +47,8 @@ export class AuthService {
     endDate: number
   ): Promise<DbUser[]> {
     const queryRef = await db.users
-      .where('createdAt', '>=', startDate)
-      .where('createdAt', '<=', endDate)
+      .where('createdDate', '>=', startDate)
+      .where('createdDate', '<=', endDate)
       .get();
     return queryRef.docs.map((doc) => doc.data());
   }
