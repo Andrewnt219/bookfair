@@ -6,6 +6,7 @@ export const dbAlertSchema = z
   .object({
     search: z.string(),
     userId: z.string(),
+    isActive: z.boolean(),
   })
   .merge(dbWriteableItemSchema);
 
