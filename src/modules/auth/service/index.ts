@@ -41,4 +41,15 @@ export class AuthService {
       }),
     ]);
   }
+
+  static async getUsersBetweenDates(
+    startDate: number,
+    endDate: number
+  ): Promise<DbUser[]> {
+    const queryRef = await db.users
+      .where('createdAt', '>=', startDate)
+      .where('createdAt', '<=', endDate)
+      .get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
 }
