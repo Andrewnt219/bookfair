@@ -28,6 +28,11 @@ const userRoutes: Route[] = [
     text: 'Listings',
     iconName: 'bi:aspect-ratio-fill',
   },
+  {
+    href: '/user/alerts',
+    text: 'Alerts',
+    iconName: 'bi:bell-fill',
+  },
 ];
 
 const adminRoutes: Route[] = [
@@ -65,7 +70,7 @@ const Routes = (props: RoutesProps) => {
         <li key={route.href.toString()} className="col-6 mt-3">
           <NextLink {...route}>
             <a
-              className="d-flex flex-column fw-normal align-items-center justify-content-center gap-2 shadow-sm rounded"
+              className="d-flex flex-column fw-normal align-items-center justify-content-center gap-2 border shadow-sm rounded"
               style={{ aspectRatio: '1/1' }}
             >
               <Icon icon={iconName} className="display-1" />
