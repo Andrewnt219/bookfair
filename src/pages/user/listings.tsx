@@ -6,7 +6,6 @@ import { useAuthUserStore } from '../../stores';
 import { WithQueryData } from '../../ui/WithQueryData';
 import { useAuthRoute } from '../../utils/useAuthRoute';
 import NextLink from 'next/link';
-import { Button, Container } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { useDbUserQuery } from '../../modules/user-profile';
 
@@ -21,7 +20,7 @@ const UserListingsPage: NextPageWithLayout = () => {
       {(listings) => (
         <WithQueryData query={userProfileQuery}>
           {(profile) => (
-            <Container fluid as="section" className="col-lg-4">
+            <section>
               <h1>My listings</h1>
               <p className="text-muted">
                 {listings.length}/{profile.listingLimit} listings used
@@ -48,7 +47,7 @@ const UserListingsPage: NextPageWithLayout = () => {
               <div className="mt-4">
                 <ListingList listings={listings} />
               </div>
-            </Container>
+            </section>
           )}
         </WithQueryData>
       )}

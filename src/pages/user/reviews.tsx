@@ -1,5 +1,4 @@
 import { NextPageWithLayout } from '@bookfair/next';
-import { Container } from 'react-bootstrap';
 import { RootLayout } from '../../layouts';
 import {
   PendingListingList,
@@ -16,7 +15,7 @@ const UserReviewsPage: NextPageWithLayout = () => {
   const doneTransactionsQuery = useDoneTransactions();
 
   return (
-    <Container fluid className="col-lg-4">
+    <section>
       <section>
         <h2>Pending transactions</h2>
         <WithQueryData query={pendingListingsQuery}>
@@ -30,7 +29,7 @@ const UserReviewsPage: NextPageWithLayout = () => {
           {(transactions) => <TransactionList transactions={transactions} />}
         </WithQueryData>
       </section>
-    </Container>
+    </section>
   );
 };
 

@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import { Container, Stack } from 'react-bootstrap';
-import { BackButton } from '../../../ui';
+import { Stack } from 'react-bootstrap';
 import { CreatedListingsChart } from '../components/CreatedListingsChart';
 import { ListingsPriceChart } from '../components/ListingsPriceChart';
 import { TopSearchesChart } from '../components/TopSearchesChart';
@@ -21,9 +20,7 @@ export const AdminStatsListingsReportRoute = (
     </p>
   );
   return (
-    <Container as="section" fluid className="col-lg-4">
-      <BackButton />
-
+    <section>
       <Stack gap={3}>
         <section>
           <h2 className="h2 mt-3">Created listings</h2>
@@ -56,7 +53,7 @@ export const AdminStatsListingsReportRoute = (
           </div>
         </section>
       </Stack>
-    </Container>
+    </section>
   );
   0;
 };

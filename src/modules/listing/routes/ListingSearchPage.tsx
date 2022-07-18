@@ -1,6 +1,4 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
-import { BackButton } from '../../../ui';
 import { WithQueryData } from '../../../ui/WithQueryData';
 import { useSearchListingsQuery } from '../api';
 import { SearchListingResult, SearchListingsForm } from '../components';
@@ -9,8 +7,7 @@ export const ListingSearchPage = () => {
   const searchQuery = useSearchListingsQuery();
 
   return (
-    <Container as="section" fluid className="col-lg-4">
-      <BackButton />
+    <section>
       <div className="mt-3">
         <h1>Search listings</h1>
         <div className="shadow rounded mt-3 p-4">
@@ -25,6 +22,6 @@ export const ListingSearchPage = () => {
           )}
         </WithQueryData>
       </div>
-    </Container>
+    </section>
   );
 };
