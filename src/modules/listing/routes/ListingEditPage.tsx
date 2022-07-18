@@ -1,7 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import { useQueryClient } from 'react-query';
-import { BackButton } from '../../../ui';
 import { WithQueryData } from '../../../ui/WithQueryData';
 import { useGetListing, useListingReview } from '../api';
 import { EditListingForm, ReviewCard, ToggleSoldButton } from '../components';
@@ -32,8 +30,7 @@ export const ListingEditPage = ({ listingId }: ListingEditPageProps) => {
   return (
     <WithQueryData query={listingQuery}>
       {(listing) => (
-        <Container as="section" fluid className="col-lg-4">
-          <BackButton />
+        <section>
           {reviewQuery.data && (
             <div className="border p-3 rounded">
               <ReviewCard review={reviewQuery.data} />
@@ -45,7 +42,7 @@ export const ListingEditPage = ({ listingId }: ListingEditPageProps) => {
 
             <EditListingForm listing={listing} />
           </section>
-        </Container>
+        </section>
       )}
     </WithQueryData>
   );

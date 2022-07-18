@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { Container } from 'react-bootstrap';
 import { RootLayout } from './RootLayout';
 
 export interface AuthLayoutProps {
@@ -10,11 +9,11 @@ export interface AuthLayoutProps {
 export const AuthLayout = (props: AuthLayoutProps) => {
   return (
     <RootLayout>
-      <Container className="mx-auto col-lg-4">
+      <section>
         <h1>{props.title}</h1>
 
         {props.children}
-      </Container>
+      </section>
     </RootLayout>
   );
 };

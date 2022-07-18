@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
-import { Badge, Button, Container } from 'react-bootstrap';
+import { Badge, Button } from 'react-bootstrap';
 import { businessRules } from '../../../constants';
 import { useToastStore } from '../../../stores';
-import { BackButton, PhotosGrid } from '../../../ui';
+import { PhotosGrid } from '../../../ui';
 import { WithQueryData } from '../../../ui/WithQueryData';
 import { formatCurrency } from '../../../utils';
 import { useDbUserQuery } from '../../user-profile';
@@ -67,9 +67,8 @@ export const ListingDetailsPage = ({ listingId }: ListingDetailsPageProps) => {
           {(user) => (
             <WithQueryData query={photoSrcsQuery}>
               {(photoSrcs) => (
-                <Container as="section" fluid className="col-lg-4">
+                <section>
                   <div className="d-flex justify-content-between gap-3 align-items-center">
-                    <BackButton />
                     <Link href={`/listing/${listing.id}/report`}>
                       <a className="btn btn-sm btn-warning">Report</a>
                     </Link>
@@ -113,7 +112,7 @@ export const ListingDetailsPage = ({ listingId }: ListingDetailsPageProps) => {
                       </Button>
                     </div>
                   </div>
-                </Container>
+                </section>
               )}
             </WithQueryData>
           )}

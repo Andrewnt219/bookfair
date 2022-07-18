@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import { Container, Stack } from 'react-bootstrap';
-import { BackButton } from '../../../ui';
+import { Stack } from 'react-bootstrap';
 import { CreatedUsersChart } from '../components/CreatedUsersChart';
 import { ListingsLimitChart } from '../components/ListingsLimitChart';
 
@@ -20,9 +19,7 @@ export const AdminStatsUsersReportRoute = (
     </p>
   );
   return (
-    <Container as="section" fluid className="col-lg-4">
-      <BackButton />
-
+    <section>
       <Stack gap={3}>
         <section>
           <h2 className="h2 mt-3">Created users</h2>
@@ -46,6 +43,6 @@ export const AdminStatsUsersReportRoute = (
           </div>
         </section>
       </Stack>
-    </Container>
+    </section>
   );
 };

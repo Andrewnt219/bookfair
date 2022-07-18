@@ -1,7 +1,6 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Container } from 'react-bootstrap';
 import { RootLayout } from '../../layouts';
 import { useDbUserQuery, UserAvatar } from '../../modules/user-profile';
 import { UserProfile } from '../../modules/user-profile';
@@ -19,7 +18,7 @@ const UserUserIdPage: NextPageWithLayout = () => {
   return (
     <WithQueryData query={dbUserQuery}>
       {(dbUser) => (
-        <Container className="mx-auto col-lg-4">
+        <section>
           <Head>
             <title>{dbUser.displayName}</title>
           </Head>
@@ -28,7 +27,7 @@ const UserUserIdPage: NextPageWithLayout = () => {
             <UserAvatar uid={dbUser.uid} />
             <UserProfile user={dbUser} />
           </div>
-        </Container>
+        </section>
       )}
     </WithQueryData>
   );
