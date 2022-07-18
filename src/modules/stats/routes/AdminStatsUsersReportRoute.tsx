@@ -3,6 +3,7 @@ import React from 'react';
 import { Container, Stack } from 'react-bootstrap';
 import { BackButton } from '../../../ui';
 import { CreatedUsersChart } from '../components/CreatedUsersChart';
+import { ListingsLimitChart } from '../components/ListingsLimitChart';
 
 export interface AdminStatsUsersReportProps {
   startDate: string;
@@ -28,6 +29,17 @@ export const AdminStatsUsersReportRoute = (
           {uiDateRange}
           <div className="p-3 shadow rounded ">
             <CreatedUsersChart
+              startDate={props.startDate}
+              endDate={props.endDate}
+            />
+          </div>
+        </section>
+
+        <section>
+          <h2 className="h2 mt-3">Slot Listings</h2>
+          {uiDateRange}
+          <div className="p-3 shadow rounded ">
+            <ListingsLimitChart
               startDate={props.startDate}
               endDate={props.endDate}
             />
