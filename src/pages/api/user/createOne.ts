@@ -34,7 +34,6 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     uid: user.uid,
     createdDate: dayjs().unix(),
     bio: 'Hello',
-    rating: 0,
     isActive: true,
     listingLimit: businessRules.DEFAULT_MAX_LISTINGS,
     email: body.email,

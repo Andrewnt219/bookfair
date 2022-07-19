@@ -3,6 +3,7 @@ import { DbAlert } from '../../modules/alert';
 import { DbListing, DbReview, DbTransaction } from '../../modules/listing';
 import { DbPayment } from '../../modules/payments';
 import { DbUser } from '../../modules/user-profile';
+import { DbViolation } from '../../modules/violations';
 import { adminFirestore } from './adminFirestore';
 
 const createConverter = <T>(): FirestoreDataConverter<T> => ({
@@ -29,4 +30,7 @@ export const db = {
   reviews: adminFirestore
     .collection('reviews')
     .withConverter(createConverter<DbReview>()),
+  violations: adminFirestore
+    .collection('violations')
+    .withConverter(createConverter<DbViolation>()),
 };
