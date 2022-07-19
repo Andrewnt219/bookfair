@@ -1,0 +1,41 @@
+import { Api } from '@bookfair/common';
+import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
+import { z } from 'zod';
+import { authMiddleware } from '../../../middlewares';
+import { DbViolation, dbViolationSchema } from '../../../modules/violations';
+import { ViolationService } from '../../../modules/violations/violation-services';
+import {
+  createAssertSchema,
+  ResultSuccess,
+  WithApiHandler,
+  withApiHandler,
+} from '../../../utils';
+
+type Data = { violation: DbViolation };
+export type Violation_CreateOne = Api<Data, typeof requestSchema>;
+
+const requestSchema = dbViolationSchema.pick({
+  description: true,
+  listingId: true,
+  type: true,
+});
+const validateRequest =
+  createAssertSchema<Violation_CreateOne['input']>(requestSchema);
+
+const postHandler: WithApiHandler<Data> = async (req, res) => {
+  const userId = await authMiddleware(req);
+  const body = validateRequest(req.body);
+  const violation: DbViolation = {
+    ...body,
+    id: nanoid(),
+    reporterId: userId,
+    createdAt: dayjs().unix(),
+    updatedAt: dayjs().unix(),
+    result: 'pending',
+  };
+  await ViolationService.createOne(violation);
+  return res.status(201).json(ResultSuccess({ violation }));
+};
+
+export default withApiHandler({ postHandler });

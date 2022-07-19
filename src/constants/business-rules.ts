@@ -4,6 +4,7 @@ export const businessRules = {
   PROMOTION_COST_PER_DAY: 1.99,
   CONTEXT_TAX: 0.13,
   SUPPORTED_FORMATS: ['image/jpg', 'image/jpeg', 'image/png'],
+  VIOLATION_TYPES: ['spam', 'inappropriate', 'scam', 'other'] as const,
   MAX_FILE_SIZE_MB: Infinity,
   MAX_FILE_SIZE_BYTEs() {
     return this.MAX_FILE_SIZE_MB * 1024 * 1024;
