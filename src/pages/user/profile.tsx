@@ -8,7 +8,7 @@ import {
 const UserProfilePage: NextPageWithLayout = () => {
   return (
     <UserProfileLayout>
-      {(dbUser) => (
+      {() => (
         <>
           <div className="mt-5 shadow p-5 rounded">
             <UserProfileUpdateForm />

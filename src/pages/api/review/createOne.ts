@@ -37,6 +37,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     userId,
     createdAt: dayjs().unix(),
     updatedAt: dayjs().unix(),
+    sellerId: transaction.sellerId,
   };
   await ReviewService.createOne(review);
   await TransactionService.updateOne(body.transactionId, {

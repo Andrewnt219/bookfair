@@ -6,7 +6,6 @@ export const dbUserSchema = z.object({
   photoUrl: z.string().nullable().optional(),
   uid: z.string(),
   createdDate: z.number(),
-  rating: z.number(),
   bio: z.string(),
   isActive: z.boolean(),
   listingLimit: z.number(),

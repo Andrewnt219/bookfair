@@ -9,6 +9,7 @@ export const dbReviewSchema = z
     body: z.string(),
     listingId: z.string(),
     userId: z.string(),
+    sellerId: z.string(),
   })
   .merge(dbWriteableItemSchema);
 
