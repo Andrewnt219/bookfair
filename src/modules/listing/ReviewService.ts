@@ -15,4 +15,14 @@ export class ReviewService {
     const ref = await db.reviews.where('listingId', '==', listingId).get();
     return ref.docs[0]?.data();
   }
+
+  static async getByUserId(userId: string): Promise<DbReview[]> {
+    const queryRef = await db.reviews.where('userId', '==', userId).get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
+
+  static async getBySellerId(sellerId: string): Promise<DbReview[]> {
+    const queryRef = await db.reviews.where('sellerId', '==', sellerId).get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
 }

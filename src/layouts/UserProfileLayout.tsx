@@ -1,12 +1,13 @@
 import { Icon } from '@iconify/react';
-import React, { ReactNode, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import React, { ReactNode } from 'react';
+import { Rating } from 'react-simple-star-rating';
 import {
   DbUser,
   SignoutButton,
   useDbUserQuery,
   UserAvatar,
 } from '../modules/user-profile';
+import { useUserRating } from '../modules/user-profile/api/useUserRating';
 import { useAuthUserStore } from '../stores';
 import { WithQueryData } from '../ui/WithQueryData';
 import { useAuthRoute } from '../utils/useAuthRoute';
@@ -20,6 +21,7 @@ export const UserProfileLayout = (props: UserProfileLayoutProps) => {
   useAuthRoute();
   const { authUser } = useAuthUserStore();
   const dbUserQuery = useDbUserQuery(authUser?.uid);
+  const ratingQuery = useUserRating({ userId: authUser?.uid });
 
   return (
     <RootLayout>
@@ -38,10 +40,21 @@ export const UserProfileLayout = (props: UserProfileLayoutProps) => {
                   {dbUser.displayName}
                 </p>
                 {dbUser.role === 'user' && (
-                  <div className="text-primary h4 fw-normal d-flex gap-1 align-items-center justify-content-center">
-                    <Icon icon="bi:star-fill" />
-                    <span>{dbUser.rating.toFixed(1)}</span>
-                  </div>
+                  <WithQueryData query={ratingQuery}>
+                    {(response) => (
+                      <div className="d-flex gap-1 align-items-end justify-content-center">
+                        <Rating
+                          size={20}
+                          ratingValue={response.rating}
+                          readonly
+                        />
+
+                        <span className="h6 text-muted fw-normal mb-0">
+                          {(response.rating * 5) / 100}
+                        </span>
+                      </div>
+                    )}
+                  </WithQueryData>
                 )}
 
                 <div className="d-flex justify-content-end">
