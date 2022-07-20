@@ -13,7 +13,7 @@ export interface UseResolveViolationOptions {
   config?: MutationConfig<typeof resolveViolation>;
 }
 
-export const useResolveViolation = (props: UseResolveViolationOptions) => {
+export const useResolveViolation = (props: UseResolveViolationOptions = {}) => {
   return useTypedMutation<typeof resolveViolation>({
     ...props.config,
     mutationFn: resolveViolation,

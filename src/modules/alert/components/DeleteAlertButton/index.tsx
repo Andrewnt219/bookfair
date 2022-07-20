@@ -48,7 +48,11 @@ export const DeleteAlertButton = (props: DeleteAlertButtonProps) => {
           <Button variant="secondary" onClick={dialog.close}>
             Close
           </Button>
-          <Button variant="danger" onClick={onConfirm}>
+          <Button
+            disabled={deleteMutation.isLoading}
+            variant="danger"
+            onClick={onConfirm}
+          >
             Delete alert
           </Button>
         </Modal.Footer>

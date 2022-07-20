@@ -52,7 +52,7 @@ export class EmailService {
         props.violation.type
       }.`,
     };
-
+    console.log({ msg });
     await sgMail.send(msg);
   }
 }

@@ -43,6 +43,11 @@ export class ViolationService {
   }
 
   static async getManyUnresolved(): Promise<DbViolation[]> {
+    const queryRef = await db.violations.where('result', '==', 'pending').get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
+
+  static async getManyResolved(): Promise<DbViolation[]> {
     const queryRef = await db.violations.where('result', '!=', 'pending').get();
     return queryRef.docs.map((doc) => doc.data());
   }

@@ -8,9 +8,10 @@ export interface TransactionListProps {
 }
 
 export const TransactionList = (props: TransactionListProps) => {
+  if (props.transactions.length === 0) return <p>(No done transactions)</p>;
+
   return (
     <ListGroup as="ul">
-      {props.transactions.length === 0 && <p>(No done transactions)</p>}
       {props.transactions.map((transaction) => (
         <ListGroupItem as="li" key={transaction.id}>
           <TransactionListItem transactionId={transaction.id} />

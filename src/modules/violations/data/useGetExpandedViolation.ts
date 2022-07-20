@@ -23,6 +23,9 @@ export const useGetExpandedViolation = (
   return useTypedQuery<typeof getExpandedViolation>({
     ...props.config,
     queryKey: ['violation', props.violationId],
+    // Only runs when violationId is exist
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    queryFn: () => getExpandedViolation({ violationId: props.violationId! }),
     enabled: Boolean(authUser && props.violationId),
   });
 };
