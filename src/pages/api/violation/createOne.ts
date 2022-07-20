@@ -2,7 +2,9 @@ import { Api } from '@bookfair/common';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
+import { HttpException } from '../../../errors';
 import { authMiddleware } from '../../../middlewares';
+import { ListingService } from '../../../modules/listing/ListingService';
 import { DbViolation, dbViolationSchema } from '../../../modules/violations';
 import { ViolationService } from '../../../modules/violations/violation-services';
 import {
@@ -26,6 +28,13 @@ const validateRequest =
 const postHandler: WithApiHandler<Data> = async (req, res) => {
   const userId = await authMiddleware(req);
   const body = validateRequest(req.body);
+  const listing = await ListingService.getOne(body.listingId);
+  if (!listing) {
+    throw new HttpException(404, 'Listing is not found');
+  }
+  if (userId === listing.id) {
+    throw new HttpException(400, 'Cannot report your own listing');
+  }
   const violation: DbViolation = {
     ...body,
     id: nanoid(),

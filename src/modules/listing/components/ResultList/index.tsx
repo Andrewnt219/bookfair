@@ -1,4 +1,5 @@
 import React from 'react';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { DbListing } from '../../types';
 import { ResultListItem } from './ResultListItem';
 
@@ -7,14 +8,15 @@ export interface ResultListProps {
 }
 
 export const ResultList = ({ listings }: ResultListProps) => {
+  if (listings.length === 0) return <p>(No results)</p>;
+
   return (
-    <ul className="list-unstyled row gap-3">
-      {listings.length === 0 && <p>(No results)</p>}
+    <ListGroup as="ul" className="row gap-3">
       {listings.map((listing) => (
-        <li key={listing.id}>
+        <ListGroupItem as="li" className="border-0" key={listing.id}>
           <ResultListItem listing={listing} />
-        </li>
+        </ListGroupItem>
       ))}
-    </ul>
+    </ListGroup>
   );
 };

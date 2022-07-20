@@ -31,8 +31,11 @@ const patchHandler: WithApiHandler<Data> = async (req, res) => {
   if (!violation) {
     throw new HttpException(404, 'Violation not found');
   }
-  if (violation.result !== 'pending') {
-    throw new HttpException(400, 'Violation already resolved');
+  if (violation.result !== 'pending' && admin.uid !== violation.adminId) {
+    throw new HttpException(
+      400,
+      'Resolved violation can only be changed by the same admin'
+    );
   }
   const listing = await ListingService.getOne(violation.listingId);
   if (!listing) {
@@ -45,17 +48,16 @@ const patchHandler: WithApiHandler<Data> = async (req, res) => {
 
   if (body.result === 'accepted') {
     await ListingService.deleteOne(body.listingId);
+    await EmailService.sendRemoveListingMail({
+      listing,
+      to: seller.email,
+      violation,
+    });
   }
   await ViolationService.resolveOne({
     ...body,
     adminId: admin.uid,
   });
-  await EmailService.sendRemoveListingMail({
-    listing,
-    to: seller.email,
-    violation,
-  });
-
   return res.status(204).end();
 };
 

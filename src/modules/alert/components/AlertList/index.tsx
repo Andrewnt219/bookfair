@@ -1,4 +1,5 @@
 import React from 'react';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { DbAlert } from '../../types';
 import { AlertListItem } from '../AlertListItem';
 
@@ -7,14 +8,15 @@ export interface AlertListProps {
 }
 
 export const AlertList = (props: AlertListProps) => {
+  if (props.alerts.length === 0) return <p>(No active alerts)</p>;
+
   return (
-    <ul className="list-unstyled">
-      {props.alerts.length === 0 && <p>(No active alerts)</p>}
+    <ListGroup as="ul">
       {props.alerts.map((alert) => (
-        <li key={alert.id}>
+        <ListGroupItem className="border-0" key={alert.id}>
           <AlertListItem alert={alert} />
-        </li>
+        </ListGroupItem>
       ))}
-    </ul>
+    </ListGroup>
   );
 };
