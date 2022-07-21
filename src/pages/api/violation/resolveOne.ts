@@ -28,6 +28,7 @@ const patchHandler: WithApiHandler<Data> = async (req, res) => {
   const body = validateRequest(req.body);
 
   const violation = await ViolationService.getOne(body.id);
+
   if (!violation) {
     throw new HttpException(404, 'Violation not found');
   }
@@ -41,6 +42,9 @@ const patchHandler: WithApiHandler<Data> = async (req, res) => {
   if (!listing) {
     throw new HttpException(404, 'Listing not found');
   }
+  const relatedViolations = await ViolationService.getManyByListingId(
+    listing.id
+  );
   const seller = await AuthService.getUser(listing.userId);
   if (!seller) {
     throw new HttpException(404, 'Seller not found');
@@ -53,6 +57,15 @@ const patchHandler: WithApiHandler<Data> = async (req, res) => {
       to: seller.email,
       violation,
     });
+    await Promise.all(
+      relatedViolations.map((violation) =>
+        ViolationService.resolveOne({
+          id: violation.id,
+          result: 'accepted',
+          adminId: admin.uid,
+        })
+      )
+    );
   }
   await ViolationService.resolveOne({
     ...body,
