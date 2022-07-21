@@ -51,6 +51,11 @@ const adminRoutes: Route[] = [
     text: 'Violations',
     iconName: 'bi:exclamation-circle-fill',
   },
+  {
+    href: '/admin/users',
+    text: 'Users',
+    iconName: 'bi:person-lines-fill',
+  },
 ];
 
 const UserMePage: NextPageWithLayout = () => {

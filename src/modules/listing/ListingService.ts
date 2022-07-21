@@ -40,4 +40,26 @@ export class ListingService {
       .get();
     return queryRef.docs.map((doc) => doc.data());
   }
+
+  static async getManyDeactivated(userId: string): Promise<DbListing[]> {
+    const queryRef = await db.listings
+      .where('isActive', '==', false)
+      .where('isSold', '==', false)
+      .where('userId', '==', userId)
+      .get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
+
+  static async activateOne(listingId: string) {
+    await db.listings.doc(listingId).update({ isActive: true });
+  }
+
+  static async getManyActivated(userId: string): Promise<DbListing[]> {
+    const queryRef = await db.listings
+      .where('isActive', '==', true)
+      .where('isSold', '==', false)
+      .where('userId', '==', userId)
+      .get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
 }

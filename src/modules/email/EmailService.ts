@@ -1,6 +1,7 @@
 import sgMail from '@sendgrid/mail';
 import { Except } from 'type-fest';
 import { DbListing, DbTransaction } from '../listing';
+import { DbSuspension } from '../user-manage';
 import { DbUser } from '../user-profile';
 import { DbViolation } from '../violations';
 
@@ -52,7 +53,29 @@ export class EmailService {
         props.violation.type
       }.`,
     };
-    console.log({ msg });
+    await sgMail.send(msg);
+  }
+
+  static async sendDeactivateEmail(props: {
+    to: string;
+    suspension: DbSuspension;
+  }) {
+    const msg: sgMail.MailDataRequired = {
+      to: props.to,
+      from: SENDER,
+      subject: 'IMPORTANT! Your account has been suspended!',
+      html: `Your account has been suspended for the following reason: ${props.suspension.reason}. Please contact us at ${SENDER}. Note that all your listing has been temporarily removed from the marketplace.`,
+    };
+    await sgMail.send(msg);
+  }
+
+  static async sendActivateEmail(props: { to: string }) {
+    const msg: sgMail.MailDataRequired = {
+      to: props.to,
+      from: SENDER,
+      subject: 'IMPORTANT! Your account has been recovered!',
+      html: `Your account and all your listings has been recovered. Sorry for the inconvenience.`,
+    };
     await sgMail.send(msg);
   }
 }

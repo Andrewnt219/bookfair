@@ -10,6 +10,7 @@ export const dbUserSchema = z.object({
   isActive: z.boolean(),
   listingLimit: z.number(),
   email: z.string().email(),
+  suspension: z.null(),
 });
 
 export type DbUser = z.infer<typeof dbUserSchema>;
