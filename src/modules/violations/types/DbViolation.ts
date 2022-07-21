@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { businessRules } from '../../../constants';
 import { dbWriteableItemSchema } from '../../../interfaces';
 
+// NOTE do NOT import this schema to server. Cause timeout for unknown reason
 export const dbViolationSchema = z
   .object({
     listingId: z.string(),

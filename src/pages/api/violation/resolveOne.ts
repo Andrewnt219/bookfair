@@ -11,14 +11,16 @@ import {
 import { EmailService } from '../../../modules/email/EmailService';
 import { HttpException } from '../../../errors';
 import { AuthService } from '../../../modules/auth/service';
+import { z } from 'zod';
+import { businessRules } from '../../../constants';
 
 type Data = undefined;
 export type Violation_ResolveOne = Api<Data, typeof requestSchema>;
 
-const requestSchema = dbViolationSchema.pick({
-  id: true,
-  result: true,
-  listingId: true,
+const requestSchema = z.object({
+  id: z.string(),
+  listingId: z.string(),
+  result: z.enum(businessRules.VIOLATION_RESULTS),
 });
 const validateRequest =
   createAssertSchema<Violation_ResolveOne['input']>(requestSchema);
