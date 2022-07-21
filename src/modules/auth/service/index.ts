@@ -1,6 +1,8 @@
 import { Except } from 'type-fest';
 import { adminAuth, adminStorage, db } from '../../../lib/firebase-admin';
-import { DbUser } from '../../user-profile';
+import { DbSuspension } from '../../user-manage';
+import { DbDeactivatedUser, DbUser } from '../../user-profile';
+
 export class AuthService {
   static addUser(data: DbUser) {
     return db.users.doc(data.uid).set(data);
@@ -51,5 +53,33 @@ export class AuthService {
       .where('createdDate', '<=', endDate)
       .get();
     return queryRef.docs.map((doc) => doc.data());
+  }
+
+  static async deactivateUser(userId: string, suspension: DbSuspension) {
+    await adminAuth.updateUser(userId, { disabled: true });
+    return db.users.doc(userId).update({ suspension, isActive: false });
+  }
+
+  static async activateUser(userId: string) {
+    await adminAuth.updateUser(userId, { disabled: false });
+    return db.users.doc(userId).update({ suspension: null });
+  }
+
+  static async getActivatedUsers(): Promise<DbUser[]> {
+    const queryRef = await db.users
+      .where('role', '==', 'user')
+      .where('suspension', '==', null)
+      .get();
+    return queryRef.docs.map((doc) => doc.data());
+  }
+
+  static async getDeactivatedUsers(): Promise<DbDeactivatedUser[]> {
+    const queryRef = await db.users
+      .where('role', '==', 'user')
+      .where('suspension', '!=', null)
+      .get();
+    return queryRef.docs.map(
+      (doc) => doc.data() as unknown as DbDeactivatedUser
+    );
   }
 }

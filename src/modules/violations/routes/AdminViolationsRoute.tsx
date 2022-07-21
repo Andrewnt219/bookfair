@@ -13,14 +13,14 @@ export const AdminViolationRoute = () => {
       <h1>Violations</h1>
 
       <article className="p-3 shadow-sm rounded">
-        <h3>Pending</h3>
+        <h2 className="h3">Pending</h2>
         <WithQueryData query={unresolvedViolationsQuery}>
           {(violations) => <ViolationList violations={violations} />}
         </WithQueryData>
       </article>
 
       <article className="p-3 shadow-sm rounded mt-3">
-        <h3>Resolved</h3>
+        <h2 className="h3">Resolved</h2>
         <WithQueryData query={resolvedViolationsQuery}>
           {(violations) => <ViolationList violations={violations} />}
         </WithQueryData>

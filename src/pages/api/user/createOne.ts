@@ -38,6 +38,7 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     listingLimit: businessRules.DEFAULT_MAX_LISTINGS,
     email: body.email,
     role: 'user',
+    suspension: null,
   }).catch((error) => {
     throw new HttpException(422, getSignupErrorMessage(error));
   });
