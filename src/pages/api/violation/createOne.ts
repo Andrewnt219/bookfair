@@ -2,10 +2,11 @@ import { Api } from '@bookfair/common';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
+import { businessRules } from '../../../constants';
 import { HttpException } from '../../../errors';
 import { authMiddleware } from '../../../middlewares';
 import { ListingService } from '../../../modules/listing/ListingService';
-import { DbViolation, dbViolationSchema } from '../../../modules/violations';
+import { DbViolation } from '../../../modules/violations';
 import { ViolationService } from '../../../modules/violations/violation-services';
 import {
   createAssertSchema,
@@ -17,11 +18,12 @@ import {
 type Data = { violation: DbViolation };
 export type Violation_CreateOne = Api<Data, typeof requestSchema>;
 
-const requestSchema = dbViolationSchema.pick({
-  description: true,
-  listingId: true,
-  type: true,
+const requestSchema = z.object({
+  description: z.string(),
+  listingId: z.string(),
+  type: z.enum(businessRules.VIOLATION_TYPES),
 });
+
 const validateRequest =
   createAssertSchema<Violation_CreateOne['input']>(requestSchema);
 
