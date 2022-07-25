@@ -11,22 +11,20 @@ export interface PromoteListingFormProps {
 }
 
 export const PromoteListingForm = (props: PromoteListingFormProps) => {
-  const { form, promoteListingMutation, stripeCheckoutMutation } =
-    usePromoteListingForm({
-      listingId: props.listingId,
-    });
+  const { form, stripeCheckoutMutation } = usePromoteListingForm({
+    listingId: props.listingId,
+  });
 
   const { errors } = form.formState;
   const days = form.watch('days');
   const subtotal = businessRules.calculatePromotionCost(days);
 
   const onSubmit = form.handleSubmit(async (data) => {
+    props.onSubmit?.(data);
     await stripeCheckoutMutation.mutateAsync({
       days: data.days,
       listingId: props.listingId,
     });
-    await promoteListingMutation.mutateAsync(data);
-    props.onSubmit?.(data);
   });
 
   return (

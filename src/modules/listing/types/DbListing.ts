@@ -9,7 +9,7 @@ export const dbListingSchema = z
     price: z.number().nonnegative(),
     description: z.string(),
     isSold: z.boolean(),
-    promote: z.string().nullable(),
+    promote: z.number().nullable(),
     viewCount: z.number().nonnegative(),
     photos: z.array(dbListingPhotoSchema),
     isActive: z.boolean(),

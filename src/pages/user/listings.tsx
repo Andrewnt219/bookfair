@@ -14,7 +14,6 @@ const UserListingsPage: NextPageWithLayout = () => {
   const { authUser } = useAuthUserStore();
   const getListingsQuery = useGetListingsByUser({ userId: authUser?.uid });
   const userProfileQuery = useDbUserQuery(authUser?.uid);
-
   return (
     <WithQueryData query={getListingsQuery}>
       {(listings) => (

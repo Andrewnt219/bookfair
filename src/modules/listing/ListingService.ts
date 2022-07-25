@@ -62,4 +62,8 @@ export class ListingService {
       .get();
     return queryRef.docs.map((doc) => doc.data());
   }
+
+  static async promoteOne(listingId: string, expiresAt: number) {
+    await db.listings.doc(listingId).update({ promote: expiresAt });
+  }
 }

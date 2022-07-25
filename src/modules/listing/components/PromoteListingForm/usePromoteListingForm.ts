@@ -4,7 +4,7 @@ import { useQueryClient } from 'react-query';
 import { firebaseAuth } from '../../../../lib/firebase';
 import { getStripe } from '../../../../lib/stripe';
 import { useToastStore } from '../../../../stores';
-import { usePromoteListing, useStripeListingPromotion } from '../../api';
+import { useStripeListingPromotion } from '../../api';
 import { promoteListingSchema, PromoteListingSchema } from '../../types';
 
 const useRHF = (listingId: string) => {
@@ -27,9 +27,11 @@ export const usePromoteListingForm = ({
   const qc = useQueryClient();
   const toastStore = useToastStore();
   const form = useRHF(listingId);
-  const promoteListingMutation = usePromoteListing({
+  const stripeCheckoutMutation = useStripeListingPromotion({
     config: {
-      onSuccess() {
+      async onSuccess(checkoutSession) {
+        const stripe = await getStripe();
+        await stripe.redirectToCheckout({ sessionId: checkoutSession.id });
         toastStore.success('Listing is promoted');
         qc.invalidateQueries(['listings', firebaseAuth.currentUser?.uid]);
       },
@@ -38,17 +40,6 @@ export const usePromoteListingForm = ({
       },
     },
   });
-  const stripeCheckoutMutation = useStripeListingPromotion({
-    config: {
-      async onSuccess(checkoutSession) {
-        const stripe = await getStripe();
-        await stripe.redirectToCheckout({ sessionId: checkoutSession.id });
-      },
-      onError(error) {
-        toastStore.error(error);
-      },
-    },
-  });
 
-  return { form, promoteListingMutation, stripeCheckoutMutation };
+  return { form, stripeCheckoutMutation };
 };

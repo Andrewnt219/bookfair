@@ -2,6 +2,7 @@ import { Except } from 'type-fest';
 import { adminAuth, adminStorage, db } from '../../../lib/firebase-admin';
 import { DbSuspension } from '../../user-manage';
 import { DbDeactivatedUser, DbUser } from '../../user-profile';
+import admin from 'firebase-admin';
 
 export class AuthService {
   static addUser(data: DbUser) {
@@ -81,5 +82,13 @@ export class AuthService {
     return queryRef.docs.map(
       (doc) => doc.data() as unknown as DbDeactivatedUser
     );
+  }
+
+  static async purchaseListing(userId: string, quantity: number) {
+    await db.users.doc(userId).update({
+      listingLimit: admin.firestore.FieldValue.increment(
+        quantity
+      ) as unknown as number,
+    });
   }
 }

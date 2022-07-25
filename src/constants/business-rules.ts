@@ -6,6 +6,10 @@ export const businessRules = {
   SUPPORTED_FORMATS: ['image/jpg', 'image/jpeg', 'image/png'],
   VIOLATION_TYPES: ['spam', 'inappropriate', 'scam', 'other'] as const,
   VIOLATION_RESULTS: ['accepted', 'rejected', 'pending'] as const,
+  paymentTypes: {
+    PURCHASE_SLOT: 'listing/slot',
+    PROMOTE_LISTING: 'listing/promote',
+  } as const,
   MAX_FILE_SIZE_MB: Infinity,
   MAX_FILE_SIZE_BYTEs() {
     return this.MAX_FILE_SIZE_MB * 1024 * 1024;

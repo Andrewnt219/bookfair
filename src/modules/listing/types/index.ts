@@ -7,3 +7,4 @@ export * from './search-listing-schema';
 export * from './DbTransaction';
 export * from './DbReview';
 export * from './ExpandedDbTransaction';
+export * from './PromoteListingMetadata';

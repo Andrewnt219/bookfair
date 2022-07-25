@@ -57,9 +57,9 @@ export const ListingListItem = ({ listing }: ListingListItemProps) => {
                       />
                     </dt>
                     <dd>
-                      {dayjs(listing.promote).format(
-                        'MMMM DD, YYYY hh:mm:ss A'
-                      )}
+                      {dayjs
+                        .unix(listing.promote)
+                        .format('MMMM DD, YYYY hh:mm:ss A')}
                     </dd>
                   </>
                 )}

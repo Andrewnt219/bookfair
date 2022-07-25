@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { getStripe } from '../../../../lib/stripe';
 import { useToastStore } from '../../../../stores';
 import { usePurchaseSlot } from '../../api/usePurchaseSlot';
 import {
@@ -18,14 +19,14 @@ const useRHF = () => {
 };
 
 export const usePurchaseSlotForm = () => {
-  const router = useRouter();
   const toastStore = useToastStore();
   const form = useRHF();
   const purchaseSlotMutation = usePurchaseSlot({
     config: {
-      onSuccess() {
+      async onSuccess(checkoutSession) {
+        const stripe = await getStripe();
+        await stripe.redirectToCheckout({ sessionId: checkoutSession.id });
         toastStore.success('Purchase successfully');
-        router.push('/user/listings');
       },
       onError(error) {
         toastStore.error(error);
