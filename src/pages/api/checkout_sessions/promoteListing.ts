@@ -1,8 +1,11 @@
 import { Api } from '@bookfair/common';
+import dayjs from 'dayjs';
 import Stripe from 'stripe';
 import { z } from 'zod';
 import { businessRules } from '../../../constants';
 import { formatAmountForStripe } from '../../../lib/stripe';
+import { serverStripe } from '../../../lib/stripe/serverStripe';
+import { PromoteListingMetadata } from '../../../modules/listing';
 import { ListingService } from '../../../modules/listing/ListingService';
 import {
   createAssertSchema,
@@ -13,10 +16,6 @@ import {
 type Data = Stripe.Checkout.Session;
 export type CheckoutSessions_PromoteListing = Api<Data, typeof requestSchema>;
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  // https://github.com/stripe/stripe-node#configuration
-  apiVersion: '2020-08-27',
-});
 const requestSchema = z.object({
   days: z.number().nonnegative(),
   listingId: z.string(),
@@ -28,6 +27,13 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
   const body = validateRequest(req.body);
   const listing = await ListingService.getOne(body.listingId);
   if (!listing) throw new Error('Listing not found');
+
+  const promotionExpiresAt = dayjs().add(body.days, 'day').unix();
+  const metadata: PromoteListingMetadata = {
+    listingId: listing.id,
+    expires_at: promotionExpiresAt.toString(),
+    type: 'listing/promote',
+  };
   const subTotal = businessRules.calculatePromotionCost(body.days);
   const params: Stripe.Checkout.SessionCreateParams = {
     submit_type: 'pay',
@@ -43,9 +49,10 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
     ],
     success_url: `${req.headers.origin}/user/listings?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${req.headers.origin}/user/listings`,
+    metadata,
   };
   const checkoutSession: Stripe.Checkout.Session =
-    await stripe.checkout.sessions.create(params);
+    await serverStripe.checkout.sessions.create(params);
   return res.status(200).json(ResultSuccess(checkoutSession));
 };
 

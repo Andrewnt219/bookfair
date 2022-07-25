@@ -4,7 +4,6 @@ export * from './useListingPhotoSources';
 export * from './useGetListing';
 export * from './useUpdateListing';
 export * from './useDeleteListing';
-export * from './usePromoteListing';
 export * from './useSearchListings';
 export * from './useGetAllListings';
 export * from './useIncreaseView';
