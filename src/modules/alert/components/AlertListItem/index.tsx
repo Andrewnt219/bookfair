@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { DbAlert } from '../../types';
 import { DeleteAlertButton } from '../DeleteAlertButton';
 
@@ -9,6 +9,8 @@ export interface AlertListItemProps {
 }
 
 export const AlertListItem = ({ alert }: AlertListItemProps) => {
+  const timeUntilExpires = dayjs.unix(alert.createdAt).add(7, 'day');
+
   return (
     <Card as="article">
       <Card.Body>
@@ -16,10 +18,10 @@ export const AlertListItem = ({ alert }: AlertListItemProps) => {
         <div>
           <Card.Text
             as="time"
-            title={dayjs.unix(alert.createdAt).format('MMM DD, YYYY hh:mm A')}
-            dateTime={dayjs.unix(alert.createdAt).toISOString()}
+            title={timeUntilExpires.format('MMM DD, YYYY hh:mm A')}
+            dateTime={timeUntilExpires.toISOString()}
           >
-            Created {dayjs.unix(alert.createdAt).fromNow()}
+            Expires {timeUntilExpires.fromNow()}
           </Card.Text>
         </div>
         <div className="mt-3">
