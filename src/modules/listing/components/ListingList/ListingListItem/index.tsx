@@ -56,11 +56,7 @@ export const ListingListItem = ({ listing }: ListingListItemProps) => {
                         aria-label="Promotion's end date"
                       />
                     </dt>
-                    <dd>
-                      {dayjs
-                        .unix(listing.promote)
-                        .format('MMMM DD, YYYY hh:mm:ss A')}
-                    </dd>
+                    <dd>Expires {dayjs.unix(listing.promote).fromNow()}</dd>
                   </>
                 )}
                 <dt>
