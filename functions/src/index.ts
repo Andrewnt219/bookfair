@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import sgMail from '@sendgrid/mail';
-
+import dayjs from 'dayjs';
 // if (typeof process.env.SENDGRID_API_KEY !== 'string')
 //   throw new Error('SENDGRID_API_KEY is not set');
 
@@ -78,4 +78,39 @@ export const alertUsers = functions
         functions.logger.info('Send mail', { msg });
       }
     }
+  });
+
+export const deleteExpiredAlerts = functions.pubsub
+  .schedule('every day 00:00')
+  .timeZone('America/Toronto')
+  .onRun(async () => {
+    const expireAt = dayjs().subtract(7, 'day').unix();
+    const snapshots = await db
+      .collection('alerts')
+      .where('createdAt', '<', expireAt)
+      .get();
+    const batch = db.batch();
+    for (const doc of snapshots.docs) {
+      const ref = db.collection('alerts').doc(doc.id);
+      batch.delete(ref);
+    }
+    await batch.commit();
+  });
+
+export const deleteListingsPromotion = functions.pubsub
+  .schedule('every hour')
+  .timeZone('America/Toronto')
+  .onRun(async () => {
+    const now = dayjs().unix();
+    const snapshots = await db
+      .collection('listings')
+      .where('promote', '<', now)
+      .get();
+
+    const batch = db.batch();
+    for (const doc of snapshots.docs) {
+      const ref = db.collection('listings').doc(doc.id);
+      batch.update(ref, { promote: null });
+    }
+    await batch.commit();
   });
