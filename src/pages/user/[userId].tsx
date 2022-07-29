@@ -1,10 +1,15 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { Button, Spinner } from 'react-bootstrap';
 import { RootLayout } from '../../layouts';
 import { useGetListingsByUser } from '../../modules/listing/api';
 import { ResultList } from '../../modules/listing/components/ResultList';
-import { useDbUserQuery, UserAvatar } from '../../modules/user-profile';
+import {
+  MessageForm,
+  useDbUserQuery,
+  UserAvatar,
+} from '../../modules/user-profile';
 import { UserProfile } from '../../modules/user-profile';
 import { WithQueryData } from '../../ui/WithQueryData';
 
@@ -15,7 +20,11 @@ const UserUserIdPage: NextPageWithLayout = () => {
   const listingsQuery = useGetListingsByUser({ userId });
 
   if (!dbUserQuery.data) {
-    return <h1>User not found</h1>;
+    return (
+      <Spinner size="sm" animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
 
   if (dbUserQuery.data.isActive === false || dbUserQuery.data.suspension) {
@@ -30,10 +39,14 @@ const UserUserIdPage: NextPageWithLayout = () => {
             <title>{dbUser.displayName}</title>
           </Head>
 
-          <div className="mt-5 shadow p-5 rounded">
+          <article className="p-3 border rounded">
+            <MessageForm receiverId={dbUser.uid} />
+          </article>
+
+          <article className="mt-3 border p-5 rounded">
             <UserAvatar uid={dbUser.uid} />
             <UserProfile user={dbUser} />
-          </div>
+          </article>
 
           <article className="mt-4">
             <h2>Current listings</h2>

@@ -2,7 +2,7 @@ import { FirestoreDataConverter } from 'firebase-admin/firestore';
 import { DbAlert } from '../../modules/alert';
 import { DbListing, DbReview, DbTransaction } from '../../modules/listing';
 import { DbPayment } from '../../modules/payments';
-import { DbUser } from '../../modules/user-profile';
+import { DbMessage, DbUser } from '../../modules/user-profile';
 import { DbViolation } from '../../modules/violations';
 import { adminFirestore } from './adminFirestore';
 
@@ -33,4 +33,7 @@ export const db = {
   violations: adminFirestore
     .collection('violations')
     .withConverter(createConverter<DbViolation>()),
+  message: adminFirestore
+    .collection('messages')
+    .withConverter(createConverter<DbMessage>()),
 };
