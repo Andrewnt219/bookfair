@@ -1,21 +1,20 @@
 import { test, expect } from '@playwright/test';
+import { ListingIndexPOM } from './models/ListingIndexPOM';
+import { _Toast } from './locators/_Toast';
 
 test('homepage has Playwright in title and get started link linking to the intro page', async ({
   page,
 }) => {
-  await page.goto('/listing');
+  const pom = new ListingIndexPOM(page);
+  const _toast = new _Toast(page);
+
+  await pom.navigate();
 
   // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Search listings/);
+  await expect(pom.page).toHaveTitle(/Search listings/);
 
-  // create a locator
-  const searchButton = page.locator('button', { hasText: 'Search' });
-
-  // Click the get started link.
-  await searchButton.click();
+  await pom.clickSearchButton();
 
   // Expects the URL to contain intro.
-  await expect(page.locator('.toast-body')).toHaveText(
-    /Search term is required/
-  );
+  await expect(_toast.root).toHaveText(/Search term is required/);
 });
