@@ -2,23 +2,26 @@ import { Api } from '@bookfair/common';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
+import { badWords } from '../../../constants';
 import { HttpException } from '../../../errors';
 import { authMiddleware } from '../../../middlewares';
 import { DbAlert } from '../../../modules/alert';
 import { AlertService } from '../../../modules/alert/AlertService';
-import { AuthService } from '../../../modules/auth/service';
 import {
   createAssertSchema,
   ResultSuccess,
   withApiHandler,
   WithApiHandler,
 } from '../../../utils';
+import { noBadWord } from '../../../utils/zod-utils';
 
 type Data = DbAlert;
 export type Alert_CreateOne = Api<Data, typeof requestSchema>;
 
 const requestSchema = z.object({
-  search: z.string().min(1, { message: 'Search must be at least 1 character' }),
+  search: noBadWord(
+    z.string().min(1, { message: 'Search must be at least 1 character' })
+  ),
 });
 const validateRequest =
   createAssertSchema<Alert_CreateOne['input']>(requestSchema);

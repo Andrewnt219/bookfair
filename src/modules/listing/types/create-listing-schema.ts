@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { businessRules } from '../../../constants';
+import { noBadWord } from '../../../utils/zod-utils';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
 
@@ -20,17 +21,17 @@ const validateFiles = (files: FileList): string[] => {
 };
 
 export const createListingSchema = z.object({
-  title: z.string().min(1, { message: 'Title is required' }),
+  title: noBadWord(z.string().min(1, { message: 'Title is required' })),
   price: z
     .union([z.string(), z.number()])
     .transform((value) => +value)
     .refine((value) => !isNaN(value), { message: 'Unexpected number' })
     .refine((value) => value >= 0, { message: 'Price cannot be lower than 0' }),
-  description: z
-    .string()
-    .min(20, { message: 'Description is at least 20 characters' }),
-  tags: z.string(),
-  course: z.string().min(1, { message: 'Course is required' }),
+  description: noBadWord(
+    z.string().min(20, { message: 'Description is at least 20 characters' })
+  ),
+  tags: noBadWord(z.string()),
+  course: noBadWord(z.string().min(1, { message: 'Course is required' })),
   photos: z.any().transform((files: FileList | null, ctx) => {
     if (!files) return null;
 

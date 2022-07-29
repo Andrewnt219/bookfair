@@ -1,12 +1,13 @@
 import z from 'zod';
+import { noBadWord } from '../../../utils/zod-utils';
 
 export const dbUserSchema = z.object({
   role: z.union([z.literal('admin'), z.literal('user')]),
-  displayName: z.string(),
+  displayName: noBadWord(z.string()),
   photoUrl: z.string().nullable().optional(),
   uid: z.string(),
   createdDate: z.number(),
-  bio: z.string(),
+  bio: noBadWord(z.string()),
   isActive: z.boolean(),
   listingLimit: z.number(),
   email: z.string().email(),
