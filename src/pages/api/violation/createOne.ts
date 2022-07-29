@@ -14,12 +14,13 @@ import {
   WithApiHandler,
   withApiHandler,
 } from '../../../utils';
+import { noBadWord } from '../../../utils/zod-utils';
 
 type Data = { violation: DbViolation };
 export type Violation_CreateOne = Api<Data, typeof requestSchema>;
 
 const requestSchema = z.object({
-  description: z.string(),
+  description: noBadWord(z.string()),
   listingId: z.string(),
   type: z.enum(businessRules.VIOLATION_TYPES),
 });

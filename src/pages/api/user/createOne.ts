@@ -4,7 +4,12 @@ import {
   getSignupErrorMessage,
   signupSchema,
 } from '../../../modules/auth';
-import { withApiHandler, ResultSuccess, WithApiHandler } from '../../../utils';
+import {
+  withApiHandler,
+  ResultSuccess,
+  WithApiHandler,
+  createAssertSchema,
+} from '../../../utils';
 import { AssertType, TResultSuccess } from '@bookfair/common';
 import { AuthService } from '../../../modules/auth/service';
 import { HttpException } from '../../../errors';
@@ -15,13 +20,7 @@ type Data = UserRecord;
 export type User_CreateOne_Return = TResultSuccess<Data>;
 export type User_CreateOne_Body = SignupSchema;
 
-const validateBody: AssertType<User_CreateOne_Body> = (body) => {
-  try {
-    return signupSchema.parse(body);
-  } catch (error) {
-    throw new HttpException(422, 'Invalid signup values');
-  }
-};
+const validateBody = createAssertSchema<User_CreateOne_Body>(signupSchema);
 
 const postHandler: WithApiHandler<Data> = async (req, res) => {
   const body = validateBody(req.body);
