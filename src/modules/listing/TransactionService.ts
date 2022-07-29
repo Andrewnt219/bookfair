@@ -1,6 +1,6 @@
 import { Except } from 'type-fest';
 import { HttpException } from '../../errors';
-import { db } from '../../lib/firebase-admin';
+import { adminFirestore, db } from '../../lib/firebase-admin';
 import { AuthService } from '../auth/service';
 import { ListingService } from './ListingService';
 import { ReviewService } from './ReviewService';
@@ -22,17 +22,6 @@ export class TransactionService {
     data: Except<Partial<DbTransaction>, 'id'>
   ): Promise<void> {
     await db.transactions.doc(transactionId).update(data);
-  }
-
-  static async getOneByListing(
-    listingId: string,
-    sellerId: string
-  ): Promise<DbTransaction | undefined> {
-    const ref = await db.transactions
-      .where('listingId', '==', listingId)
-      .where('sellerId', '==', sellerId)
-      .get();
-    return ref.docs[0]?.data();
   }
 
   static async getManyByBuyer(buyerId: string) {
@@ -67,7 +56,7 @@ export class TransactionService {
     const transaction = await this.getOne(transactionId);
     if (!transaction) throw new HttpException(404, 'Transaction not found');
 
-    if (userId !== transaction.buyerId)
+    if (userId !== transaction.buyerId && userId !== transaction.sellerId)
       throw new HttpException(
         403,
         'You are not allowed to view this transaction'
@@ -94,5 +83,13 @@ export class TransactionService {
       createdAt: transaction.createdAt,
       id: transaction.id,
     };
+  }
+
+  static async deleteMany(transactionIds: string[]) {
+    const batch = adminFirestore.batch();
+    for (const transactionId of transactionIds) {
+      batch.delete(db.transactions.doc(transactionId));
+    }
+    await batch.commit();
   }
 }

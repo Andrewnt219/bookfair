@@ -7,3 +7,4 @@ export * from './useGetBuyerPendingListings';
 export * from './useDoneTransactions';
 export * from './useExpandedTransaction';
 export * from './useCreateReview';
+export * from './useGetSellerTransactions';

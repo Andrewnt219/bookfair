@@ -14,7 +14,7 @@ type Data = undefined;
 export type Listing_MarkAsUnsold = Api<Data, typeof requestSchema>;
 
 const requestSchema = z.object({
-  listingId: z.string(),
+  transactionId: z.string(),
 });
 const validateRequest =
   createAssertSchema<Listing_MarkAsUnsold['input']>(requestSchema);
@@ -23,15 +23,12 @@ const patchHandler: WithApiHandler<Data> = async (req, res) => {
   const sellerId = await authMiddleware(req);
   const body = validateRequest(req.body);
 
-  const listing = await listingMiddleware(sellerId, body.listingId);
-  const transaction = await TransactionService.getOneByListing(
-    listing.id,
-    sellerId
-  );
+  const transaction = await TransactionService.getOne(body.transactionId);
   if (!transaction) throw new HttpException(404, 'Transaction not found');
   if (transaction.reviewId)
     throw new HttpException(400, 'Transaction has already been reviewed');
 
+  const listing = await listingMiddleware(sellerId, transaction.listingId);
   await ListingService.updateOne(listing.id, { isSold: false });
   await TransactionService.updateOne(transaction.id, { isPending: true });
 

@@ -30,6 +30,11 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
   const body = validateRequest(req.body);
   const transaction = await TransactionService.getOne(body.transactionId);
   if (!transaction) throw new HttpException(404, 'Transaction not found');
+  if (transaction.buyerId !== userId)
+    throw new HttpException(403, 'You are not the buyer');
+  const relatedTransactions = await TransactionService.getManyByListing(
+    transaction.listingId
+  );
   const review: DbReview = {
     ...body,
     id: nanoid(),
@@ -43,6 +48,9 @@ const postHandler: WithApiHandler<Data> = async (req, res) => {
   await TransactionService.updateOne(body.transactionId, {
     reviewId: review.id,
   });
+  await TransactionService.deleteMany(
+    relatedTransactions.map((t) => t.id).filter((id) => id !== transaction.id)
+  );
   return res.status(201).json(ResultSuccess(review));
 };
 
