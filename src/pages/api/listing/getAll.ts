@@ -12,14 +12,9 @@ import {
 import { isActiveListing } from '../../../utils/filter';
 
 type Data = DbListing[];
-export type Listing_GetAll = Api<Data, typeof querySchema>;
-
-const querySchema = z.object({});
-
-const validateQuery = createAssertSchema<Listing_GetAll['input']>(querySchema);
+export type Listing_GetAll = Api<Data>;
 
 const getHandler: WithApiHandler<Data> = async (req, res) => {
-  const query = validateQuery(req.query);
   const dbListings = (await ListingService.getAll())
     .filter(isActiveListing)
     .sort(compareListingDate);
