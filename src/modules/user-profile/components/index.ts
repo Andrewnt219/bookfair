@@ -8,3 +8,4 @@ export * from './TransactionList';
 export * from './PendingListingList';
 export * from './RatingModalButton';
 export * from './CreateReviewForm';
+export * from './MessageForm';

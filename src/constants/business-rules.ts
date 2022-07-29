@@ -24,4 +24,5 @@ export const businessRules = {
   },
   DELAY_BEFORE_INCREASE_VIEW: 3000,
   STRIPE_CURRENCY: 'cad',
+  MESSAGE_PERIOD_DAY: 3,
 };
