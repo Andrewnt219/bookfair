@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { RootLayout } from '../../../layouts';
 import { AdminStatsListingsReportRoute } from '../../../modules/stats';
 import { useAdminRoute } from '../../../utils';
-import isEmpty from 'lodash/isEmpty';
+import { Spinner } from 'react-bootstrap';
 
 const querySchema = z.object({
   startDate: z
@@ -19,7 +19,14 @@ const querySchema = z.object({
 const AdminStatsListingsReportPage: NextPageWithLayout = () => {
   useAdminRoute();
   const router = useRouter();
-  if (isEmpty(router.query)) return <h1>Initiating...</h1>;
+  if (!router.isReady) {
+    return (
+      <Spinner size="sm" animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
+
   const query = querySchema.safeParse(router.query);
   if (!query.success) return <h1>Invalid date</h1>;
 
