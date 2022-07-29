@@ -26,7 +26,14 @@ export const ResultListItem = ({ listing }: ResultListItemProps) => {
           />
 
           <Card.Body>
-            <Card.Title>{listing.title}</Card.Title>
+            <Card.Title>
+              {listing.title}{' '}
+              {listing.promote && (
+                <Badge bg="warning" className="text-black">
+                  PROMOTED
+                </Badge>
+              )}
+            </Card.Title>
             <Card.Text as="div">
               <ul className="list-unstyled d-flex gap-1 flex-wrap">
                 {listing.tags.map((tag, index) => (
@@ -45,21 +52,6 @@ export const ResultListItem = ({ listing }: ResultListItemProps) => {
                   gap: '0.5rem 1rem',
                 }}
               >
-                {listing.promote && (
-                  <>
-                    <dt className="text-danger">
-                      <Icon
-                        icon="bi:chevron-double-up"
-                        aria-label="Promotion's end date"
-                      />
-                    </dt>
-                    <dd>
-                      {dayjs
-                        .unix(listing.promote)
-                        .format('MMMM DD, YYYY hh:mm:ss A')}
-                    </dd>
-                  </>
-                )}
                 <dt>
                   <Icon
                     icon="bi:aspect-ratio-fill"

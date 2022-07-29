@@ -9,10 +9,19 @@ export interface ResultListProps {
 
 export const ResultList = ({ listings }: ResultListProps) => {
   if (listings.length === 0) return <p>(No results)</p>;
+  const promotedListings = listings.filter(
+    (listing) => listing.promote && listing.promote > 0
+  );
+  const nonPromotedListings = listings.filter((listing) => !listing.promote);
 
   return (
     <ListGroup as="ul" className="row gap-3">
-      {listings.map((listing) => (
+      {promotedListings.map((listing) => (
+        <ListGroupItem as="li" className="border-0" key={listing.id}>
+          <ResultListItem listing={listing} />
+        </ListGroupItem>
+      ))}
+      {nonPromotedListings.map((listing) => (
         <ListGroupItem as="li" className="border-0" key={listing.id}>
           <ResultListItem listing={listing} />
         </ListGroupItem>
