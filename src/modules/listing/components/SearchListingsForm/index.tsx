@@ -13,7 +13,7 @@ export const SearchListingsForm = () => {
   const { errors } = form.formState;
 
   const onSubmit = form.handleSubmit((data) => {
-    if (search.length === 0) {
+    if (search.trim().length === 0) {
       toastStore.error('Search term is required');
       return;
     }

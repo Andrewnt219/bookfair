@@ -45,6 +45,9 @@ jobs:
 
   e2e:
     runs-on: ubuntu-20.04
+    env:
+      NEXT_PUBLIC_ALGOLIA_APP_ID: ${{ secrets.NEXT_PUBLIC_ALGOLIA_APP_ID }}
+      NEXT_PUBLIC_ALGOLIA_API_KEY: ${{ secrets.NEXT_PUBLIC_ALGOLIA_API_KEY }}
     steps:
       - uses: actions/checkout@v2
 

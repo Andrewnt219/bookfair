@@ -13,8 +13,9 @@
     "dev": "run-p dev:next dev:firebase",
     "build": "next build",
     "start": "next start",
-    "e2e": "start-server-and-test dev:next http://localhost:3000 'playwright test'",
-    "e2e:report": "playwright show-report"
+    "e2e": "start-server-and-test dev:next http://localhost:3000 test:e2e",
+    "test:e2e": "playwright test",
+    "test:e2e-report": "playwright show-report"
   },
   "dependencies": {
     "@firebase/util": "^1.6.0",
