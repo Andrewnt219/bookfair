@@ -15,7 +15,7 @@ export const ResultList = ({ listings }: ResultListProps) => {
   const nonPromotedListings = listings.filter((listing) => !listing.promote);
 
   return (
-    <ListGroup as="ul" className="row gap-3">
+    <ListGroup as="ul" className="row gap-3" aria-label="listings">
       {promotedListings.map((listing) => (
         <ListGroupItem as="li" className="border-0" key={listing.id}>
           <ResultListItem listing={listing} />
