@@ -45,8 +45,14 @@ test.describe('Search listings', () => {
   test('No results', async ({ page }) => {
     const _toast = new _Toast(page);
 
-    await pom.fillSearchInput('non exist listing search term');
-    await pom.clickSearchButton();
+    await pom.fillSearchInput('0 result');
+    await pom.clickSearchButtonAndWait();
     await expect(_toast.root).toHaveText(/No result/);
+  });
+
+  test('2 results', async ({ page }) => {
+    await pom.fillSearchInput('2 results');
+    await pom.clickSearchButtonAndWait();
+    expect(await pom.$searchResultText.textContent()).toBe('2 listings');
   });
 });
