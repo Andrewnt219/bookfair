@@ -10,7 +10,7 @@ export const businessRules = {
     PURCHASE_SLOT: 'listing/slot',
     PROMOTE_LISTING: 'listing/promote',
   } as const,
-  MAX_FILE_SIZE_MB: Infinity,
+  MAX_FILE_SIZE_MB: 5,
   MAX_FILE_SIZE_BYTEs() {
     return this.MAX_FILE_SIZE_MB * 1024 * 1024;
   },
