@@ -11,7 +11,7 @@ export const useSignoutMutation = () => {
     mutationFn: AuthApi.signout,
     onSuccess() {
       toastStore.success('Signout successfully');
-      router.push('/');
+      router.push('/signin');
     },
     onError(error) {
       toastStore.error(error);
