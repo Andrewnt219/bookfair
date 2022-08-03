@@ -14,7 +14,7 @@ export const useSubmitMutation = () => {
     },
     onSuccess: () => {
       toastStore.success('Login successfully');
-      router.push('/');
+      router.push('/user/me');
     },
   });
 };

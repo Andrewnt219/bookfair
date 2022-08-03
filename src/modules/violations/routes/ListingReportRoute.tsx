@@ -74,7 +74,7 @@ export const ListingReportRoute = (props: ListingReportRouteProps) => {
           <WithQueryData query={sellerQuery}>
             {(seller) => (
               <dd>
-                <Link href={`/listing/${seller.uid}`}>
+                <Link href={`/user/${seller.uid}`}>
                   <a>{seller.displayName}</a>
                 </Link>
               </dd>
