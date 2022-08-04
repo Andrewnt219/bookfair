@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, useState } from 'react';
-import { Button, Form, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useQueryClient } from 'react-query';
 import { useToastStore } from '../../../../stores';
 import { DbTransaction } from '../../../listing';
@@ -19,6 +19,7 @@ export const TransactionList = (props: TransactionListProps) => {
     config: {
       onSuccess() {
         qc.invalidateQueries(['transactions']);
+        qc.invalidateQueries(['listing', props.transactions[0]?.listingId]);
       },
       onError(error) {
         toastStore.error(error);
