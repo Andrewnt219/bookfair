@@ -21,6 +21,7 @@ export const ListingEditPage = ({ listingId }: ListingEditPageProps) => {
     config: {
       onSuccess() {
         queryClient.invalidateQueries(['transactions']);
+        queryClient.invalidateQueries(['listing', listingId]);
       },
       onError(error) {
         toastStore.error(error);
