@@ -63,7 +63,7 @@ export class AuthService {
 
   static async activateUser(userId: string) {
     await adminAuth.updateUser(userId, { disabled: false });
-    return db.users.doc(userId).update({ suspension: null });
+    return db.users.doc(userId).update({ suspension: null, isActive: true });
   }
 
   static async getActivatedUsers(): Promise<DbUser[]> {
