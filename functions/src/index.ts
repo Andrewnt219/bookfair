@@ -38,7 +38,10 @@ export const alertUsers = functions
       return;
     }
 
-    const snapshots = await db.collection('alerts').get();
+    const snapshots = await db
+      .collection('alerts')
+      .where('isActive', '==', true)
+      .get();
     const alerts = snapshots.docs.map((doc) => doc.data());
 
     for (const alert of alerts) {
