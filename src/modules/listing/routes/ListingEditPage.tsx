@@ -5,6 +5,7 @@ import { useToastStore } from '../../../stores';
 import { WithQueryData } from '../../../ui/WithQueryData';
 import { useGetSellerTransactions } from '../../user-profile';
 import { useGetListing, useListingReview, useMarkUnsold } from '../api';
+import { useGetTransactions } from '../api/useGetTransactions';
 import { EditListingForm, ReviewCard } from '../components';
 import { TransactionList } from '../components/TransactionList';
 import { DbListing } from '../types';
@@ -41,7 +42,7 @@ export const ListingEditPage = ({ listingId }: ListingEditPageProps) => {
     },
   });
   const reviewQuery = useListingReview({ listingId });
-  const transactionsQuery = useGetSellerTransactions();
+  const transactionsQuery = useGetTransactions({ params: { listingId } });
 
   const soldTransaction = transactionsQuery.data?.find((t) => !t.isPending);
 
