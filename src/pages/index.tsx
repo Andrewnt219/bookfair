@@ -1,4 +1,5 @@
 import { NextPageWithLayout } from '@bookfair/next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import { RootLayout } from '../layouts';
 
 const HomePage: NextPageWithLayout = () => {
@@ -11,6 +12,16 @@ const HomePage: NextPageWithLayout = () => {
 
 HomePage.getLayout = (page) => {
   return <RootLayout>{page}</RootLayout>;
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {},
+    redirect: {
+      destination: '/listing',
+      permanent: false,
+    },
+  };
 };
 
 export default HomePage;
