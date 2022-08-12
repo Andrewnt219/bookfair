@@ -8,6 +8,7 @@ import { useAuthRoute } from '../../utils/useAuthRoute';
 import NextLink from 'next/link';
 import { Icon } from '@iconify/react';
 import { useDbUserQuery } from '../../modules/user-profile';
+import Head from 'next/head';
 
 const UserListingsPage: NextPageWithLayout = () => {
   useAuthRoute();
@@ -20,7 +21,12 @@ const UserListingsPage: NextPageWithLayout = () => {
         <WithQueryData query={userProfileQuery}>
           {(profile) => (
             <section>
+              <Head>
+                <title>My listings - Bookfair</title>
+              </Head>
+
               <h1>My listings</h1>
+
               <p className="text-muted">
                 {listings.length}/{profile.listingLimit} listings used
               </p>

@@ -36,7 +36,7 @@ const UserUserIdPage: NextPageWithLayout = () => {
       {(dbUser) => (
         <section>
           <Head>
-            <title>{dbUser.displayName}</title>
+            <title>{dbUser.displayName} - Bookfair</title>
           </Head>
 
           <article className="p-3 border rounded">

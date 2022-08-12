@@ -1,4 +1,5 @@
 import { NextPageWithLayout } from '@bookfair/next';
+import Head from 'next/head';
 import { RootLayout } from '../../layouts';
 import {
   PendingListingList,
@@ -16,6 +17,10 @@ const UserReviewsPage: NextPageWithLayout = () => {
 
   return (
     <section>
+      <Head>
+        <title>Reviews - Bookfair</title>
+      </Head>
+
       <section>
         <h2>Pending transactions</h2>
         <WithQueryData query={pendingListingsQuery}>

@@ -1,4 +1,5 @@
 import { NextPageWithLayout } from '@bookfair/next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Spinner } from 'react-bootstrap';
 import { z } from 'zod';
@@ -23,7 +24,14 @@ const AdminViolationsPage: NextPageWithLayout = () => {
   const query = querySchema.safeParse(router.query);
   if (!query.success) return <h1>Invalid query</h1>;
 
-  return <AdminViolationDetail violationId={query.data.violationId} />;
+  return (
+    <>
+      <Head>
+        <title>View violation - Bookfair</title>
+      </Head>
+      <AdminViolationDetail violationId={query.data.violationId} />
+    </>
+  );
 };
 
 AdminViolationsPage.getLayout = (page) => {

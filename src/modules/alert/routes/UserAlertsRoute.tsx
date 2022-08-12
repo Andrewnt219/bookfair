@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { BackButton, WithQueryData } from '../../../ui';
@@ -9,6 +10,10 @@ export const UserAlertsRoute = () => {
 
   return (
     <section>
+      <Head>
+        <title>Alerts - Bookfair</title>
+      </Head>
+
       <h1 className="mt-3">Alerts</h1>
 
       <WithQueryData query={alertsQuery}>

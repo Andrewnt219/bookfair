@@ -8,7 +8,7 @@ const SignupPage: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Sign up</title>
+        <title>Sign up - Bookfair</title>
       </Head>
 
       <div className="mt-5 shadow p-5 rounded">

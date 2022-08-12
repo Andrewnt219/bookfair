@@ -1,4 +1,5 @@
 import { NextPageWithLayout } from '@bookfair/next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Spinner } from 'react-bootstrap';
 import { z } from 'zod';
@@ -26,7 +27,14 @@ const ListingEdit: NextPageWithLayout = () => {
     return <h1>Invalid listing</h1>;
   }
 
-  return <ListingEditPage listingId={query.data.listingId} />;
+  return (
+    <>
+      <Head>
+        <title>Edit listing - Bookfair</title>
+      </Head>
+      <ListingEditPage listingId={query.data.listingId} />
+    </>
+  );
 };
 
 ListingEdit.getLayout = (page) => {

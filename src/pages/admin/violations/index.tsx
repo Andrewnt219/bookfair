@@ -1,4 +1,5 @@
 import { NextPageWithLayout } from '@bookfair/next';
+import Head from 'next/head';
 import { RootLayout } from '../../../layouts';
 import { AdminViolationRoute } from '../../../modules/violations';
 import { useAdminRoute } from '../../../utils';
@@ -6,7 +7,14 @@ import { useAdminRoute } from '../../../utils';
 const AdminViolationsPage: NextPageWithLayout = () => {
   useAdminRoute();
 
-  return <AdminViolationRoute />;
+  return (
+    <>
+      <Head>
+        <title>All violations - Bookfair</title>
+      </Head>
+      <AdminViolationRoute />;
+    </>
+  );
 };
 
 AdminViolationsPage.getLayout = (page) => {
