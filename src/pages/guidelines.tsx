@@ -1,4 +1,5 @@
 import { NextPageWithLayout } from '@bookfair/next';
+import Head from 'next/head';
 import { Accordion } from 'react-bootstrap';
 import { RootLayout } from '../layouts';
 
@@ -6,6 +7,10 @@ const ListingNewPage: NextPageWithLayout = () => {
   const headers = ['Listings', 'Violations', 'Users', 'Payments'];
   return (
     <section>
+      <Head>
+        <title>Guidelines - Bookfair</title>
+      </Head>
+
       <h1>Community guidelines</h1>
       <Accordion defaultActiveKey={headers[0]}>
         {headers.map((header, idx) => (

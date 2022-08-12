@@ -6,6 +6,7 @@ import { RootLayout } from '../../../layouts';
 import { AdminStatsListingsReportRoute } from '../../../modules/stats';
 import { useAdminRoute } from '../../../utils';
 import { Spinner } from 'react-bootstrap';
+import Head from 'next/head';
 
 const querySchema = z.object({
   startDate: z
@@ -31,10 +32,15 @@ const AdminStatsListingsReportPage: NextPageWithLayout = () => {
   if (!query.success) return <h1>Invalid date</h1>;
 
   return (
-    <AdminStatsListingsReportRoute
-      startDate={query.data.startDate}
-      endDate={query.data.endDate}
-    />
+    <>
+      <Head>
+        <title>Listings report - Bookfair</title>
+      </Head>
+      <AdminStatsListingsReportRoute
+        startDate={query.data.startDate}
+        endDate={query.data.endDate}
+      />
+    </>
   );
 };
 

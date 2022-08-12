@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import Head from 'next/head';
 import React, { ReactNode } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import {
@@ -25,6 +26,10 @@ export const UserProfileLayout = (props: UserProfileLayoutProps) => {
 
   return (
     <RootLayout>
+      <Head>
+        <title>My dashboard - Bookfair</title>
+      </Head>
+
       <WithQueryData query={dbUserQuery}>
         {(dbUser) => (
           <div style={{ isolation: 'isolate' }}>

@@ -1,10 +1,15 @@
 import { NextPageWithLayout } from '@bookfair/next';
 import { GetServerSideProps, GetStaticProps } from 'next';
+import Head from 'next/head';
 import { RootLayout } from '../layouts';
 
 const HomePage: NextPageWithLayout = () => {
   return (
     <section>
+      <Head>
+        <title>Home - Bookfair</title>
+      </Head>
+
       <h2>Bookfair</h2>
     </section>
   );
