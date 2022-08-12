@@ -17,8 +17,10 @@ admin.initializeApp({
 });
 const db = admin.firestore();
 
-const shouldSendAlert = (a: any, b: any) =>
-  a.title !== b.title || a.tags.join('') !== b.tags.join('');
+const shouldSendAlert = (
+  a: admin.firestore.DocumentData,
+  b: admin.firestore.DocumentData
+) => a.title !== b.title || a.tags.join('') !== b.tags.join('');
 
 export const alertUsers = functions
   .region('us-east4')
@@ -32,8 +34,9 @@ export const alertUsers = functions
       functions.logger.warn('Listing not found');
       return;
     }
+
     // On listing irrelevant changes, do nothing
-    if (!shouldSendAlert(listing, previousListing)) {
+    if (previousListing && !shouldSendAlert(listing, previousListing)) {
       functions.logger.warn("Won't change", { listing, previousListing });
       return;
     }
