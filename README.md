@@ -10,27 +10,35 @@ Dev application is hosted at [https://dev-prj666-bookfair.vercel.app](https://de
 git clone https://github.com/Andrewnt219/bookfair.git
 ```
 
-2. Install pnpm (if you haven't)
+1. Checkout to dev branch
+
+```bash
+git checkout dev
+```
+
+1. Install pnpm (if you haven't)
 
 ```bash
 npm i -g pnpm
 ```
 
-3. Copy the secrets file `.env.local` into the root of your project. [Get it here](https://seneca.sharepoint.com/:u:/r/sites/Spring2022-PRJ666NBB-Team05/Shared%20Documents/Team%2005/.env.local?csf=1&web=1&e=TWPxt4)
+1. Download file and rename to `.env.local` and move it into the root of your project. [Get it here](https://seneca.sharepoint.com/:u:/r/sites/Spring2022-PRJ666NBB-Team05/Shared%20Documents/Team%2005/.env.local?csf=1&web=1&e=TWPxt4)
 
-4. Install dependencies
+1. Download file and rename to `.env` and move it into /functions. [Get it here](https://seneca.sharepoint.com/:u:/s/Spring2022-PRJ666NBB-Team05/ERW4v9zEq-JLmOZa-Ii31KUBp3sT6hZw8Oive5jh7utGUA?e=MMK5CJ)
+
+1. Install dependencies
 
 ```
 pnpm install --frozen-lockfile
 ```
 
-5. Run the project.
+1. Run the project.
 
 ```bash
-pnpm dev
+pnpm dev:next
 ```
 
-6. Website is lived at `http://localhost:3000`. Firebase UI emulator is lived `http://localhost:4000`
+6. Website is lived at `http://localhost:3000`.
 
 ## Contribution
 
