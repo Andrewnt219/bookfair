@@ -60,6 +60,10 @@ export const ListingDetailsPage = ({ listingId }: ListingDetailsPageProps) => {
     [listingId]
   );
 
+  if (getListingQuery.data?.isActive === false) {
+    return <h1>This listing is deleted</h1>;
+  }
+
   return (
     <WithQueryData query={getListingQuery}>
       {(listing) => (
