@@ -91,12 +91,16 @@ export const deleteExpiredAlerts = functions.pubsub
   .timeZone('America/Toronto')
   .onRun(async () => {
     const expireAt = dayjs().subtract(7, 'day').unix();
-    const snapshots = await db
+    const expiredAlerts = await db
       .collection('alerts')
       .where('createdAt', '<', expireAt)
       .get();
+    const deletedAlerts = await db
+      .collection('alerts')
+      .where('isActive', '==', false)
+      .get();
     const batch = db.batch();
-    for (const doc of snapshots.docs) {
+    for (const doc of [...deletedAlerts.docs, ...expiredAlerts.docs]) {
       const ref = db.collection('alerts').doc(doc.id);
       batch.delete(ref);
     }
