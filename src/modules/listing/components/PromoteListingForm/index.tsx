@@ -40,6 +40,7 @@ export const PromoteListingForm = (props: PromoteListingFormProps) => {
               {...field}
               isInvalid={Boolean(errors.days)}
             >
+              <option value="0">(Not selected)</option>
               {businessRules.promotionDays.map((day) => (
                 <option key={day} value={day}>
                   {day}

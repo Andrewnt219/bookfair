@@ -11,7 +11,7 @@ const useRHF = (listingId: string) => {
   return useForm<PromoteListingSchema>({
     resolver: zodResolver(promoteListingSchema),
     defaultValues: {
-      days: 1,
+      days: 0,
       listingId,
     },
   });
