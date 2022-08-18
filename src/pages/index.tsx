@@ -1,9 +1,19 @@
 import { NextPageWithLayout } from '@bookfair/next';
-import { GetServerSideProps, GetStaticProps } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useLayoutEffect } from 'react';
 import { RootLayout } from '../layouts';
 
 const HomePage: NextPageWithLayout = () => {
+  const router = useRouter();
+
+  useLayoutEffect(
+    function redirect() {
+      router.push('/listing');
+    },
+    [router]
+  );
+
   return (
     <section>
       <Head>
@@ -17,16 +27,6 @@ const HomePage: NextPageWithLayout = () => {
 
 HomePage.getLayout = (page) => {
   return <RootLayout>{page}</RootLayout>;
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {},
-    redirect: {
-      destination: '/listing',
-      permanent: false,
-    },
-  };
 };
 
 export default HomePage;
