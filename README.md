@@ -1,6 +1,4 @@
-Prod application is hosted at [https://prj666-bookfair.vercel.app/](https://prj666-bookfair.vercel.app/)
-
-Dev application is hosted at [https://dev-prj666-bookfair.vercel.app](https://dev-prj666-bookfair.vercel.app)
+Prod application is hosted at [https://andrew-bookfair.vercel.app/](https://andrew-bookfair.vercel.app/)
 
 ## Development
 
