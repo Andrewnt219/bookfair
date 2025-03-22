@@ -63,60 +63,59 @@ export const ListingDetailsPage = ({ listingId }: ListingDetailsPageProps) => {
   return (
     <WithQueryData query={getListingQuery}>
       {(listing) => (
-        <WithQueryData query={userQuery}>
-          {(user) => (
+        <section>
+          <div className="d-flex justify-content-between gap-3 align-items-center">
+            <Link href={`/listing/${listing.id}/report`}>
+              <a className="btn btn-sm btn-warning">Report</a>
+            </Link>
+          </div>
+
+          <div className="border rounded p-3 mt-3">
+            <h1>{listing.title}</h1>
+            <p className="text-muted">
+              Listed by{' '}
+              <WithQueryData query={userQuery}>
+                {(user) => (
+                  <Link href={`/user/${user.uid}`}>
+                    <a>{user.displayName}</a>
+                  </Link>
+                )}
+              </WithQueryData>{' '}
+              {dayjs.unix(listing.createdAt).fromNow()}
+            </p>
+            <ul className="list-unstyled d-flex flex-wrap gap-1">
+              {listing.tags.map((tag) => (
+                <li key={tag}>
+                  <Badge bg="secondary">{tag}</Badge>
+                </li>
+              ))}
+            </ul>
+            <div className="d-flex justify-content-between  align-items-center gap-3">
+              <p className="h4 text-muted">{formatCurrency(listing.price)}</p>
+            </div>
+
             <WithQueryData query={photoSrcsQuery}>
               {(photoSrcs) => (
-                <section>
-                  <div className="d-flex justify-content-between gap-3 align-items-center">
-                    <Link href={`/listing/${listing.id}/report`}>
-                      <a className="btn btn-sm btn-warning">Report</a>
-                    </Link>
-                  </div>
-
-                  <div className="border rounded p-3 mt-3">
-                    <h1>{listing.title}</h1>
-                    <p className="text-muted">
-                      Listed by{' '}
-                      <Link href={`/user/${user.uid}`}>
-                        <a>{user.displayName}</a>
-                      </Link>{' '}
-                      {dayjs.unix(listing.createdAt).fromNow()}
-                    </p>
-                    <ul className="list-unstyled d-flex flex-wrap gap-1">
-                      {listing.tags.map((tag) => (
-                        <li key={tag}>
-                          <Badge bg="secondary">{tag}</Badge>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="d-flex justify-content-between  align-items-center gap-3">
-                      <p className="h4 text-muted">
-                        {formatCurrency(listing.price)}
-                      </p>
-                    </div>
-                    <div>
-                      <p>{listing.description}</p>
-                      <PhotosGrid photoSrcs={photoSrcs} />
-                    </div>
-
-                    <div>
-                      <Button
-                        onClick={onContactClick}
-                        disabled={contactMutation.isLoading}
-                        className="w-100 text-center"
-                        size="lg"
-                        variant="primary"
-                      >
-                        Contact
-                      </Button>
-                    </div>
-                  </div>
-                </section>
+                <div>
+                  <p>{listing.description}</p>
+                  <PhotosGrid photoSrcs={photoSrcs} />
+                </div>
               )}
             </WithQueryData>
-          )}
-        </WithQueryData>
+
+            <div>
+              <Button
+                onClick={onContactClick}
+                disabled={contactMutation.isLoading}
+                className="w-100 text-center"
+                size="lg"
+                variant="primary"
+              >
+                Contact
+              </Button>
+            </div>
+          </div>
+        </section>
       )}
     </WithQueryData>
   );
