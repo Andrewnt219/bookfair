@@ -1,5 +1,10 @@
 Prod application is hosted at [https://andrew-bookfair.vercel.app/](https://andrew-bookfair.vercel.app/)
 
+Tests accounts:
+
+- Admin: tpnguyen12+admin@myseneca.ca
+- Users: tpnguyen12+user@myseneca.ca, tpnguyen12+user2@myseneca.ca
+
 ## Development
 
 1. Clone the repo
